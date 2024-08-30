@@ -1,10 +1,10 @@
-package com.study.wyplnotification;
+package com.wypl.imageserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WyplNotificationApplicationTests {
+class WyplImageApplicationTests {
 
 	@Test
 	void contextLoads() {
