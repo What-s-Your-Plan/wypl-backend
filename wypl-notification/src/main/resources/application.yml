@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: notification-service
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+        - default
+        - local
+  kafka:
+    bootstrap-servers: localhost:9092
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile:
+        - prod
+        - dev
+    import:
+      - security/application-kafka.yml
+      - security/application-mongo.yml
