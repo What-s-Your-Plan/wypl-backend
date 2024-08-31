@@ -1,0 +1,11 @@
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+dependencies {
+    /* Database */
+    api('org.springframework.boot:spring-boot-starter-data-mongodb')
+    implementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring31x:4.11.0')
+}

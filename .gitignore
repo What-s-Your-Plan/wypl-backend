@@ -35,3 +35,13 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Properties ###
+**/main/resources/security/*.yml
+
+### Jacoco ###
+**/reports
+**/src/test/magick
+
+### API Docs ###
+**/main/resources/static/swagger-ui/*.yaml
