@@ -16,6 +16,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +28,7 @@ import com.wypl.wyplimage.exception.ImageErrorCode;
 import com.wypl.wyplimage.exception.ImageException;
 import com.wypl.wyplimage.fixture.ImageFixture;
 import com.wypl.wyplimage.image.ImageMagickConvert;
+import com.wypl.wyplimage.utils.ImageRemoveUtils;
 
 @ExtendWith(MockitoExtension.class)
 class ImageServiceImplTest {
@@ -43,14 +46,17 @@ class ImageServiceImplTest {
 	@ParameterizedTest
 	@EnumSource(ImageFixture.class)
 	void validateImageExtensionSuccess(ImageFixture fixture) {
-		/* Given */
-		MockMultipartFile file = fixture.getMockMultipartFile();
-		given(convert.imageConvert(any(MultipartFile.class))).willReturn(new File("MOCK_FILE"));
-		given(awsS3StorageService.fileUpload(any(File.class))).willReturn("MOCK_IMAGE_URL");
+		try (MockedStatic<ImageRemoveUtils> mockedStatic = Mockito.mockStatic(ImageRemoveUtils.class)) {
+			/* Given */
+			MockMultipartFile file = fixture.getMockMultipartFile();
+			given(convert.imageConvert(any(MultipartFile.class))).willReturn(new File("MOCK_FILE"));
+			given(awsS3StorageService.fileUpload(any(File.class))).willReturn("MOCK_IMAGE_URL");
 
-		/* When & Then */
-		Assertions.assertThatCode(() -> imageService.saveImage(file))
-				.doesNotThrowAnyException();
+			/* When & Then */
+			Assertions.assertThatCode(() -> imageService.saveImage(file))
+					.doesNotThrowAnyException();
+			mockedStatic.verify(() -> ImageRemoveUtils.removeImages(any(File.class)), times(1));
+		}
 	}
 
 	@DisplayName("이미지 확장자 검증에 실패한다.")
