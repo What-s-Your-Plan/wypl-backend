@@ -20,7 +20,7 @@ import com.wypl.wyplimage.properties.DiskProperties;
 import com.wypl.wyplimage.utils.ImageRemoveUtils;
 
 @ExtendWith(MockitoExtension.class)
-class MagickImageConvertTest {
+class ImageMagickConvertTest {
 
 	@InjectMocks
 	private ImageMagickConvert imageMagickConvert;
