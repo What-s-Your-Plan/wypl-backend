@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.wypl.applicationcore.WyplResponseEntity;
 import com.wypl.wyplimage.data.DeleteImageRequest;
 import com.wypl.wyplimage.data.UploadImageResponse;
-import com.wypl.wyplimage.properties.ImageResponseMessage;
 import com.wypl.wyplimage.service.ImageService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,14 +20,14 @@ import lombok.RequiredArgsConstructor;
 @RestController
 public class ImageController {
 	private final ImageService imageService;
-	private final ImageResponseMessage imageResponseMessage;
 
 	@PostMapping("/v1/images")
 	public WyplResponseEntity<UploadImageResponse> uploadImage(
 			@RequestPart("image") final MultipartFile file
 	) {
 		String savedImageUrl = imageService.saveImage(file);
-		return WyplResponseEntity.created(new UploadImageResponse(savedImageUrl), imageResponseMessage.upload());
+		return WyplResponseEntity.created(new UploadImageResponse(savedImageUrl),
+				"이미지 업로드가 정상적으로 처리되었습니다.");
 	}
 
 	@DeleteMapping("/v1/images")

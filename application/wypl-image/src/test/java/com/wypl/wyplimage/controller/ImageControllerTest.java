@@ -30,7 +30,7 @@ class ImageControllerTest extends ControllerTest {
 	@MockBean
 	private ImageServiceImpl imageService;
 
-	@DisplayName("이미지 업로드, POST - file/v2/images")
+	@DisplayName("이미지 업로드, POST - file/v1/images")
 	@Test
 	void uploadImage() throws Exception {
 		/* Given */
@@ -39,7 +39,7 @@ class ImageControllerTest extends ControllerTest {
 
 		/* When */
 		ResultActions actions = mockMvc.perform(
-				RestDocumentationRequestBuilders.multipart("/file/v2/images")
+				RestDocumentationRequestBuilders.multipart("/file/v1/images")
 						.file(ImageFixture.PNG_IMAGE.getMockMultipartFile())
 		);
 
