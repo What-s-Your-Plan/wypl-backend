@@ -13,7 +13,7 @@ allprojects {
     }
 
     jacoco {
-        toolVersion = "0.8.11"
+        toolVersion = '0.8.11'
     }
 }
 
@@ -28,7 +28,6 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'com.epages.restdocs-api-spec'
     apply plugin: 'jacoco'
 
     dependencies {
@@ -37,11 +36,11 @@ subprojects {
         annotationProcessor 'org.projectlombok:lombok'
     }
 
-    tasks.named("bootJar") {
+    tasks.named('bootJar') {
         enabled = false
     }
 
-    tasks.named("jar") {
+    tasks.named('jar') {
         enabled = true
     }
 

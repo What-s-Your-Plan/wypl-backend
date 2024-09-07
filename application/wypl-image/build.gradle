@@ -1,6 +1,8 @@
 group = 'com.wypl'
 version = '0.0.1'
 
+apply plugin: 'com.epages.restdocs-api-spec'
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
@@ -8,5 +10,9 @@ java {
 }
 
 dependencies {
-    api('org.springframework.boot:spring-boot-starter-web')
+    implementation project(":common")
+    implementation project(":application:application-core")
+    implementation project(":client:aws-s3-client")
+
+    implementation('org.springframework.boot:spring-boot-starter-test')
 }
