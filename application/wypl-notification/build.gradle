@@ -8,5 +8,5 @@ java {
 }
 
 dependencies {
-    api('org.springframework.boot:spring-boot-starter-web')
+    implementation project(':application:application-core')
 }
