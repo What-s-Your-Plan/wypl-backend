@@ -42,6 +42,7 @@ out/
 ### Jacoco ###
 **/reports
 **/src/test/magick
+magick
 
 ### API Docs ###
 **/main/resources/static/swagger-ui/*.yaml
