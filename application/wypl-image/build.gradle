@@ -1,0 +1,45 @@
+ext.projectVersion = '0.0.1'
+
+group = 'com.wypl'
+version = projectVersion
+
+apply plugin: 'com.epages.restdocs-api-spec'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+bootJar {
+    enabled = true
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':application:application-core')
+    implementation project(':client:aws-s3-client')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('com.epages:restdocs-api-spec-mockmvc:0.18.4')
+    testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')
+    testImplementation('org.mockito:mockito-core')
+}
+
+// API Docs Start
+openapi3 {
+    setServer("http://127.0.0.1:8080")
+    title = "What's Your Plan! Image Server API Docs"
+    description = "What's Your Plan! Image Server API Description"
+    version = projectVersion
+    format = "yaml"
+}
+
+tasks.register("copyOasToSwagger", Copy) {
+    dependsOn(tasks.named("openapi3"))
+
+    delete(file("src/main/resources/static/swagger-ui/openapi3.yaml"))
+    from("build/api-spec/openapi3.yaml")
+    into("src/main/resources/static/swagger-ui/")
+}
+// API Docs End

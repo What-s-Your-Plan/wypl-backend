@@ -1,0 +1,22 @@
+rootProject.name = "backend"
+
+/* Application Module */
+include 'application'
+include 'application:application-core'
+include 'application:wypl-calendar'
+include 'application:wypl-notification'
+include 'application:wypl-image'
+
+/* Domain Module */
+include 'domain'
+include 'domain:jpa-core'
+include 'domain:mongo-core'
+
+/* Client Module */
+include 'client'
+include 'client:aws-s3-client'
+include 'client:google-oauth-client'
+include 'client:openweather-client'
+
+/* Common Module */
+include 'common'
