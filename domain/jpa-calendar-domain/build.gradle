@@ -6,4 +6,5 @@ java {
 
 dependencies {
     implementation project(':domain:jpa-core')
+    implementation project(':domain:jpa-member-domain')
 }
