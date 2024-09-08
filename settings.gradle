@@ -10,6 +10,7 @@ include ':application:wypl-image'
 /* Domain Module */
 include ':domain'
 include ':domain:jpa-core'
+include ':domain:jpa-calendar-domain'
 include ':domain:jpa-member-domain'
 include ':domain:mongo-core'
 
