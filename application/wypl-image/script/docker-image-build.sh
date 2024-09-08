@@ -9,7 +9,8 @@ if [[ "$WORKING_DIR" == *"application/wypl-image/script"* ]]; then
 fi
 
 chmod +x gradlew
-./gradlew clean application:wypl-image:bootJar
+./gradlew clean application:wypl-image:copyOasToSwagger
+./gradlew application:wypl-image:bootJar
 
 JAR_FILE=$(find application/wypl-image/build/libs -type f -name "*.jar" | head -n 1)
 echo "2. 🎯 Target JAR: $JAR_FILE"
@@ -20,5 +21,3 @@ IMAGE_TAG=$(basename "$JAR_FILE" | cut -d '-' -f 3 | cut -d '.' -f 1-3)
 
 echo "3. 🐬 Docker Image Build, Version: $PROJECT_NAME/$IMAGE_NAME:$IMAGE_TAG"
 docker build -t "$PROJECT_NAME/$IMAGE_NAME":"$IMAGE_TAG" ./application/wypl-image
-
-export PROJECT_NAME IMAGE_NAME IMAGE_TAG
