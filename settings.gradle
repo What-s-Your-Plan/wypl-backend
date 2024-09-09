@@ -12,6 +12,7 @@ include ':domain'
 include ':domain:jpa-core'
 include ':domain:jpa-calendar-domain'
 include ':domain:jpa-member-domain'
+include ':domain:jpamongo-review-domain'
 include ':domain:mongo-core'
 
 /* Client Module */
