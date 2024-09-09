@@ -32,6 +32,7 @@ tasks.withType(JacocoReport).configureEach {
         html.required.set(true)
         xml.required.set(true)
         html.outputLocation.set(file("reports/jacoco/index.xml"))
+        xml.outputLocation.set(file("reports/jacoco/test/jacocoTestReport.xml"))
     }
 
     classDirectories.setFrom(
