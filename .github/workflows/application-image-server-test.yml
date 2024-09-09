@@ -28,3 +28,13 @@ jobs:
 
       - name: 🧪 Spring Boot Test
         run: ./gradlew clean application:wypl-image:test
+
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          title: 📄 Jacoco Coverage Report
+          paths: ${{ github.workspace }}/**/wypl-image/reports/jacoco/test/jacocoTestReport.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80

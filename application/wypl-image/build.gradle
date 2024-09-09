@@ -26,7 +26,62 @@ dependencies {
     testImplementation('org.mockito:mockito-core')
 }
 
-// API Docs Start
+/* Jacoco Start */
+tasks.withType(JacocoReport).configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        html.outputLocation.set(file("reports/jacoco/index.xml"))
+    }
+
+    classDirectories.setFrom(
+            files(classDirectories.files.collect {
+                fileTree(it) {
+                    exclude(
+                            "**/*Application*",
+                            "**/*Configuration*",
+                            "**/*Request*",
+                            "**/*Response*",
+                            "**/common/**",
+                            "**/config/**",
+                            "**/data/**",
+                            "**/exception/**",
+                            "**/properties/**"
+                    )
+                }
+            })
+    )
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            element = 'CLASS'
+
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.80D
+            }
+
+            excludes = [
+                    "**/*Application*",
+                    "**/*Configuration*",
+                    "**/*Request*",
+                    "**/*Response*",
+                    "**/common/**",
+                    "**/config/**",
+                    "**/data/**",
+                    "**/exception/**",
+                    "**/properties/**"
+            ]
+        }
+    }
+}
+/* Jacoco End */
+
+/* API Docs Start */
 openapi3 {
     setServer("http://127.0.0.1:8080")
     title = "What's Your Plan! Image Server API Docs"
@@ -42,4 +97,4 @@ tasks.register("copyOasToSwagger", Copy) {
     from("build/api-spec/openapi3.yaml")
     into("src/main/resources/static/swagger-ui/")
 }
-// API Docs End
+/* API Docs End */
