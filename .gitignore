@@ -46,3 +46,6 @@ magick
 
 ### API Docs ###
 **/main/resources/static/swagger-ui/*.yaml
+
+### macOS ###
+.DS_Store
