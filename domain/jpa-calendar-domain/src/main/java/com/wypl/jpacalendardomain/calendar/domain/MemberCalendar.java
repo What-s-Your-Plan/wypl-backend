@@ -1,6 +1,6 @@
 package com.wypl.jpacalendardomain.calendar.domain;
 
-import com.wypl.jpacalendardomain.calendar.data.INVITE_STATUS;
+import com.wypl.jpacalendardomain.calendar.data.InviteStatus;
 import com.wypl.jpamemberdomain.member.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,5 +33,5 @@ public class MemberCalendar {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
-    private INVITE_STATUS status;
+    private InviteStatus status;
 }
