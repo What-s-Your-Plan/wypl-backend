@@ -23,5 +23,6 @@ public class ReviewContents extends MongoBaseEntity {
 	@Id
 	private Long reviewId;
 
-	private List<Map<String, Object>> contents;
+	private List<Map<String, ReviewContent>> contents;
+	// Todo : max size = 100
 }
