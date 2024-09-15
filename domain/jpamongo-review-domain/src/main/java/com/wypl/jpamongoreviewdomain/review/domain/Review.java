@@ -2,6 +2,7 @@ package com.wypl.jpamongoreviewdomain.review.domain;
 
 import org.hibernate.annotations.SQLRestriction;
 
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 import com.wypl.jpacommon.JpaBaseEntity;
 import com.wypl.jpamemberdomain.member.Member;
 
@@ -38,5 +39,7 @@ public class Review extends JpaBaseEntity {
 	@JoinColumn(name = "member_id")
 	private Member member;
 
-	// TODO: 추후 schedule 와 `@ManyToOne` 관계가 필요
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "schedule_id")
+	private Schedule schedule;
 }
