@@ -11,9 +11,11 @@ include ':application:wypl-image'
 include ':domain'
 include ':domain:jpa-common'
 include ':domain:jpa-calendar-domain'
+include ':domain:jpa-schedule-domain'
 include ':domain:jpa-member-domain'
 include ':domain:jpamongo-review-domain'
 include ':domain:mongo-common'
+
 
 /* Client Module */
 include ':client'

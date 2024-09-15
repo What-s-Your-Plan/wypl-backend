@@ -1,4 +1,4 @@
-package com.wypl.jpacalendardomain.schedule.domain;
+package com.wypl.jpascheduledomain.schedule.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,6 +1,6 @@
-package com.wypl.jpacalendardomain.schedule.domain;
+package com.wypl.jpascheduledomain.schedule.domain;
 
-import com.wypl.jpacalendardomain.schedule.data.RepetitionCycle;
+import com.wypl.jpascheduledomain.schedule.data.RepetitionCycle;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
