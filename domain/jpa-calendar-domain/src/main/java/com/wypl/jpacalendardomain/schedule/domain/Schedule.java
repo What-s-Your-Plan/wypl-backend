@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
+@Table(name = "schedule")
 public class Schedule {
     // Todo : extends BaseEntity
 
@@ -21,13 +22,13 @@ public class Schedule {
     private Long scheduleId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_info_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "schedule_info_id", nullable = false)
     private ScheduleInfo scheduleInfo;
 
-    // Todo : length 설정
+    @Column(name = "title", length = 100)
     private String title;
 
+    @Column(name = "description")
     private String description;
 
     @Column(name = "start_datetime", nullable = false)

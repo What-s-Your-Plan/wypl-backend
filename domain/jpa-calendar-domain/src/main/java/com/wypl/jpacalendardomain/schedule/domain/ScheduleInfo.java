@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
+@Table(name = "schedule_info")
 public class ScheduleInfo {
     // Todo : extends BaseEntity
 
@@ -22,8 +23,7 @@ public class ScheduleInfo {
     private Long scheduleInfoId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "calendar_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "calendar_id", nullable = false)
     private Calendar calendar;
 
     @Column(name = "start_datetime", nullable = false)

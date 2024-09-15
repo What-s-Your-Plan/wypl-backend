@@ -14,6 +14,7 @@ import org.hibernate.annotations.SQLRestriction;
 @SQLRestriction("deleted_at is null")
 @Entity
 @IdClass(MemberCalendarId.class)
+@Table(name = "member_calendar")
 public class MemberCalendar {
     // Todo : extends BaseEntity
 
@@ -27,11 +28,12 @@ public class MemberCalendar {
     @JoinColumn(name = "calendar_id")
     private Calendar calendar;
 
-    @Column(length = 6, nullable = false)
+    @Column(name = "color", length = 6, nullable = false)
     @ColumnDefault("Orange")
+    // Todo : Color enum 으로 변경
     private String color;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 10, nullable = false)
+    @Column(name = "status", length = 10, nullable = false)
     private InviteStatus status;
 }

@@ -11,6 +11,7 @@ import org.hibernate.annotations.SQLRestriction;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
+@Table(name = "repetition")
 public class Repetition {
     // Todo : extends BaseEntity
 
@@ -20,8 +21,7 @@ public class Repetition {
     private Long repetitionId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_info_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "schedule_info_id", nullable = false)
     private ScheduleInfo scheduleInfo;
 
     @Enumerated(EnumType.STRING)

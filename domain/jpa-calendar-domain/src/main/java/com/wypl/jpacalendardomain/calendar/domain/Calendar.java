@@ -10,6 +10,7 @@ import org.hibernate.annotations.SQLRestriction;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
+@Table(name = "calendar")
 public class Calendar {
     // Todo : extends BaseEntity
     @Id
@@ -17,13 +18,13 @@ public class Calendar {
     @Column(name = "calendar_id")
     private Long calendarId;
 
-    @Column(length = 20, nullable = false)
+    @Column(name = "name", length = 20, nullable = false)
     private String name;
 
-    @Column(length = 50)
+    @Column(name = "description", length = 50)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "owner_id")
     private Long ownerId;
 
     // Todo : boolean type 설정
