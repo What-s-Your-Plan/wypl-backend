@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.wypl.mongocore.MongoBaseEntity;
+import com.wypl.mongocommon.MongoBaseEntity;
 
 import jakarta.persistence.Id;
 import lombok.AccessLevel;

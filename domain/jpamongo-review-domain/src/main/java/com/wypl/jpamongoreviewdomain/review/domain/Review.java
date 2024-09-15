@@ -2,7 +2,7 @@ package com.wypl.jpamongoreviewdomain.review.domain;
 
 import org.hibernate.annotations.SQLRestriction;
 
-import com.wypl.jpacore.JpaBaseEntity;
+import com.wypl.jpacommon.JpaBaseEntity;
 import com.wypl.jpamemberdomain.member.Member;
 
 import jakarta.persistence.Column;
