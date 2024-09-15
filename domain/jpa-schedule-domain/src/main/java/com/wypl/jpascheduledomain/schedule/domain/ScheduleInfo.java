@@ -1,6 +1,7 @@
 package com.wypl.jpascheduledomain.schedule.domain;
 
 import com.wypl.jpacalendardomain.calendar.domain.Calendar;
+import com.wypl.jpacommon.JpaBaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
@@ -14,8 +15,7 @@ import java.time.LocalDateTime;
 @SQLRestriction("deleted_at is null")
 @Entity
 @Table(name = "schedule_info")
-public class ScheduleInfo {
-    // Todo : extends BaseEntity
+public class ScheduleInfo extends JpaBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
