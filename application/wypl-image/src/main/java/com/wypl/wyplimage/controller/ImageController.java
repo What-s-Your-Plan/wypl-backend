@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.wypl.applicationcore.WyplResponseEntity;
+import com.wypl.applicationcommon.WyplResponseEntity;
 import com.wypl.wyplimage.data.DeleteImageRequest;
 import com.wypl.wyplimage.data.UploadImageResponse;
 import com.wypl.wyplimage.service.ImageService;

@@ -1,40 +1,46 @@
-package com.wypl.mongocore;
+package com.wypl.jpacommon;
 
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.wypl.common.exception.WyplException;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@MappedSuperclass
 @NoArgsConstructor
-public abstract class MongoBaseEntity {
+@EntityListeners(AuditingEntityListener.class)
+public abstract class JpaBaseEntity {
+
 	@CreatedDate
-	@Field(name = "created_at", write = Field.Write.NON_NULL)
+	@Column(name = "created_at", nullable = false, updatable = false)
 	private LocalDateTime createdAt;
 
 	@LastModifiedDate
-	@Field(name = "modified_at", write = Field.Write.NON_NULL)
+	@Column(name = "modified_at", nullable = false)
 	private LocalDateTime modifiedAt;
 
-	@Field(name = "deleted_at")
+	@Column(name = "deleted_at")
 	private LocalDateTime deletedAt;
 
 	public void delete() {
 		if (isDeleted()) {
-			throw new WyplException(MongoErrorCode.ALREADY_DELETED_ENTITY);
+			throw new WyplException(JpaErrorCode.ALREADY_DELETED_ENTITY);
 		}
 		this.deletedAt = LocalDateTime.now();
 	}
 
 	public void restore() {
 		if (isNotDeleted()) {
-			throw new WyplException(MongoErrorCode.NON_DELETED_ENTITY);
+			throw new WyplException(JpaErrorCode.NON_DELETED_ENTITY);
 		}
 		this.deletedAt = null;
 	}

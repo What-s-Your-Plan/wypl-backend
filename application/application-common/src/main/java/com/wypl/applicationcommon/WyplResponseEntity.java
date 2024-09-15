@@ -1,4 +1,4 @@
-package com.wypl.applicationcore;
+package com.wypl.applicationcommon;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
