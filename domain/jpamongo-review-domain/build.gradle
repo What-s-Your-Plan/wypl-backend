@@ -6,7 +6,6 @@ java {
 
 dependencies {
     implementation project(':common')
-    implementation project(':application:application-common')
     implementation project(':domain:jpa-common')
     implementation project(':domain:jpa-member-domain')
     implementation project(':domain:jpa-calendar-domain')
