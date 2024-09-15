@@ -18,6 +18,7 @@ public class Repetition extends JpaBaseEntity {
     @Column(name = "repetition_id")
     private Long repetitionId;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_info_id", nullable = false)
     private ScheduleInfo scheduleInfo;
@@ -39,4 +40,5 @@ public class Repetition extends JpaBaseEntity {
         this.dayOfWeek = dayOfWeek;
         this.weekInterval = weekInterval;
     }
+
 }

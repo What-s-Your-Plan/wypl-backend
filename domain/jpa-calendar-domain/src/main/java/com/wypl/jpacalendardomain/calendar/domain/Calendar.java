@@ -1,18 +1,17 @@
 package com.wypl.jpacalendardomain.calendar.domain;
 
+import com.wypl.jpacommon.JpaBaseEntity;
+import com.wypl.jpascheduledomain.schedule.domain.ScheduleInfo;
+import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Builder
 @Getter
@@ -21,8 +20,8 @@ import lombok.NoArgsConstructor;
 @SQLRestriction("deleted_at is null")
 @Entity
 @Table(name = "calendar")
-public class Calendar {
-	// Todo : extends BaseEntity
+public class Calendar extends JpaBaseEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "calendar_id")
@@ -36,6 +35,9 @@ public class Calendar {
 
 	@Column(name = "owner_id")
 	private Long ownerId;
+
+	@OneToMany
+	private List<ScheduleInfo> scheduleInfos;
 
 	// Todo : boolean type 설정
 	//    private Boolean isShared;
