@@ -8,5 +8,5 @@ java {
 }
 
 dependencies {
-    implementation project(':application:application-core')
+    implementation project(':application:application-common')
 }

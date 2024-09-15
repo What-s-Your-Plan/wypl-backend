@@ -17,7 +17,7 @@ bootJar {
 
 dependencies {
     implementation project(':common')
-    implementation project(':application:application-core')
+    implementation project(':application:application-common')
     implementation project(':client:aws-s3-client')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test')

@@ -6,8 +6,8 @@ java {
 
 dependencies {
     implementation project(':common')
-    implementation project(':domain:jpa-core')
+    implementation project(':domain:jpa-common')
     implementation project(':domain:jpa-member-domain')
     implementation project(':domain:jpa-calendar-domain')
-    implementation project(':domain:mongo-core')
+    implementation project(':domain:mongo-common')
 }

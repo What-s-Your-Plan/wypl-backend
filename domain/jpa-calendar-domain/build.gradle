@@ -5,6 +5,7 @@ java {
 }
 
 dependencies {
-    implementation project(':domain:jpa-core')
+    implementation project(':common')
+    implementation project(':domain:jpa-common')
     implementation project(':domain:jpa-member-domain')
 }
