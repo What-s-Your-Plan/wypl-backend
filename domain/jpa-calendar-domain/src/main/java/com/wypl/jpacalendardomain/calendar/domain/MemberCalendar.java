@@ -4,8 +4,9 @@ import com.wypl.jpacalendardomain.calendar.data.InviteStatus;
 import com.wypl.jpamemberdomain.member.Member;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLRestriction;
+
+import java.awt.*;
 
 @Builder
 @Getter
@@ -28,10 +29,8 @@ public class MemberCalendar {
     @JoinColumn(name = "calendar_id")
     private Calendar calendar;
 
-    @Column(name = "color", length = 6, nullable = false)
-    @ColumnDefault("Orange")
-    // Todo : Color enum 으로 변경
-    private String color;
+    @Column(name = "color", length = 6)
+    private Color color;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 10, nullable = false)
