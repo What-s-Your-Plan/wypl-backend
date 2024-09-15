@@ -9,4 +9,9 @@ java {
 
 dependencies {
     implementation project(':application:application-common')
+    implementation project(':domain:jpa-common')
+    implementation project(':domain:mongo-common')
+    implementation project(':domain:jpamongo-review-domain')
+    implementation project(':domain:jpa-calendar-domain')
+    implementation project(':domain:jpa-member-domain')
 }
