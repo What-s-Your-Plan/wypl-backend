@@ -10,6 +10,7 @@ public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "email", length = 50, unique = true, nullable = false)
@@ -32,7 +33,7 @@ public class Member {
 	@Column(name = "timezone", length = 10, nullable = false)
 	private TimeZone timeZone;
 
-	@OneToMany(mappedBy = "member")
-	private List<MemberCalendar> memberCalendars;
+//	@OneToMany(mappedBy = "member")
+//	private List<MemberCalendar> memberCalendars;
 
 }
