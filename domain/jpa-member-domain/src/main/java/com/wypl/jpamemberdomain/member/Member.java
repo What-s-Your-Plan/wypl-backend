@@ -6,6 +6,7 @@ import java.awt.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "member_tbl")
 public class Member {
 
 	@Id
