@@ -1,19 +1,17 @@
 package com.wypl.jpascheduledomain.schedule.domain;
 
+import com.wypl.jpacommon.JpaBaseEntity;
 import com.wypl.jpascheduledomain.schedule.data.RepetitionCycle;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 
-@Builder
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
 @Table(name = "repetition")
-public class Repetition {
-    // Todo : extends BaseEntity
+public class Repetition extends JpaBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +27,16 @@ public class Repetition {
     private RepetitionCycle repetitionCycle;
 
     @Column(name = "day_of_week")
-    private Integer dayOfWeek;      // bit
+    private Integer dayOfWeek;      // 주마다 반복할 요일
 
-    @Column(name = "week_of_month")
-    private Integer weekOfMonth;
+    @Column(name = "week_interval")
+    private Integer weekInterval; // 반복 주기를 나타내는 변수 (예: 2주마다)
+
+    @Builder
+    public Repetition(ScheduleInfo scheduleInfo, RepetitionCycle repetitionCycle, Integer dayOfWeek, Integer weekInterval) {
+        this.scheduleInfo = scheduleInfo;
+        this.repetitionCycle = repetitionCycle;
+        this.dayOfWeek = dayOfWeek;
+        this.weekInterval = weekInterval;
+    }
 }
