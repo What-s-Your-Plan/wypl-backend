@@ -24,4 +24,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: 🧪 Spring Boot Test
-        run: ./gradlew clean application:wypl-calendar:test
+        run: ./gradlew clean application:wypl-core:test
