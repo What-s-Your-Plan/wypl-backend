@@ -1,8 +1,8 @@
 package com.wypl.jpamemberdomain.member;
 
+import com.wypl.common.Color;
 import jakarta.persistence.*;
 
-import java.awt.*;
 import java.time.LocalDate;
 
 @Entity
