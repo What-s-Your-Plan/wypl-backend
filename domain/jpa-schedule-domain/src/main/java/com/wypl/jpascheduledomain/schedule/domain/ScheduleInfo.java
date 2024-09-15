@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,11 +34,24 @@ public class ScheduleInfo extends JpaBaseEntity {
     @Column(name = "creator_id")
     private Long creatorId;
 
+    @OneToMany(mappedBy = "scheduleInfo")
+    private List<Repetition> repetitions;
+
     @Builder
     public ScheduleInfo(Calendar calendar, LocalDateTime startDateTime, LocalDateTime endDateTime, Long creatorId) {
         this.calendar = calendar;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.creatorId = creatorId;
+    }
+
+    public void addRepetition(Repetition repetition) {
+        repetitions.add(repetition);
+        repetition.setScheduleInfo(this);
+    }
+
+    public void removeRepetition(Repetition repetition) {
+        repetitions.remove(repetition);
+        repetition.setScheduleInfo(null);
     }
 }
