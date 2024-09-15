@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class SocialMember {
     @Id
     @Column(name = "member_id")
-    private int id;
+    private Long id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY)
