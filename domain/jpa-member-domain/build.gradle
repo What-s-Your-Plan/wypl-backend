@@ -6,4 +6,6 @@ java {
 
 dependencies {
     implementation project(':domain:jpa-common')
+    implementation project(':common')
+
 }

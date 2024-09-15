@@ -8,11 +8,12 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.wypl.common.exception.WyplException;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class MongoBaseEntity {
 	@CreatedDate
 	@Field(name = "created_at", write = Field.Write.NON_NULL)
