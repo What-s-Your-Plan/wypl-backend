@@ -33,7 +33,4 @@ public class Repetition {
 
     @Column(name = "week_of_month")
     private Integer weekOfMonth;
-
-//    @Column(name = "date_of_year")
-//    private Object dateOfYear;      // 논의 필요
 }
