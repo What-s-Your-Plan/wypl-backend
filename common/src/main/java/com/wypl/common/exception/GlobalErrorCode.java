@@ -1,7 +1,7 @@
 package com.wypl.common.exception;
 
 public enum GlobalErrorCode implements ServerErrorCode {
-	INTERNAL_SERVER_ERROR(500, "GLOBAL_001", "알수 없는 서버의 오류입니다."),
+	INTERNAL_SERVER_ERROR(500, "GLOBAL_001", "알 수 없는 서버의 오류입니다."),
 	;
 
 	private final int statusCode;
