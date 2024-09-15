@@ -8,9 +8,7 @@ import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
@@ -35,4 +33,11 @@ public class ScheduleInfo extends JpaBaseEntity {
     @Column(name = "creator_id")
     private Long creatorId;
 
+    @Builder
+    public ScheduleInfo(Calendar calendar, LocalDateTime startDateTime, LocalDateTime endDateTime, Long creatorId) {
+        this.calendar = calendar;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.creatorId = creatorId;
+    }
 }
