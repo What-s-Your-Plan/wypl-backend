@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wypl.jpamongoreviewdomain.review.domain.Review;
+import com.wypl.jpamongoreviewdomain.reviewcontents.domain.ReviewContent;
 
 import lombok.Builder;
 
@@ -19,9 +20,9 @@ public record ReviewResponse(
 	String title,
 
 	@JsonProperty("thumbnail_content")
-	Map<String, Object> thumbnailContent
+	Map<String, ReviewContent> thumbnailContent
 ) {
-	public static ReviewResponse from(Review review, Map<String, Object> thumbnailContent) {
+	public static ReviewResponse from(Review review, Map<String, ReviewContent> thumbnailContent) {
 		return ReviewResponse.builder()
 			.createdAt(LocalDateTime.now())
 			.reviewId(review.getReviewId())
