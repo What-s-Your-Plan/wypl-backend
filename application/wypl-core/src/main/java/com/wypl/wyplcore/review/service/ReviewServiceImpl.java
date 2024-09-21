@@ -161,15 +161,12 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 		// MemberSchedule memberSchedule = memberScheduleService.getMemberScheduleByMemberAndSchedule(memberId,
 		// 	ScheduleServiceUtils.findById(scheduleRepository, scheduleId));
 
-		// Todo : schedule 관련 import 필요
 		List<Review> reviews = switch (reviewType) {
 			case NEWEST -> {
-				yield reviewRepository.getReviewsByMemberIdAndScheduleIdOrderByCreatedAtDesc(memberId,
-					ScheduleServiceUtils.findById(scheduleRepository, scheduleId).getScheduleId);
+				yield reviewRepository.getReviewsByMemberIdAndScheduleIdOrderByCreatedAtDesc(memberId, scheduleId);
 			}
 			case OLDEST -> {
-				yield reviewRepository.getReviewsByMemberIdAndScheduleIdOrderByCreatedAt(memberId,
-					ScheduleServiceUtils.findById(scheduleRepository, scheduleId).getScheduleId);
+				yield reviewRepository.getReviewsByMemberIdAndScheduleIdOrderByCreatedAt(memberId,scheduleId);
 			}
 		};
 
