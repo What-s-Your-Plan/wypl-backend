@@ -42,4 +42,26 @@ public class Review extends JpaBaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "schedule_id")
 	private Schedule schedule;
+
+	public static Review of(String title, Member member, Schedule schedule) {
+		return Review.builder()
+			.title(title)
+			.member(member)
+			.schedule(schedule)
+			.build();
+	}
+
+	// public void validationOwnerByMemberId(long memberId) {
+	// 	if(isNotOwner(memberId)) {
+	// 		throw new ReviewException(ReviewErrorCode.NOT_PERMISSION_TO_REVIEW);
+	// 	}
+	// }
+	//
+	// private boolean isNotOwner(long memberId) {
+	// 	return getMember().getId() != memberId;
+	// }
+
+	public void updateTitle(String title) {
+		this.title = title;
+	}
 }
