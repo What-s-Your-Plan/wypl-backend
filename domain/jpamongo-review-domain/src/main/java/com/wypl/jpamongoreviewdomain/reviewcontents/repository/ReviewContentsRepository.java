@@ -7,4 +7,5 @@ import com.wypl.jpamongoreviewdomain.reviewcontents.domain.ReviewContents;
 
 @Repository
 public interface ReviewContentsRepository extends MongoRepository<ReviewContents, Long> {
+	ReviewContents findByReviewIdAndDeletedAtNull(long reviewId);
 }
