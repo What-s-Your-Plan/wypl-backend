@@ -23,6 +23,14 @@ public class ReviewContents extends MongoBaseEntity {
 	@Id
 	private Long reviewId;
 
-	private List<Map<String, ReviewContent>> contents;
 	// Todo : max size = 100
+	private List<Map<String, ReviewContent>> contents;
+
+	public static ReviewContents of(Long reviewId, List<Map<String, ReviewContent>> contents) {
+		return new ReviewContents(reviewId, contents);
+	}
+
+	public void updateContents(List<Map<String, ReviewContent>> contents) {
+		this.contents = contents;
+	}
 }
