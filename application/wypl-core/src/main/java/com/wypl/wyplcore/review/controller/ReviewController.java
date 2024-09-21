@@ -1,4 +1,4 @@
-package com.wypl.jpamongoreviewdomain.controller;
+package com.wypl.wyplcore.review.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
