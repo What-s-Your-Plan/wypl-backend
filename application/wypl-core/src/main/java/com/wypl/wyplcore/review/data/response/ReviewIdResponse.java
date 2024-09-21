@@ -6,7 +6,7 @@ public record ReviewIdResponse(
 	@JsonProperty("review_id")
 	long reviewId
 ) {
-	public static ReviewIdResponse from(int reviewId) {
+	public static ReviewIdResponse from(long reviewId) {
 		return new ReviewIdResponse(reviewId);
 	}
 }
