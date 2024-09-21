@@ -27,6 +27,7 @@ import com.wypl.wyplcore.review.data.response.ReviewListResponse;
 import com.wypl.wyplcore.review.data.response.ReviewResponse;
 import com.wypl.wyplcore.review.exception.ReviewErrorCode;
 import com.wypl.wyplcore.review.exception.ReviewException;
+import com.wypl.wyplcore.review.utils.ReviewUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,8 +36,6 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService {
 	private final ReviewRepository reviewRepository;
-
-	// private final MemberScheduleService memberScheduleService;
 
 	// private final ScheduleRepository scheduleRepository;
 
@@ -67,10 +66,7 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 	public ReviewIdResponse updateReview(int memberId, int reviewId, ReviewUpdateRequest reviewUpdateRequest) {
 		validateReviewContents(reviewUpdateRequest.contents(), reviewUpdateRequest.title());
 
-		// Todo : Util 추가, Exception 추가
-		Review review = reviewRepository.findByReviewIdAndMemberId(reviewId, memberId)
-			.orElseThrow();
-
+		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
 		review.updateTitle(reviewUpdateRequest.title());
 
 		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(review.getReviewId());
@@ -84,12 +80,9 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 	@Override
 	@Transactional
 	public ReviewIdResponse deleteReview(int memberId, int reviewId) {
-		// Todo : Util 추가, Exception 추가
-		Review review = reviewRepository.findByReviewIdAndMemberId(reviewId, memberId)
-			.orElseThrow();
+		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
 
-		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(
-			review.getReviewId());
+		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(review.getReviewId());
 		reviewContents.delete();
 
 		reviewContentsRepository.save(reviewContents);
@@ -101,21 +94,11 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 
 	@Override
 	public ReviewDetailResponse getDetailReview(long memberId, long reviewId) {
-		// Todo : Util 추가, Exception 추가
-		Review review = reviewRepository.findByReviewIdAndMemberId(reviewId, memberId)
-			.orElseThrow();
+		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
+		Schedule schedule = review.getSchedule();
 
 		// Todo : 저장할 때 null 검사 하는데, 가져올 때도 검사해야 할까???
-		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(
-			review.getReviewId());
-
-		// Schedule schedule = review.getMemberSchedule().getSchedule();
-
-		// return ReviewDetailResponse.of(review, schedule,
-		// 	memberScheduleService.getMembersBySchedule(schedule),
-		// 	reviewContents == null ? null : reviewContents.getContents());
-
-		Schedule schedule = review.getSchedule();
+		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(review.getReviewId());
 
 		return ReviewDetailResponse.of(review, schedule, reviewContents.getContents());
 	}
