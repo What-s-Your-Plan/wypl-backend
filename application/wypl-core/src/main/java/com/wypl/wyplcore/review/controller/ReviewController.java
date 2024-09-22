@@ -2,9 +2,7 @@ package com.wypl.wyplcore.review.controller;
 
 import java.time.LocalDate;
 
-import org.springframework.data.mongodb.core.messaging.Message;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wypl.applicationcommon.WyplResponseEntity;
+import com.wypl.wyplcore.auth.annotation.Authenticated;
 import com.wypl.wyplcore.auth.domain.AuthMember;
 import com.wypl.wyplcore.review.data.request.ReviewCreateRequest;
 import com.wypl.wyplcore.review.data.request.ReviewType;
