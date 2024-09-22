@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public record ScheduleInfoRequest (
 
         @JsonProperty("calendar_id")
-        int calenderId,
+        long calenderId,
 
         @JsonProperty("creator_id")
         long creatorId,
