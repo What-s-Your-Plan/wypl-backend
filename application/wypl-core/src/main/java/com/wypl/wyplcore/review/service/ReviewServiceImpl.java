@@ -43,7 +43,7 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 
 	@Override
 	@Transactional
-	public ReviewIdResponse createReview(int memberId, ReviewCreateRequest reviewCreateRequest) {
+	public ReviewIdResponse createReview(long memberId, ReviewCreateRequest reviewCreateRequest) {
 		validateReviewContents(reviewCreateRequest.contents(), reviewCreateRequest.title());
 
 		//schedule, member 유효성 판단
@@ -63,7 +63,7 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 
 	@Override
 	@Transactional
-	public ReviewIdResponse updateReview(int memberId, int reviewId, ReviewUpdateRequest reviewUpdateRequest) {
+	public ReviewIdResponse updateReview(long memberId, long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
 		validateReviewContents(reviewUpdateRequest.contents(), reviewUpdateRequest.title());
 
 		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
@@ -79,7 +79,7 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 
 	@Override
 	@Transactional
-	public ReviewIdResponse deleteReview(int memberId, int reviewId) {
+	public ReviewIdResponse deleteReview(long memberId, long reviewId) {
 		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
 
 		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(review.getReviewId());
