@@ -1,18 +1,29 @@
 package com.wypl.jpamemberdomain.member;
 
-import com.wypl.common.Color;
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
+import com.wypl.common.Color;
+import com.wypl.jpacommon.JpaBaseEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
+
+@Getter
 @Entity
 @Table(name = "member_tbl")
-public class Member {
+public class Member extends JpaBaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+	@Column(name = "member_id")
+	private Long memberId;
 
 	@Column(name = "email", length = 50, unique = true, nullable = false)
 	private String email;

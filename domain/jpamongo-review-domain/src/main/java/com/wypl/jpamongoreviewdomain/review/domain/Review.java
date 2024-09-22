@@ -2,7 +2,8 @@ package com.wypl.jpamongoreviewdomain.review.domain;
 
 import org.hibernate.annotations.SQLRestriction;
 
-import com.wypl.jpacore.JpaBaseEntity;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
+import com.wypl.jpacommon.JpaBaseEntity;
 import com.wypl.jpamemberdomain.member.Member;
 
 import jakarta.persistence.Column;
@@ -38,5 +39,29 @@ public class Review extends JpaBaseEntity {
 	@JoinColumn(name = "member_id")
 	private Member member;
 
-	// TODO: 추후 schedule 와 `@ManyToOne` 관계가 필요
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "schedule_id")
+	private Schedule schedule;
+
+	public static Review of(String title, Member member, Schedule schedule) {
+		return Review.builder()
+			.title(title)
+			.member(member)
+			.schedule(schedule)
+			.build();
+	}
+
+	// public void validationOwnerByMemberId(long memberId) {
+	// 	if(isNotOwner(memberId)) {
+	// 		throw new ReviewException(ReviewErrorCode.NOT_PERMISSION_TO_REVIEW);
+	// 	}
+	// }
+	//
+	// private boolean isNotOwner(long memberId) {
+	// 	return getMember().getId() != memberId;
+	// }
+
+	public void updateTitle(String title) {
+		this.title = title;
+	}
 }

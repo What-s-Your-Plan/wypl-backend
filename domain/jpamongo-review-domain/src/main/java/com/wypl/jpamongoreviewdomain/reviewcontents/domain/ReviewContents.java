@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.wypl.mongocore.MongoBaseEntity;
+import com.wypl.mongocommon.MongoBaseEntity;
 
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
@@ -23,5 +23,14 @@ public class ReviewContents extends MongoBaseEntity {
 	@Id
 	private Long reviewId;
 
-	private List<Map<String, Object>> contents;
+	// Todo : max size = 100
+	private List<Map<String, ReviewContent>> contents;
+
+	public static ReviewContents of(Long reviewId, List<Map<String, ReviewContent>> contents) {
+		return new ReviewContents(reviewId, contents);
+	}
+
+	public void updateContents(List<Map<String, ReviewContent>> contents) {
+		this.contents = contents;
+	}
 }

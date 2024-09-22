@@ -17,3 +17,9 @@ spring:
     console:
       enabled: true
       path: /h2
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
