@@ -8,11 +8,11 @@ import com.wypl.wyplcore.review.data.response.ReviewIdResponse;
 
 public interface ReviewModifyService {
 	@Transactional
-	ReviewIdResponse createReview(int memberId, ReviewCreateRequest reviewCreateRequest);
+	ReviewIdResponse createReview(long memberId, ReviewCreateRequest reviewCreateRequest);
 
 	@Transactional
-	ReviewIdResponse updateReview(int memberId, int reviewId, ReviewUpdateRequest reviewUpdateRequest);
+	ReviewIdResponse updateReview(long memberId, long reviewId, ReviewUpdateRequest reviewUpdateRequest);
 
 	@Transactional
-	ReviewIdResponse deleteReview(int memberId, int reviewId);
+	ReviewIdResponse deleteReview(long memberId, long reviewId);
 }
