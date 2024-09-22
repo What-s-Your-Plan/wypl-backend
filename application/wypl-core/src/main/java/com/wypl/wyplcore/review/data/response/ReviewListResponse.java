@@ -9,7 +9,8 @@ public record ReviewListResponse(
 	@JsonProperty("review_count")
 	int reviewCount,
 
-	List<ReviewResponse> reviews) {
+	List<ReviewResponse> reviews
+) {
 	public static ReviewListResponse from(List<ReviewResponse> reviews) {
 		return new ReviewListResponse(reviews.size(), reviews);
 	}
