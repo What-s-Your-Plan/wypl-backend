@@ -1,6 +1,7 @@
 package com.wypl.wyplcore.review.utils;
 
 import com.wypl.common.exception.CallConstructorException;
+import com.wypl.jpamemberdomain.member.Member;
 import com.wypl.jpamongoreviewdomain.review.domain.Review;
 import com.wypl.jpamongoreviewdomain.review.repository.ReviewRepository;
 import com.wypl.wyplcore.review.exception.ReviewErrorCode;
@@ -11,11 +12,16 @@ import lombok.Generated;
 public class ReviewUtils {
 
 	@Generated
-	private ReviewUtils() {throw new CallConstructorException();
+	private ReviewUtils() {
+		throw new CallConstructorException();
 	}
 
-	public static Review findReviewByReviewIdAndMemberId(ReviewRepository reviewRepository, long reviewId, long memberId) {
-		return reviewRepository.findByReviewIdAndMemberId(reviewId, memberId)
+	public static Review findByReviewIdAndMember(
+		final ReviewRepository reviewRepository,
+		final long reviewId,
+		final Member member
+	) {
+		return reviewRepository.findByReviewIdAndMember(reviewId, member)
 			.orElseThrow(() -> new ReviewException(ReviewErrorCode.NO_SUCH_REVIEW));
 	}
 }

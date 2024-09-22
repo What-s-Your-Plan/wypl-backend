@@ -66,7 +66,9 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 	public ReviewIdResponse updateReview(long memberId, long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
 		validateReviewContents(reviewUpdateRequest.contents(), reviewUpdateRequest.title());
 
-		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
+		Member member = null;	// Todo : 조회
+
+		Review review = ReviewUtils.findByReviewIdAndMember(reviewRepository, reviewId, member);
 		review.updateTitle(reviewUpdateRequest.title());
 
 		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(review.getReviewId());
@@ -80,7 +82,8 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 	@Override
 	@Transactional
 	public ReviewIdResponse deleteReview(long memberId, long reviewId) {
-		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
+		Member member = null;	// Todo : 조회
+		Review review = ReviewUtils.findByReviewIdAndMember(reviewRepository, reviewId, member);
 
 		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(review.getReviewId());
 		reviewContents.delete();
@@ -94,7 +97,8 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 
 	@Override
 	public ReviewDetailResponse getDetailReview(long memberId, long reviewId) {
-		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
+		Member member = null;	// Todo : 조회
+		Review review = ReviewUtils.findByReviewIdAndMember(reviewRepository, reviewId, member);
 		Schedule schedule = review.getSchedule();
 
 		// Todo : 저장할 때 null 검사 하는데, 가져올 때도 검사해야 할까???
@@ -161,12 +165,15 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 		// MemberSchedule memberSchedule = memberScheduleService.getMemberScheduleByMemberAndSchedule(memberId,
 		// 	ScheduleServiceUtils.findById(scheduleRepository, scheduleId));
 
+		Member member = null;		// Todo : 조회
+		Schedule schedule = null;	// Todo : 조회
+
 		List<Review> reviews = switch (reviewType) {
 			case NEWEST -> {
-				yield reviewRepository.getReviewsByMemberIdAndScheduleIdOrderByCreatedAtDesc(memberId, scheduleId);
+				yield reviewRepository.getReviewByMemberAndScheduleOrderByCreatedAtDesc(member, schedule);
 			}
 			case OLDEST -> {
-				yield reviewRepository.getReviewsByMemberIdAndScheduleIdOrderByCreatedAt(memberId,scheduleId);
+				yield reviewRepository.getReviewsByMemberAndScheduleOrderByCreatedAt(member, schedule);
 			}
 		};
 
@@ -204,7 +211,7 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 			throw new ReviewException(ReviewErrorCode.EMPTY_CONTENTS);
 		}
 
-		if(title == null || title.length() > 50 || title.length() == 0) {
+		if (title == null || title.length() > 50 || title.length() == 0) {
 			throw new ReviewException(ReviewErrorCode.INVALID_TITLE);
 		}
 	}
