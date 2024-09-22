@@ -1,4 +1,4 @@
-package com.wypl.jpacalendardomain.schedule.data;
+package com.wypl.jpacalendardomain.calendar.data;
 
 public enum RepetitionCycle {
     DAY,

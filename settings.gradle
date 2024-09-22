@@ -15,6 +15,7 @@ include ':domain:jpa-member-domain'
 include ':domain:jpamongo-review-domain'
 include ':domain:mongo-common'
 
+
 /* Client Module */
 include ':client'
 include ':client:aws-s3-client'

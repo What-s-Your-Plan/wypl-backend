@@ -1,5 +1,6 @@
 package com.wypl.jpacalendardomain.calendar.domain;
 
+import com.wypl.jpacommon.JpaBaseEntity;
 import org.hibernate.annotations.SQLRestriction;
 
 import com.wypl.common.Color;
@@ -29,9 +30,8 @@ import lombok.NoArgsConstructor;
 @SQLRestriction("deleted_at is null")
 @Entity
 @IdClass(MemberCalendarId.class)
-@Table(name = "member_calendar")
-public class MemberCalendar {
-	// Todo : extends BaseEntity
+@Table(name = "member_calendar_tbl")
+public class MemberCalendar extends JpaBaseEntity {
 
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -1,21 +1,21 @@
-package com.wypl.jpacalendardomain.schedule.domain;
+package com.wypl.jpacalendardomain.calendar.domain;
 
-import com.wypl.jpacalendardomain.calendar.domain.Calendar;
+import com.wypl.jpacommon.JpaBaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
-@Table(name = "schedule_info")
-public class ScheduleInfo {
-    // Todo : extends BaseEntity
+@Table(name = "schedule_info_tbl")
+public class ScheduleInfo extends JpaBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +26,12 @@ public class ScheduleInfo {
     @JoinColumn(name = "calendar_id", nullable = false)
     private Calendar calendar;
 
-    @Column(name = "start_datetime", nullable = false)
-    private LocalDateTime startDateTime;
-
-    @Column(name = "end_datetime", nullable = false)
-    private LocalDateTime endDateTime;
-
     @Column(name = "creator_id")
     private Long creatorId;
 
+    @Builder
+    public ScheduleInfo(Calendar calendar, LocalDateTime startDateTime, LocalDateTime endDateTime, Long creatorId) {
+        this.calendar = calendar;
+        this.creatorId = creatorId;
+    }
 }

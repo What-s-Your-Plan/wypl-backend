@@ -12,7 +12,7 @@ public enum JpaErrorCode implements ServerErrorCode {
 	private final String errorCode;
 	private final String message;
 
-	private JpaErrorCode(int statusCode, String errorCode, String message) {
+	JpaErrorCode(int statusCode, String errorCode, String message) {
 		this.statusCode = statusCode;
 		this.errorCode = errorCode;
 		this.message = message;
