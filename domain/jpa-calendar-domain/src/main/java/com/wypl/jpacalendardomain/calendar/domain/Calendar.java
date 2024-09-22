@@ -1,28 +1,23 @@
 package com.wypl.jpacalendardomain.calendar.domain;
 
+import com.wypl.jpacommon.JpaBaseEntity;
+import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
+import java.util.List;
+
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
-@Table(name = "calendar")
-public class Calendar {
-	// Todo : extends BaseEntity
+@Table(name = "calendar_tbl")
+public class Calendar extends JpaBaseEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "calendar_id")
@@ -37,6 +32,21 @@ public class Calendar {
 	@Column(name = "owner_id")
 	private Long ownerId;
 
-	// Todo : boolean type 설정
-	//    private Boolean isShared;
+	@OneToMany(mappedBy = "calendar")
+	private List<ScheduleInfo> scheduleInfos;
+
+	@OneToMany(mappedBy = "calendar")
+	private List<MemberCalendar> memberCalendars;
+
+	@Column(name = "is_shared")
+	private Boolean isShared;
+
+	@Builder
+	public Calendar(String name, String description, Long ownerId, List<ScheduleInfo> scheduleInfos, Boolean isShared) {
+		this.name = name;
+		this.description = description;
+		this.ownerId = ownerId;
+		this.scheduleInfos = scheduleInfos;
+		this.isShared = isShared;
+	}
 }

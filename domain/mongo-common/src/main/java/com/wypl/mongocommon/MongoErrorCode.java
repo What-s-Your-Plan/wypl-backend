@@ -12,7 +12,7 @@ public enum MongoErrorCode implements ServerErrorCode {
 	private final String errorCode;
 	private final String message;
 
-	private MongoErrorCode(int statusCode, String errorCode, String message) {
+	MongoErrorCode(int statusCode, String errorCode, String message) {
 		this.statusCode = statusCode;
 		this.errorCode = errorCode;
 		this.message = message;

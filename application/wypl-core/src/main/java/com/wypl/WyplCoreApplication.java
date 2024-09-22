@@ -13,5 +13,4 @@ public class WyplCoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WyplCoreApplication.class, args);
 	}
-
 }
