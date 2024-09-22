@@ -10,8 +10,6 @@ public class ScheduleInfoMapper {
     public static ScheduleInfo toJpaScheduleInfo(ConvertibleScheduleInfo convertibleScheduleInfo, Calendar calendar) {
         return ScheduleInfo.builder()
                 .creatorId(convertibleScheduleInfo.getCreatorId())
-                .startDateTime(convertibleScheduleInfo.getStartDateTime())
-                .endDateTime(convertibleScheduleInfo.getEndDateTime())
                 .calendar(calendar)
                 .build();
     }

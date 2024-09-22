@@ -1,5 +1,6 @@
 package com.wypl.jpascheduledomain.schedule.data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public interface ConvertibleSchedule {
@@ -11,4 +12,14 @@ public interface ConvertibleSchedule {
     LocalDateTime getStartDateTime();
 
     LocalDateTime getEndDateTime();
+
+    LocalDate getRepetitionStartDate();
+
+    LocalDate getRepetitionEndDate();
+
+    RepetitionCycle getRepetitionCycle();
+
+    Integer getDayOfWeek();
+
+    Integer getWeekInterval();
 }

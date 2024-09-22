@@ -14,6 +14,11 @@ public class ScheduleMapper {
                 .description(convertibleSchedule.getDescription())
                 .startDateTime(convertibleSchedule.getStartDateTime())
                 .endDateTime(convertibleSchedule.getEndDateTime())
+                .repetitionStartDate(convertibleSchedule.getRepetitionStartDate())
+                .repetitionEndDate(convertibleSchedule.getRepetitionEndDate())
+                .repetitionCycle(convertibleSchedule.getRepetitionCycle())
+                .dayOfWeek(convertibleSchedule.getDayOfWeek())
+                .weekInterval(convertibleSchedule.getWeekInterval())
                 .build();
     }
 }
