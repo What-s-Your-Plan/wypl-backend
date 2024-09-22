@@ -97,7 +97,6 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 		Review review = ReviewUtils.findReviewByReviewIdAndMemberId(reviewRepository, reviewId, memberId);
 		Schedule schedule = review.getSchedule();
 
-		// Todo : 저장할 때 null 검사 하는데, 가져올 때도 검사해야 할까???
 		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(review.getReviewId());
 
 		return ReviewDetailResponse.of(review, schedule, reviewContents.getContents());

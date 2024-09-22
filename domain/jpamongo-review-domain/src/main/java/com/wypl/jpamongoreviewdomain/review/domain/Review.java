@@ -51,16 +51,6 @@ public class Review extends JpaBaseEntity {
 			.build();
 	}
 
-	// public void validationOwnerByMemberId(long memberId) {
-	// 	if(isNotOwner(memberId)) {
-	// 		throw new ReviewException(ReviewErrorCode.NOT_PERMISSION_TO_REVIEW);
-	// 	}
-	// }
-	//
-	// private boolean isNotOwner(long memberId) {
-	// 	return getMember().getId() != memberId;
-	// }
-
 	public void updateTitle(String title) {
 		this.title = title;
 	}
