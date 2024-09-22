@@ -2,7 +2,7 @@ package com.wypl.jpamongoreviewdomain.review.domain;
 
 import org.hibernate.annotations.SQLRestriction;
 
-import com.wypl.jpacalendardomain.schedule.domain.Schedule;
+import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.jpacommon.JpaBaseEntity;
 import com.wypl.jpamemberdomain.member.Member;
 

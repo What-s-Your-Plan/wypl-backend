@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.wypl.jpacalendardomain.schedule.domain.Schedule;
+import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.jpamemberdomain.member.Member;
 import com.wypl.jpamongoreviewdomain.review.domain.Review;
 

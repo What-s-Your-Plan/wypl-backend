@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wypl.jpacalendardomain.schedule.domain.Schedule;
+import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.jpamongoreviewdomain.review.domain.Review;
 import com.wypl.jpamongoreviewdomain.reviewcontents.domain.ReviewContent;
 
