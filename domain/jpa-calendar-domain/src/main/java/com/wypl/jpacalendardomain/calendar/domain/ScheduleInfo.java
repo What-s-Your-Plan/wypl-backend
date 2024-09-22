@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
-@Table(name = "schedule_info")
+@Table(name = "schedule_info_tbl")
 public class ScheduleInfo extends JpaBaseEntity {
 
     @Id

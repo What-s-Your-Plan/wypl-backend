@@ -10,11 +10,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
-@Table(name = "schedule")
+@Table(name = "schedule_tbl")
 public class Schedule extends JpaBaseEntity {
 
     @Id

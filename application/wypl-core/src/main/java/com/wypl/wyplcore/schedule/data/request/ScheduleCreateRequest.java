@@ -9,6 +9,7 @@ public record ScheduleCreateRequest(
         @JsonProperty("calendar_id")
         long calenderId,
 
+        @JsonProperty("schedule_request")
         ScheduleRequest scheduleRequest
 
 ) {

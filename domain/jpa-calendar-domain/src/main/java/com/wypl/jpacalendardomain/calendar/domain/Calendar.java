@@ -5,20 +5,17 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Builder
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("deleted_at is null")
 @Entity
-@Table(name = "calendar")
+@Table(name = "calendar_tbl")
 public class Calendar extends JpaBaseEntity {
 
 	@Id
@@ -35,9 +32,21 @@ public class Calendar extends JpaBaseEntity {
 	@Column(name = "owner_id")
 	private Long ownerId;
 
-	@OneToMany
+	@OneToMany(mappedBy = "calendar")
 	private List<ScheduleInfo> scheduleInfos;
 
-	// Todo : boolean type 설정
-	//    private Boolean isShared;
+	@OneToMany(mappedBy = "calendar")
+	private List<MemberCalendar> memberCalendars;
+
+	@Column(name = "is_shared")
+	private Boolean isShared;
+
+	@Builder
+	public Calendar(String name, String description, Long ownerId, List<ScheduleInfo> scheduleInfos, Boolean isShared) {
+		this.name = name;
+		this.description = description;
+		this.ownerId = ownerId;
+		this.scheduleInfos = scheduleInfos;
+		this.isShared = isShared;
+	}
 }
