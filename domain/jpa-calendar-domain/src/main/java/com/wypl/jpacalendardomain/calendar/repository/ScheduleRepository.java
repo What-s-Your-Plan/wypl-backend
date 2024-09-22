@@ -1,6 +1,6 @@
-package com.wypl.jpascheduledomain.schedule.repository;
+package com.wypl.jpacalendardomain.calendar.repository;
 
-import com.wypl.jpascheduledomain.schedule.domain.Schedule;
+import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {

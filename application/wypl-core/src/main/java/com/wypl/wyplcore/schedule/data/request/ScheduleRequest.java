@@ -1,8 +1,8 @@
 package com.wypl.wyplcore.schedule.data.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wypl.jpascheduledomain.schedule.data.ConvertibleSchedule;
-import com.wypl.jpascheduledomain.schedule.data.RepetitionCycle;
+import com.wypl.jpacalendardomain.calendar.data.ConvertibleSchedule;
+import com.wypl.jpacalendardomain.calendar.data.RepetitionCycle;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

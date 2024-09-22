@@ -1,9 +1,11 @@
-package com.wypl.jpascheduledomain.schedule.domain;
+package com.wypl.jpacalendardomain.calendar.domain;
 
-import com.wypl.jpacalendardomain.calendar.domain.Calendar;
 import com.wypl.jpacommon.JpaBaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;

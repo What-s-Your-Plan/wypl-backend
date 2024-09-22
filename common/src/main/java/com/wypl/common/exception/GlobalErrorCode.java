@@ -8,7 +8,7 @@ public enum GlobalErrorCode implements ServerErrorCode {
 	private final String errorCode;
 	private final String message;
 
-	private GlobalErrorCode(int statusCode, String errorCode, String message) {
+	GlobalErrorCode(int statusCode, String errorCode, String message) {
 		this.statusCode = statusCode;
 		this.errorCode = errorCode;
 		this.message = message;

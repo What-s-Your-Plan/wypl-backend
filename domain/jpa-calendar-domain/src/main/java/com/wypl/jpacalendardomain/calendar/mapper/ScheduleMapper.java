@@ -1,9 +1,8 @@
-package com.wypl.jpascheduledomain.schedule.mapper;
+package com.wypl.jpacalendardomain.calendar.mapper;
 
-import com.wypl.jpascheduledomain.schedule.data.ConvertibleSchedule;
-import com.wypl.jpascheduledomain.schedule.domain.Schedule;
-import com.wypl.jpascheduledomain.schedule.domain.ScheduleInfo;
-
+import com.wypl.jpacalendardomain.calendar.data.ConvertibleSchedule;
+import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.calendar.domain.ScheduleInfo;
 
 public class ScheduleMapper {
 
