@@ -19,7 +19,7 @@ public class Schedule extends JpaBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "schedule_id")
-    private Long scheduleId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_info_id", nullable = false)
@@ -37,7 +37,7 @@ public class Schedule extends JpaBaseEntity {
     @Column(name = "end_datetime", nullable = false)
     private LocalDateTime endDateTime;
 
-    @Column(name = "repetition_start_date", nullable = false)
+    @Column(name = "repetition_start_date")
     private LocalDate repetitionStartDate;
 
     @Column(name = "repetition_end_date")

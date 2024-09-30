@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLRestriction;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,7 +20,7 @@ public class ScheduleInfo extends JpaBaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "schedule_info_id")
-    private Long scheduleInfoId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calendar_id", nullable = false)
@@ -29,8 +29,11 @@ public class ScheduleInfo extends JpaBaseEntity {
     @Column(name = "creator_id")
     private Long creatorId;
 
+    @OneToMany(mappedBy = "scheduleInfo")
+    private List<Schedule> schedules;
+
     @Builder
-    public ScheduleInfo(Calendar calendar, LocalDateTime startDateTime, LocalDateTime endDateTime, Long creatorId) {
+    public ScheduleInfo(Calendar calendar, Long creatorId) {
         this.calendar = calendar;
         this.creatorId = creatorId;
     }

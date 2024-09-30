@@ -21,7 +21,7 @@ public class Calendar extends JpaBaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "calendar_id")
-	private Long calendarId;
+	private Long id;
 
 	@Column(name = "name", length = 20, nullable = false)
 	private String name;
