@@ -5,7 +5,7 @@ import static com.wypl.jpamongoreviewdomain.reviewcontents.domain.BlockType.*;
 import com.wypl.jpamongoreviewdomain.reviewcontents.domain.ReviewContent;
 
 public class PictureContent extends ReviewContent {
-	private String path;
+	private final String path;
 
 	public PictureContent(String path) {
 		super(REVIEW_PICTURE);
