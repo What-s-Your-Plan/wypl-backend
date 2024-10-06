@@ -23,8 +23,7 @@ public enum WeatherType {
 	MIST(6, new HashSet<>(List.of(701, 711, 721, 731, 741, 751, 761, 762)), "안개"),
 	SQUALL(7, new HashSet<>(List.of(771)), "스콜"),
 	TORNADO(8, new HashSet<>(List.of(781)), "태풍"),
-	THUNDERSTORM(9, new HashSet<>(List.of(200, 201, 202, 210, 211, 212, 221, 230, 231, 232)), "천둥"),
-	;
+	THUNDERSTORM(9, new HashSet<>(List.of(200, 201, 202, 210, 211, 212, 221, 230, 231, 232)), "천둥");
 
 	private final int weatherId;
 	private final Set<Integer> ids;
