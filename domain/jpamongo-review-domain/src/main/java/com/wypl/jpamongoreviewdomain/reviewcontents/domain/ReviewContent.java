@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public abstract class ReviewContent {
-	private BlockType blockType;
+	private final BlockType blockType;
 	protected ReviewContent(BlockType blockType) {
 		this.blockType = blockType;
 	}

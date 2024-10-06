@@ -5,8 +5,8 @@ import static com.wypl.jpamongoreviewdomain.reviewcontents.domain.BlockType.*;
 import com.wypl.jpamongoreviewdomain.reviewcontents.domain.ReviewContent;
 
 public class EmotionContent extends ReviewContent {
-	private String emoji;
-	private String description;
+	private final String emoji;
+	private final String description;
 
 	public EmotionContent(String emoji, String description) {
 		super(REVIEW_EMOTION);
