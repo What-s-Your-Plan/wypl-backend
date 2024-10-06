@@ -9,7 +9,6 @@ import com.wypl.openweatherclient.data.OpenWeatherCond;
 import com.wypl.openweatherclient.data.OpenWeatherResponse;
 import com.wypl.openweatherclient.exception.OpenWeatherErrorCode;
 import com.wypl.openweatherclient.exception.OpenWeatherException;
-import com.wypl.openweatherclient.type.WeatherRegion;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +21,12 @@ public class OpenWeatherClientImpl implements OpenWeatherClient {
 	private final OpenWeatherProperties properties;
 
 	public OpenWeatherResponse fetchWeather(OpenWeatherCond cond) {
-		String url = getUrl(cond);
+		String url = OpenWeatherUrlFactory.create(properties.getBaseUrl(), properties.getKey())
+				.weatherRegion(cond.city())
+				.isLangKr(cond.isLangKr())
+				.isMetric(cond.isMetric())
+				.build();
+
 		ResponseEntity<OpenWeatherResponse> response = restTemplate.getForEntity(
 				url,
 				OpenWeatherResponse.class
@@ -34,33 +38,5 @@ public class OpenWeatherClientImpl implements OpenWeatherClient {
 			throw new OpenWeatherException(OpenWeatherErrorCode.INTERNAL_SERVER_ERROR);
 		}
 		throw new OpenWeatherException(OpenWeatherErrorCode.INVALID_OPEN_WEATHER_REQUEST);
-	}
-
-	private String getUrl(OpenWeatherCond cond) {
-		StringBuilder url = new StringBuilder(properties.getBaseUrl())
-				.append("?appid=")
-				.append(properties.getKey());
-
-		addParamByCity(url, cond.city());
-		addParamByLang(url, cond.isLangKr());
-		addParamByUnits(url, cond.isMetric());
-
-		return url.toString();
-	}
-
-	private void addParamByCity(StringBuilder url, WeatherRegion region) {
-		url.append("&q=").append(region.getCityEn());
-	}
-
-	private void addParamByLang(StringBuilder url, boolean isLangKr) {
-		if (isLangKr) {
-			url.append("&lang=kr");
-		}
-	}
-
-	private void addParamByUnits(StringBuilder url, boolean isMetric) {
-		if (isMetric) {
-			url.append("&units=metric");
-		}
 	}
 }
