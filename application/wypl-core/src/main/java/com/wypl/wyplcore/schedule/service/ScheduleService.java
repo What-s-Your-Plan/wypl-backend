@@ -8,6 +8,7 @@ import com.wypl.jpacalendardomain.calendar.mapper.ScheduleMapper;
 import com.wypl.jpacalendardomain.calendar.repository.ScheduleInfoRepository;
 import com.wypl.jpacalendardomain.calendar.repository.ScheduleRepository;
 import com.wypl.jpamemberdomain.member.Member;
+import com.wypl.wyplcore.auth.domain.AuthMember;
 import com.wypl.wyplcore.schedule.data.request.ScheduleCreateRequest;
 import com.wypl.wyplcore.schedule.data.response.ScheduleInfoCreateResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,12 @@ public class ScheduleService {
     private final ScheduleInfoRepository scheduleInfoRepository;
 
     @Transactional
-    public ScheduleInfoCreateResponse createSchedule(long memberId, ScheduleCreateRequest scheduleCreateRequest) {
+    public ScheduleInfoCreateResponse createSchedule(AuthMember authMember, ScheduleCreateRequest scheduleCreateRequest) {
 
         Calendar foundCalendar = null;  // FIXME: scheduleInfoRequest의 calendarId로 찾는다. foundCalendar 엔티티 검증 필요.
         Member foundMember = null; // FIXME: member 엔티티 검증 필요.
 
-        ScheduleInfo scheduleInfo = ScheduleInfoMapper.toJpaScheduleInfo(foundCalendar, foundMember.getMemberId());
+        ScheduleInfo scheduleInfo = ScheduleInfoMapper.toJpaScheduleInfo(foundCalendar, authMember);
         Schedule schedule = ScheduleMapper.toJpaSchedule(scheduleCreateRequest, scheduleInfo);
 
         ScheduleInfo savedScheduleInfo = scheduleInfoRepository.save(scheduleInfo);
