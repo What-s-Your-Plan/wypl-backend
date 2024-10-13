@@ -1,6 +1,7 @@
 package com.wypl.openweatherclient;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -31,10 +32,12 @@ public class OpenWeatherClientImpl implements OpenWeatherClient {
 				url,
 				OpenWeatherResponse.class
 		);
-		if (response.getStatusCode().is2xxSuccessful()) {
+
+		HttpStatusCode httpStatusCode = response.getStatusCode();
+		if (httpStatusCode.is2xxSuccessful()) {
 			return response.getBody();
 		}
-		if (response.getStatusCode().is5xxServerError()) {
+		if (httpStatusCode.is5xxServerError()) {
 			throw new OpenWeatherException(OpenWeatherErrorCode.INTERNAL_SERVER_ERROR);
 		}
 		throw new OpenWeatherException(OpenWeatherErrorCode.INVALID_OPEN_WEATHER_REQUEST);
