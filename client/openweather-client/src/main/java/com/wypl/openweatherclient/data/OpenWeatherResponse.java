@@ -15,11 +15,11 @@ public record OpenWeatherResponse(
 		long dateTime
 ) {
 
-	public static WeatherResponse ofByWeatherResponse(final int id, final String main, final String desc) {
+	public static WeatherResponse of(final int id, final String main, final String desc) {
 		return new WeatherResponse(id, main, desc);
 	}
 
-	public static MainResponse fromByMainResponse(
+	public static MainResponse of(
 			final float temp,
 			final float maxTemp,
 			final float minTemp
@@ -27,7 +27,7 @@ public record OpenWeatherResponse(
 		return new MainResponse(temp, maxTemp, minTemp);
 	}
 
-	public static SysResponse fromBySysResponse(
+	public static SysResponse of(
 			final long sunrise,
 			final long sunset
 	) {
