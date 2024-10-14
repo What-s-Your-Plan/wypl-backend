@@ -20,15 +20,17 @@ public class OpenWeatherUrlFactory {
 	}
 
 	public OpenWeatherUrlFactory isLangKr(boolean isLangKr) {
+		url.append("&lang=");
 		if (isLangKr) {
-			url.append("&lang=kr");
+			url.append("kr");
 		}
 		return this;
 	}
 
 	public OpenWeatherUrlFactory isMetric(boolean isMetric) {
+		url.append("&units=");
 		if (isMetric) {
-			url.append("&units=metric");
+			url.append("metric");
 		}
 		return this;
 	}
