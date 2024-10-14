@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.wypl.openweatherclient.config.OpenWeatherProperties;
 import com.wypl.openweatherclient.data.OpenWeatherCond;
 import com.wypl.openweatherclient.data.OpenWeatherResponse;
 import com.wypl.openweatherclient.exception.OpenWeatherErrorCode;

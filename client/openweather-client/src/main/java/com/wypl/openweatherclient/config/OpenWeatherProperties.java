@@ -1,4 +1,4 @@
-package com.wypl.openweatherclient;
+package com.wypl.openweatherclient.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
