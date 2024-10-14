@@ -49,7 +49,7 @@ class OpenWeatherClientTest {
 				.doesNotThrowAnyException();
 	}
 
-	@DisplayName("알수 없는 오류로 인한 OpenWeatherException 발생 여부 검증")
+	@DisplayName("알 수 없는 오류로 인한 OpenWeatherException 발생 여부 검증")
 	@Test
 	void statusErrorTest() {
 		/* Given */
