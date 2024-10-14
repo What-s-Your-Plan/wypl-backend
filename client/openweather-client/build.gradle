@@ -9,4 +9,53 @@ dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter')
     implementation('org.springframework.boot:spring-boot-starter-web')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.mockito:mockito-core')
 }
+
+/* Jacoco Start */
+tasks.withType(JacocoReport).configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        html.outputLocation.set(file("reports/jacoco/index.xml"))
+        xml.outputLocation.set(file("reports/jacoco/test/jacocoTestReport.xml"))
+    }
+
+    classDirectories.setFrom(
+            files(classDirectories.files.collect {
+                fileTree(it) {
+                    exclude(
+                            "**/config/**",
+                            "**/data/**",
+                            "**/exception/**",
+                            "**/type/**",
+                    )
+                }
+            })
+    )
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            element = 'CLASS'
+
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.80D
+            }
+
+            excludes = [
+                    "**/config/**",
+                    "**/data/**",
+                    "**/exception/**",
+                    "**/type/**",
+            ]
+        }
+    }
+}
+/* Jacoco End */
