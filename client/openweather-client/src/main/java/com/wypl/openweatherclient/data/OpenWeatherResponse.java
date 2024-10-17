@@ -15,7 +15,11 @@ public record OpenWeatherResponse(
 		long dateTime
 ) {
 
-	public static WeatherResponse of(final int id, final String main, final String desc) {
+	public static WeatherResponse of(
+			final int id,
+			final String main,
+			final String desc
+	) {
 		return new WeatherResponse(id, main, desc);
 	}
 
