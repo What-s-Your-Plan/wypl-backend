@@ -1,25 +1,14 @@
 spring:
   application:
     name: wypl-core
-  jpa:
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-    hibernate:
-      ddl-auto: create-drop
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:db
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2
-
-de:
-  flapdoodle:
-    mongodb:
-      embedded:
-        version: 4.0.2
+  config:
+    import:
+      - security/application-mongo.yml
+      - security/application-oracle.yml
+      - security/application-weather.yml
+    activate:
+      on-profile:
+        - default
+        - local
+        - dev
+        - prod
