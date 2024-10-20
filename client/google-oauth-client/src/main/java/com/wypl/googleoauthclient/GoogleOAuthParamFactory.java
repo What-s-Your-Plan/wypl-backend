@@ -9,16 +9,20 @@ import org.springframework.util.MultiValueMap;
 public class GoogleOAuthParamFactory {
 	private final MultiValueMap<String, String> multiValueMap;
 
-	private GoogleOAuthParamFactory(String clientId, String clientSecret, String redirectUri) {
+	private GoogleOAuthParamFactory(String clientId, String clientSecret) {
 		this.multiValueMap = new LinkedMultiValueMap<>();
 
 		multiValueMap.add("client_id", clientId);
 		multiValueMap.add("client_secret", clientSecret);
-		multiValueMap.add("redirect_uri", redirectUri);
 	}
 
-	public static GoogleOAuthParamFactory create(String clientId, String clientSecret, String redirectUri) {
-		return new GoogleOAuthParamFactory(clientId, clientSecret, redirectUri);
+	public static GoogleOAuthParamFactory create(String clientId, String clientSecret) {
+		return new GoogleOAuthParamFactory(clientId, clientSecret);
+	}
+
+	public GoogleOAuthParamFactory redirectUri(String redirectUri) {
+		multiValueMap.add("redirect_uri", redirectUri);
+		return this;
 	}
 
 	public GoogleOAuthParamFactory code(String code) {

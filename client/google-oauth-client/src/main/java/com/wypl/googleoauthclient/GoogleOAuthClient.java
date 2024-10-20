@@ -27,12 +27,14 @@ public class GoogleOAuthClient {
 		// Todo : GoogleTokenRequest 로 변경
 		// GoogleTokenRequest request = new GoogleTokenRequest(code, "authorization_code");
 
-		String code = "4%2F0AVG7fiTCI_si2GbBHv1bCqUqP32-_IEDSsC3XFeTXevm2-wXQxvSMytX-qBb1hzIZlVLsw";
+		String code = "4%2F0AVG7fiTWAIUvXxxnP8rkjZM3DNrn2k7O97snxuTVsnvODi2w-Nx6bakyh2Z9BPvxyWP7UA";
+
+		System.out.println("Redirect Uri : " + googleOAuthProperties.getRedirectUri());
 
 		MultiValueMap<String, String> params = GoogleOAuthParamFactory
 					.create(googleOAuthProperties.getClientId(),
-							googleOAuthProperties.getClientSecret(),
-							googleOAuthProperties.getRedirectUri())
+							googleOAuthProperties.getClientSecret())
+					.redirectUri(googleOAuthProperties.getRedirectUri())
 					.code(code)
 					.grantType("authorization_code")
 					.build();
@@ -75,9 +77,9 @@ public class GoogleOAuthClient {
 	// 	System.out.println(googleTokenResponse.toString());
 	// }
 
-	// public static void main(String[] args) {
-	// 	RestTemplate restTemplate = new RestTemplate();  // RestTemplate 객체 생성
-	// 	GoogleOAuthClient googleOAuthService = new GoogleOAuthClient(new GoogleOAuthProperties());  // GoogleOAuthService 객체 생성
-	// 	googleOAuthService.fetchGoogleAOAuthToken();  // 인스턴스 메서드 호출
-	// }
+	public static void main(String[] args) {
+		RestTemplate restTemplate = new RestTemplate();  // RestTemplate 객체 생성
+		GoogleOAuthClient googleOAuthService = new GoogleOAuthClient(new GoogleOAuthProperties());  // GoogleOAuthService 객체 생성
+		googleOAuthService.fetchGoogleAOAuthToken();  // 인스턴스 메서드 호출
+	}
 }

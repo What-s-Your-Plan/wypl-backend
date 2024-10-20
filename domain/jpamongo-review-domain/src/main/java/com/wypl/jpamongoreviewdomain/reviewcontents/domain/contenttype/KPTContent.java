@@ -5,9 +5,9 @@ import static com.wypl.jpamongoreviewdomain.reviewcontents.domain.BlockType.*;
 import com.wypl.jpamongoreviewdomain.reviewcontents.domain.ReviewContent;
 
 public class KPTContent extends ReviewContent {
-	private String keepStr;
-	private String problemStr;
-	private String tryStr;
+	private final String keepStr;
+	private final String problemStr;
+	private final String tryStr;
 
 	public KPTContent(String keepStr, String problemStr, String tryStr) {
 		super(REVIEW_KPT);
