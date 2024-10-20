@@ -6,6 +6,7 @@ spring:
       - security/application-mongo.yml
       - security/application-oracle.yml
       - security/application-weather.yml
+      - security/application-google.yml
     activate:
       on-profile:
         - default
