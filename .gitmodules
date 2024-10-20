@@ -2,3 +2,7 @@
 	path = application/wypl-image/src/main/resources/security
 	url = https://github.com/What-s-Your-Plan/wypl-image-properties.git
 	branch = main
+[submodule "application/wypl-core/src/main/resources/security"]
+	path = application/wypl-core/src/main/resources/security
+	url = https://github.com/What-s-Your-Plan/wypl-server-properties
+	branch = main

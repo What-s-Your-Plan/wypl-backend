@@ -50,3 +50,6 @@ magick
 ### macOS ###
 .DS_Store
 /**/.DS_Store
+
+### QFile ###
+**/src/main/generated/**/Q*.java

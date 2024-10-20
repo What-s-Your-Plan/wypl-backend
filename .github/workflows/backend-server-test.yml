@@ -1,4 +1,4 @@
-name: 🧪 Image Server Tests on Pull Request
+name: 🧪 Backend Tests on Pull Request
 
 on:
   pull_request:
@@ -27,14 +27,14 @@ jobs:
         run: chmod +x gradlew
 
       - name: 🧪 Spring Boot Test
-        run: ./gradlew clean application:wypl-image:test
+        run: ./gradlew clean test
 
       - name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
         with:
-          title: 📄 Image Server Jacoco Coverage Report
-          paths: ${{ github.workspace }}/**/wypl-image/reports/jacoco/test/jacocoTestReport.xml
+          title: 📄 Jacoco Coverage Report
+          paths: ${{ github.workspace }}/**/reports/jacoco/test/jacocoTestReport.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 80
