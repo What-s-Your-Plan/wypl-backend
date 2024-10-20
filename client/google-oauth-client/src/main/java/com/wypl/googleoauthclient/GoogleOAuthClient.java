@@ -68,12 +68,12 @@ public class GoogleOAuthClient {
 		}
 	}
 
-	private static HttpEntity<MultiValueMap<String, String>> getHttpEntity(MultiValueMap<String, String> params) {
+	private HttpEntity<MultiValueMap<String, String>> getHttpEntity(MultiValueMap<String, String> params) {
 		HttpHeaders headers = setHttpHeader();
 		return new HttpEntity<>(params, headers);
 	}
 
-	private static HttpHeaders setHttpHeader() {
+	private HttpHeaders setHttpHeader() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		return headers;
