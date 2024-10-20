@@ -23,7 +23,7 @@ public class GoogleOAuthClient {
 
 	private final RestTemplate restTemplate = new RestTemplate();
 
-	public void fetchGoogleAOAuthToken() {
+	public void fetchGoogleOAuthToken() {
 		// Todo : GoogleTokenRequest 로 변경
 		// GoogleTokenRequest request = new GoogleTokenRequest(code, "authorization_code");
 
@@ -50,7 +50,9 @@ public class GoogleOAuthClient {
 		System.out.println(googleTokenResponse.toString());
 	}
 
-	// public void fetchGoogleAOAuthToken() {
+
+
+	// public void fetchGoogleOAuthToken() {
 	// 	// Todo : GoogleTokenRequest 로 변경
 	// 	// GoogleTokenRequest request = new GoogleTokenRequest(CLIENT_ID, CLIENT_SECRET, code, "authorization_code", REDIRECT_URI);
 	//
