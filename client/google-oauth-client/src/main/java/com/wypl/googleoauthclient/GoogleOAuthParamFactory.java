@@ -36,6 +36,11 @@ public class GoogleOAuthParamFactory {
 		return this;
 	}
 
+	public GoogleOAuthParamFactory refreshToken(String refreshToken) {
+		multiValueMap.add("refresh_token", refreshToken);
+		return this;
+	}
+
 	public MultiValueMap<String, String> build() {
 		return multiValueMap;
 	}
