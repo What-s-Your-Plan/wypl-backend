@@ -16,8 +16,8 @@ public class GoogleOAuthParamFactory {
 		multiValueMap.add("client_secret", clientSecret);
 	}
 
-	public static GoogleOAuthParamFactory create(String clientId, String clientSecret) {
-		return new GoogleOAuthParamFactory(clientId, clientSecret);
+	public static GoogleOAuthParamFactory create(GoogleOAuthProperties properties) {
+		return new GoogleOAuthParamFactory(properties.getClientId(), properties.getClientSecret());
 	}
 
 	public GoogleOAuthParamFactory redirectUri(String redirectUri) {
