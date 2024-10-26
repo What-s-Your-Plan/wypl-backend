@@ -12,8 +12,7 @@ import lombok.Setter;
 @ConfigurationProperties(prefix = "google.oauth")
 @Configuration
 public class GoogleOAuthProperties {
-	// 서버말고 yml만 따로 빌드할 수 있다 -> 편의성 굿
-	private String clientId; // client-id
+	private String clientId;        // client-id
 	private String clientSecret;
 	private String redirectUri;
 	private String accessTokenUri;
