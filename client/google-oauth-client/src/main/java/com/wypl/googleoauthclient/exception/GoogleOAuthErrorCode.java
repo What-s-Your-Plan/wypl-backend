@@ -6,8 +6,8 @@ import lombok.Getter;
 
 @Getter
 public enum GoogleOAuthErrorCode implements ServerErrorCode {
-	BAD_REQUEST(400, "GOOGLE_OAUTH_001", ""),
-	MALFORMED(400, "GOOGLE_OAUTH_002", ""),
+	BAD_REQUEST(400, "GOOGLE_OAUTH_001", "권한이 없습니다."),
+	MALFORMED(400, "GOOGLE_OAUTH_002", "오염된 토큰입니다."),
 	;
 
 	private final int statusCode;
