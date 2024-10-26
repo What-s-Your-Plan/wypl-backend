@@ -56,14 +56,13 @@ public class GoogleOAuthClient {
 				GoogleTokenResponse.class
 			);
 		} catch (HttpClientErrorException e) {
-			log.warn(e.getMessage());
-
 			if (e.getMessage().contains("Malformed")) {
 				throw new GoogleOAuthException(GoogleOAuthErrorCode.MALFORMED);
 			}
 			if (e.getMessage().contains("Bad Request")) {
 				throw new GoogleOAuthException(GoogleOAuthErrorCode.BAD_REQUEST);
 			}
+			log.warn(e.getMessage());
 			throw new WyplException(GlobalErrorCode.INTERNAL_SERVER_ERROR);
 		}
 	}
