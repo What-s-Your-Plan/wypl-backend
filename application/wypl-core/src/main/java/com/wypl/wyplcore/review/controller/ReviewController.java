@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wypl.applicationcommon.WyplResponseEntity;
-import com.wypl.wyplcore.auth.annotation.Authenticated;
-import com.wypl.wyplcore.auth.domain.AuthMember;
+import com.wypl.googleoauthclient.annotation.Authenticated;
+import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.wyplcore.review.data.request.ReviewCreateRequest;
 import com.wypl.wyplcore.review.data.request.ReviewType;
 import com.wypl.wyplcore.review.data.request.ReviewUpdateRequest;
