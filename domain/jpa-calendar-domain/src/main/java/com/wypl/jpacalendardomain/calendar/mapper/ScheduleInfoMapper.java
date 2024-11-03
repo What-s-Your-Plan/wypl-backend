@@ -12,4 +12,11 @@ public class ScheduleInfoMapper {
                 .calendar(calendar)
                 .build();
     }
+
+    public static ScheduleInfo toJpaScheduleInfo(Calendar calendar, long id) {
+        return ScheduleInfo.builder()
+            .creatorId(id)
+            .calendar(calendar)
+            .build();
+    }
 }
