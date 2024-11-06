@@ -27,6 +27,7 @@ public class AuthMemberServiceImpl implements AuthMemberService {
 		GoogleTokenValidationResponse response = googleOAuthClient.validateToken(accessToken);
 		Optional<SocialMember> optionalSocialMember
 			= socialMemberRepository.findByOauthProviderAndOauthId(OauthProvider.GOOGLE, response.userId());
+
 		if (optionalSocialMember.isEmpty()) {
 			throw new MemberException(MemberErrorCode.NO_SUCH_MEMBER);
 		}
