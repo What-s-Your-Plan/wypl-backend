@@ -55,7 +55,7 @@ public class GoogleOAuthClient {
 		params.put("access_token", accessToken);
 
 		try {
-			return restTemplate.getForObject("https://www.googleapis.com/oauth2/v1/tokeninfo"
+			return restTemplate.getForObject("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={access_token}"
 			, GoogleTokenValidationResponse.class
 			, params);
 		} catch (HttpClientErrorException e) {
