@@ -14,10 +14,12 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wypl.common.exception.GlobalErrorCode;
 import com.wypl.common.exception.WyplException;
+import com.wypl.googleoauthclient.config.GoogleOAuthProperties;
 import com.wypl.googleoauthclient.data.response.GoogleTokenResponse;
 import com.wypl.googleoauthclient.data.response.GoogleTokenValidationResponse;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
+import com.wypl.googleoauthclient.utils.GoogleOAuthParamFactory;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
