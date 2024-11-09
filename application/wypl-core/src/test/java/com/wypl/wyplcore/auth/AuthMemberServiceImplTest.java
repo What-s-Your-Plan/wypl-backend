@@ -54,7 +54,7 @@ class AuthMemberServiceImplTest {
 			SocialMember mockSocialMember = SocialMember.builder()
 				.id(1L)
 				.oauthProvider(OauthProvider.GOOGLE)
-				.OauthId(OAUTH_ID)
+				.oauthId(OAUTH_ID)
 				.build();
 
 			given(socialMemberRepository.findByOauthProviderAndOauthId(any(OauthProvider.class), anyString()))
