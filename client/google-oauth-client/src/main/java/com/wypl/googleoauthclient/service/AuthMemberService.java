@@ -1,4 +1,4 @@
-package com.wypl.googleoauthclient.data;
+package com.wypl.googleoauthclient.service;
 
 import com.wypl.googleoauthclient.domain.AuthMember;
 

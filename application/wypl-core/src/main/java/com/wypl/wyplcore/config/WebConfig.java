@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.wypl.googleoauthclient.data.AuthMemberService;
+import com.wypl.googleoauthclient.service.AuthMemberService;
 import com.wypl.googleoauthclient.utils.AuthenticatedArgumentResolver;
 
 import lombok.RequiredArgsConstructor;

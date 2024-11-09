@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.wypl.googleoauthclient.GoogleOAuthClient;
-import com.wypl.googleoauthclient.data.AuthMemberService;
+import com.wypl.googleoauthclient.service.AuthMemberService;
 import com.wypl.googleoauthclient.data.response.GoogleTokenValidationResponse;
 import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.jpamemberdomain.member.OauthProvider;
