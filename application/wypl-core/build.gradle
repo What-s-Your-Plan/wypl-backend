@@ -16,4 +16,9 @@ dependencies {
     implementation project(':domain:jpa-calendar-domain')
     implementation project(':domain:jpa-member-domain')
     implementation project(':common')
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
 }
