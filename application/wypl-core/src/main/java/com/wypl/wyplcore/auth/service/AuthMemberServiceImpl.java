@@ -1,4 +1,4 @@
-package com.wypl.wyplcore.auth;
+package com.wypl.wyplcore.auth.service;
 
 import java.util.Optional;
 

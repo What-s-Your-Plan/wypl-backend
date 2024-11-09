@@ -22,6 +22,7 @@ import com.wypl.jpamemberdomain.member.SocialMemberRepository;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.exception.MemberErrorCode;
 import com.wypl.jpamemberdomain.member.exception.MemberException;
+import com.wypl.wyplcore.auth.service.AuthMemberServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class AuthMemberServiceImplTest {
