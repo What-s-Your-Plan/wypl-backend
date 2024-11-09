@@ -30,6 +30,7 @@ public class GoogleOAuthClient {
 
 	private final GoogleOAuthProperties googleOAuthProperties;
 	private final RestTemplate restTemplate;
+	private final String VALIDATION_URI = "https://www.googleapis.com/oauth2/v1/tokeninfo";
 
 	public GoogleTokenResponse fetchGoogleOAuthToken(String code) {
 		MultiValueMap<String, String> params = GoogleOAuthParamFactory
@@ -55,7 +56,7 @@ public class GoogleOAuthClient {
 		params.put("access_token", accessToken);
 
 		try {
-			return restTemplate.getForObject("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={access_token}"
+			return restTemplate.getForObject(VALIDATION_URI + "?access_token={access_token}"
 			, GoogleTokenValidationResponse.class
 			, params);
 		} catch (HttpClientErrorException e) {
