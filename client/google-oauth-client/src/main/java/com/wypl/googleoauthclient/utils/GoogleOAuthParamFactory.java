@@ -1,10 +1,12 @@
-package com.wypl.googleoauthclient;
+package com.wypl.googleoauthclient.utils;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+
+import com.wypl.googleoauthclient.config.GoogleOAuthProperties;
 
 public class GoogleOAuthParamFactory {
 	private final MultiValueMap<String, String> multiValueMap;
