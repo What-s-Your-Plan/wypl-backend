@@ -29,10 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Component
 public class GoogleOAuthClient {
+	private static final String VALIDATION_URI = "https://www.googleapis.com/oauth2/v1/tokeninfo";
 
 	private final GoogleOAuthProperties googleOAuthProperties;
 	private final RestTemplate restTemplate;
-	private final String VALIDATION_URI = "https://www.googleapis.com/oauth2/v1/tokeninfo";
 
 	public GoogleTokenResponse fetchGoogleOAuthToken(String code) {
 		MultiValueMap<String, String> params = GoogleOAuthParamFactory
@@ -59,8 +59,8 @@ public class GoogleOAuthClient {
 
 		try {
 			return restTemplate.getForObject(VALIDATION_URI + "?access_token={access_token}"
-			, GoogleTokenValidationResponse.class
-			, params);
+				, GoogleTokenValidationResponse.class
+				, params);
 		} catch (HttpClientErrorException e) {
 			throw new GoogleOAuthException(GoogleOAuthErrorCode.INVALID_TOKEN);
 		}
