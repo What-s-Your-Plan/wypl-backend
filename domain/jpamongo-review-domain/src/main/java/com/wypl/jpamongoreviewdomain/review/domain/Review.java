@@ -4,7 +4,7 @@ import org.hibernate.annotations.SQLRestriction;
 
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.jpacommon.JpaBaseEntity;
-import com.wypl.jpamemberdomain.member.Member;
+import com.wypl.jpamemberdomain.member.domain.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

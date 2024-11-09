@@ -1,5 +1,8 @@
 package com.wypl.googleoauthclient;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -11,9 +14,12 @@ import org.springframework.web.client.RestTemplate;
 
 import com.wypl.common.exception.GlobalErrorCode;
 import com.wypl.common.exception.WyplException;
+import com.wypl.googleoauthclient.config.GoogleOAuthProperties;
 import com.wypl.googleoauthclient.data.response.GoogleTokenResponse;
+import com.wypl.googleoauthclient.data.response.GoogleTokenValidationResponse;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
+import com.wypl.googleoauthclient.utils.GoogleOAuthParamFactory;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Component
 public class GoogleOAuthClient {
+	private static final String VALIDATION_URI = "https://www.googleapis.com/oauth2/v1/tokeninfo";
 
 	private final GoogleOAuthProperties googleOAuthProperties;
 	private final RestTemplate restTemplate;
@@ -44,6 +51,19 @@ public class GoogleOAuthClient {
 			.grantType("refresh_token")
 			.build();
 		return requestToken(params);
+	}
+
+	public GoogleTokenValidationResponse validateToken(String accessToken) {
+		Map<String, String> params = new HashMap<>();
+		params.put("access_token", accessToken);
+
+		try {
+			return restTemplate.getForObject(VALIDATION_URI + "?access_token={access_token}"
+				, GoogleTokenValidationResponse.class
+				, params);
+		} catch (HttpClientErrorException e) {
+			throw new GoogleOAuthException(GoogleOAuthErrorCode.INVALID_TOKEN);
+		}
 	}
 
 	private GoogleTokenResponse requestToken(MultiValueMap<String, String> params) {

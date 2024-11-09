@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
-import com.wypl.jpamemberdomain.member.Member;
+import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.jpamongoreviewdomain.review.domain.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {

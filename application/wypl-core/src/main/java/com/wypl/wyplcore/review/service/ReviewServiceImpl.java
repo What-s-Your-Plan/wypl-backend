@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
-import com.wypl.jpamemberdomain.member.Member;
+import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.jpamongoreviewdomain.review.domain.Review;
 import com.wypl.jpamongoreviewdomain.review.repository.ReviewRepository;
 import com.wypl.jpamongoreviewdomain.reviewcontents.domain.BlockType;
