@@ -25,7 +25,7 @@ public class CalendarServiceUtil {
 			return getWeekRepetitionSchedules(schedule, startDate, endDate);
 		}
 		if(schedule.getRepetitionCycle().equals(RepetitionCycle.MONTH)) {
-			// Todo: return getMonthRepetitionSchedule(schedule, startDate);
+			return getMonthRepetitionSchedules(schedule, startDate, endDate);
 		}
 		if(schedule.getRepetitionCycle().equals(RepetitionCycle.YEAR)) {
 			// Todo: return getYearRepetitionSchedule(schedule, startDate);
@@ -92,6 +92,25 @@ public class CalendarServiceUtil {
 		return responses;
 	}
 
+	private static List<ScheduleFindResponse> getMonthRepetitionSchedules(Schedule schedule, LocalDate startDate, LocalDate endDate) {
+		List<ScheduleFindResponse> responses = new ArrayList<>();
+
+		// 끝나는 날짜
+		int endDayOfMonth = schedule.getEndDateTime().getDayOfMonth();
+
+		// 탐색할 시작 일시와 끝 일시 설정
+		LocalDateTime searchEndDateTime = LocalDateTime.of(getMaxDate(startDate, schedule.getRepetitionStartDate()).withDayOfMonth(endDayOfMonth), schedule.getEndDateTime().toLocalTime());
+		Duration duration = Duration.between(schedule.getStartDateTime(), schedule.getEndDateTime());
+		LocalDateTime searchStartDateTime = searchEndDateTime.minus(duration);
+
+		for ( LocalDate date = searchStartDateTime.toLocalDate(); !date.isAfter(getMinDate(endDate, schedule.getRepetitionEndDate())); date = date.plusMonths(1)) {
+			LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
+			LocalDateTime endDateTime = startDateTime.plus(duration);
+			responses.add(ScheduleFindResponse.of(schedule, startDateTime, endDateTime));
+		}
+		return responses;
+	}
+
 	/**
 	 * repetitionDayOfWeek에 해당하는 요일이 선택되었는지 확인
 	 * @param repetitionDayOfWeek of Schedule
@@ -104,6 +123,10 @@ public class CalendarServiceUtil {
 
 	static LocalDate getMaxDate(LocalDate date1, LocalDate date2) {
 		return date1.isBefore(date2) ? date2 : date1;
+	}
+
+	static LocalDate getMinDate(LocalDate date1, LocalDate date2) {
+		return date1.isBefore(date2) ? date1 : date2;
 	}
 
 
