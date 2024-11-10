@@ -237,6 +237,25 @@ class CalendarServiceUtilTest {
 		}
 
 		@Test
+		@DisplayName("요일이 설정되지 않은 일정의 WEEK 검색 조건으로 반복일정 조회 - 반복 주에 포함되지 않는 조회 조건")
+		void getSchedulesResponsesForWeekWithoutDayOfWeek2(){
+
+			// given: Set today after 1 week, and the range is 'RepetitionStartDate 요일 < today < RepetitionEndDate 요일'
+			LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate().plusWeeks(1);
+			LocalDate endDate = startDate.plusDays(6);
+
+			// when
+			List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+				weekRepetitionScheduleWithoutDayOfWeek, startDate, endDate);
+
+			// then
+			for (ScheduleFindResponse scheduleResponse : scheduleResponses) {
+				System.out.println(scheduleResponse.title() + " : "+ scheduleResponse.startDateTime() + " - " + scheduleResponse.endDateTime());
+			}
+			assertEquals(0, scheduleResponses.size());
+		}
+
+		@Test
 		@DisplayName("요일이 설정되지 않은 일정의 MONTH 검색 조건으로 반복일정 조회")
 		void getSchedulesResponsesForMonthWithoutDayOfWeek(){
 
@@ -295,10 +314,6 @@ class CalendarServiceUtilTest {
 			assertEquals(3, scheduleResponses.size());
 
 		}
-
-
-
-
 	}
 
 }
