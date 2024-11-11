@@ -4,7 +4,7 @@
 
 <img src="https://github.com/user-attachments/assets/490f065e-7366-4072-8691-949d774432d8" alt="wypl-logo"  width="800"/>
 
-해당 서버는 이미지를 업로드 및 확장자 변환, 압축을 담당합니다.
+독립적으로 실행 가능한 애플리케이션 모듈 계층입니다.
 
 </div>
 
