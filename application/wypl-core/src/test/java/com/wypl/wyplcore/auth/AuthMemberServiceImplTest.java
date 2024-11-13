@@ -18,7 +18,7 @@ import com.wypl.googleoauthclient.GoogleOAuthClient;
 import com.wypl.googleoauthclient.data.response.GoogleTokenValidationResponse;
 import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.jpamemberdomain.member.OauthProvider;
-import com.wypl.jpamemberdomain.member.SocialMemberRepository;
+import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.exception.MemberErrorCode;
 import com.wypl.jpamemberdomain.member.exception.MemberException;
