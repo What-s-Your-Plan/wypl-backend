@@ -56,6 +56,13 @@ public class GoogleOAuthClient {
 		return requestToken(params);
 	}
 
+	/**
+	 * <a href="https://developers.google.com/identity/protocols/oauth2/web-server?hl=ko#offline">액세스 토큰 갱신 공식 문서</a>
+	 * 구글에 토큰 재발급을 요청합니다.
+	 *
+	 * @param refreshToken 토큰 재발급에 사용할 Refresh Token
+	 * @return 재발급 받은 토큰 정보
+	 */
 	public GoogleTokenResponse fetchRefreshGoogleOAuthToken(String refreshToken) {
 		MultiValueMap<String, String> params = GoogleOAuthParamFactory
 			.create(googleOAuthProperties)
