@@ -38,6 +38,14 @@ public class GoogleOAuthClient {
 	private final GoogleOAuthProperties googleOAuthProperties;
 	private final RestTemplate restTemplate;
 
+	/**
+	 * <a href="https://developers.google.com/identity/protocols/oauth2/web-server?hl=ko#creatingclient">승인 매개변수 설정 공식 문서</a>
+	 * <p>
+	 * Authorization code 값으로 구글에 토큰 발급을 요청합니다.
+	 *
+	 * @param code 토큰 발급 시 사용하는 Authorization code
+	 * @return 구글에서 발급받은 토큰 정보
+	 */
 	public GoogleTokenResponse fetchGoogleOAuthToken(String code) {
 		MultiValueMap<String, String> params = GoogleOAuthParamFactory
 			.create(googleOAuthProperties)
@@ -68,14 +76,11 @@ public class GoogleOAuthClient {
 			entity,
 			GoogleUserInfoResponse.class);
 
-
-
 		return response.getBody();
 
 		// Todo : response의 id값 저장
 		// 회원가입 때 저장하는 거 아닌가?
 		// 로그인 요청했을 때, 유저 정보 받아오고, id 값이 존재하면 로그인 처리 / 없으면 회원가입 처리?
-
 
 	}
 
