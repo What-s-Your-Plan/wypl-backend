@@ -19,6 +19,9 @@
 
 ## OpenWeather Client
 
+[OpenWeather Client](https://github.com/What-s-Your-Plan/wypl-backend/tree/main/client/openweather-client)모듈의 API를 활용하여
+날씨 정보를 조회합니다.
+
 # Rules
 
 해당 계층은 "어플리케이션, 도메인 비즈니스"를 모른다는 원칙을 가집니다.
