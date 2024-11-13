@@ -68,7 +68,7 @@ public void getWeatherExample() {
 
 위 예제에서는 fetchWeather 메서드를 호출하여 서울의 날씨를 조회하고, 결과를 콘솔에 출력합니다. 예외가 발생할 경우 에러 코드와 함께 오류 메시지를 출력합니다.
 
-# Properties 설정
+# Properties
 
 OpenWeatherMap 클라이언트를 사용하기 위해 필요한 환경 변수 설정입니다. OpenWeatherMap API에 접근하여 날씨 데이터를 가져오기 위해 아래 두 가지 설정이 필요합니다.
 
