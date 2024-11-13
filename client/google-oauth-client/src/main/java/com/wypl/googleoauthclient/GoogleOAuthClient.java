@@ -43,8 +43,9 @@ public class GoogleOAuthClient {
 	 * <p>
 	 * Authorization code 값으로 구글에 토큰 발급을 요청합니다.
 	 *
-	 * @param code 토큰 발급 시 사용하는 Authorization code
+	 * @param code 토큰 발급 시 사용하는 Authorization Code
 	 * @return 구글에서 발급받은 토큰 정보
+	 * @throws GoogleOAuthException Authorization Code가 올바르지 않으면 예외를 던진다.
 	 */
 	public GoogleTokenResponse fetchGoogleOAuthToken(String code) {
 		MultiValueMap<String, String> params = GoogleOAuthParamFactory
@@ -62,6 +63,7 @@ public class GoogleOAuthClient {
 	 *
 	 * @param refreshToken 토큰 재발급에 사용할 Refresh Token
 	 * @return 재발급 받은 토큰 정보
+	 * @throws GoogleOAuthException Refresh Token이 올바르지 않으면 예외를 던진다.
 	 */
 	public GoogleTokenResponse fetchRefreshGoogleOAuthToken(String refreshToken) {
 		MultiValueMap<String, String> params = GoogleOAuthParamFactory
@@ -72,6 +74,12 @@ public class GoogleOAuthClient {
 		return requestToken(params);
 	}
 
+	/**
+	 * Access Token으로 구글에 유저 정보를 요청한다.
+	 *
+	 * @param accessToken 구글에서 발급받은 Access Token
+	 * @return 유저의 상세 정보
+	 */
 	public GoogleUserInfoResponse fetchUserInfo(String accessToken) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(accessToken);
@@ -82,6 +90,8 @@ public class GoogleOAuthClient {
 			HttpMethod.GET,
 			entity,
 			GoogleUserInfoResponse.class);
+
+		// Todo : 예외 처리
 
 		return response.getBody();
 
