@@ -8,6 +8,8 @@
 
 </div>
 
+# Modules
+
 ## What's Your Plan! - Core
 
 [Core Server](https://github.com/What-s-Your-Plan/wypl-backend/tree/main/application/wypl-core)은 백엔드 서버의 전반적인 기능들을
