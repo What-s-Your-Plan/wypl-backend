@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
@@ -17,6 +19,7 @@ import com.wypl.common.exception.WyplException;
 import com.wypl.googleoauthclient.config.GoogleOAuthProperties;
 import com.wypl.googleoauthclient.data.response.GoogleTokenResponse;
 import com.wypl.googleoauthclient.data.response.GoogleTokenValidationResponse;
+import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.googleoauthclient.utils.GoogleOAuthParamFactory;
@@ -30,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class GoogleOAuthClient {
 	private static final String VALIDATION_URI = "https://www.googleapis.com/oauth2/v1/tokeninfo";
+	private static final String USERINFO_URI = "https://www.googleapis.com/oauth2/v1/userinfo";
 
 	private final GoogleOAuthProperties googleOAuthProperties;
 	private final RestTemplate restTemplate;
@@ -51,6 +55,28 @@ public class GoogleOAuthClient {
 			.grantType("refresh_token")
 			.build();
 		return requestToken(params);
+	}
+
+	public GoogleUserInfoResponse fetchUserInfo(String accessToken) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(accessToken);
+
+		HttpEntity<String> entity = new HttpEntity<>("", headers);
+		ResponseEntity<GoogleUserInfoResponse> response = restTemplate.exchange(
+			USERINFO_URI,
+			HttpMethod.GET,
+			entity,
+			GoogleUserInfoResponse.class);
+
+
+
+		return response.getBody();
+
+		// Todo : response의 id값 저장
+		// 회원가입 때 저장하는 거 아닌가?
+		// 로그인 요청했을 때, 유저 정보 받아오고, id 값이 존재하면 로그인 처리 / 없으면 회원가입 처리?
+
+
 	}
 
 	public GoogleTokenValidationResponse validateToken(String accessToken) {
