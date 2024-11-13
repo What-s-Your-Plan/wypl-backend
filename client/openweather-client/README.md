@@ -32,20 +32,22 @@ dependencies {
 
 ### Params
 
-- `OpenWeatherCond cond`: 날씨 조회 조건을 담고 있는 객체로, 다음과 같은 필드를 포함합니다:
-    - `city`: 조회할 도시 이름
-    - `isLangKr`: 결과 언어를 한국어로 설정할지 여부 (true일 경우 한국어)
-    - `isMetric`: 온도 단위를 섭씨로 설정할지 여부 (true일 경우 섭씨)
+`OpenWeatherCond cond`: 날씨 조회 조건을 담고 있는 객체로, 다음과 같은 필드를 포함합니다:
+
+- `city`: 조회할 도시 이름
+- `isLangKr`: 결과 언어를 한국어로 설정할지 여부 (true일 경우 한국어)
+- `isMetric`: 온도 단위를 섭씨로 설정할지 여부 (true일 경우 섭씨)
 
 ### Return
 
-- `OpenWeatherResponse`: API에서 응답받은 날씨 정보를 포함한 객체. 이 객체에는 현재 날씨 정보가 포함되어 있습니다.
+`OpenWeatherResponse`: API에서 응답받은 날씨 정보를 포함한 객체. 이 객체에는 현재 날씨 정보가 포함되어 있습니다.
 
-### 예외 처리
+### Exception
 
-- `OpenWeatherException`: API 호출 중 오류가 발생한 경우 예외가 발생합니다. 예외는 두 가지 유형이 있습니다:
-    - `OpenWeatherErrorCode.INTERNAL_SERVER_ERROR`: 서버 측 오류 (5xx 오류) 발생 시 발생하는 예외입니다.
-    - `OpenWeatherErrorCode.INVALID_OPEN_WEATHER_REQUEST`: 클라이언트 요청이 잘못된 경우 (2xx 이외의 응답 코드) 발생하는 예외입니다.
+`OpenWeatherException`: API 호출 중 오류가 발생한 경우 예외가 발생합니다. 예외는 두 가지 유형이 있습니다:
+
+- `OpenWeatherErrorCode.INTERNAL_SERVER_ERROR`: 서버 측 오류 (5xx 오류) 발생 시 발생하는 예외입니다.
+- `OpenWeatherErrorCode.INVALID_OPEN_WEATHER_REQUEST`: 클라이언트 요청이 잘못된 경우 (2xx 이외의 응답 코드) 발생하는 예외입니다.
 
 ### Example
 
