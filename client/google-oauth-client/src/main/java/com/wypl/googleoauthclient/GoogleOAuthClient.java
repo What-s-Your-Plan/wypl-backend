@@ -101,6 +101,13 @@ public class GoogleOAuthClient {
 
 	}
 
+	/**
+	 * 구글에 Access Token의 유효성 검증을 요청합니다.
+	 *
+	 * @param accessToken 유효성 검증할 Access Token
+	 * @return 토큰의 유효성 정보
+	 * @throws GoogleOAuthException Access Token이 올바르지 않으면 예외를 던진다.
+	 */
 	public GoogleTokenValidationResponse validateToken(String accessToken) {
 		Map<String, String> params = new HashMap<>();
 		params.put("access_token", accessToken);
