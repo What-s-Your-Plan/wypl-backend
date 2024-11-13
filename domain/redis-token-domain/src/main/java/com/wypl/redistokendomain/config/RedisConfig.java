@@ -15,16 +15,16 @@ public class RedisConfig {
 	private final RedisProperties redisProperties;
 
 	@Bean
-	public RedisConnectionFactory redisConnectionFactory() {
+	public RedisConnectionFactory redisTokenConnectionFactory() {
 		RedisStandaloneConfiguration redisConfiguration = new RedisStandaloneConfiguration(redisProperties.getHost(), redisProperties.getPort());
 		redisConfiguration.setPassword(redisProperties.getPassword());
 		return new LettuceConnectionFactory(redisConfiguration);
 	}
 
 	@Bean
-	public RedisTemplate<byte[], byte[]> redisTemplate() {
+	public RedisTemplate<byte[], byte[]> redisTokenTemplate() {
 		RedisTemplate<byte[], byte[]> redisTemplate = new RedisTemplate<>();
-		redisTemplate.setConnectionFactory(redisConnectionFactory());
+		redisTemplate.setConnectionFactory(redisTokenConnectionFactory());
 		return redisTemplate;
 	}
 }
