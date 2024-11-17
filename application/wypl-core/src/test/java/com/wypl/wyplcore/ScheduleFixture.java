@@ -49,13 +49,25 @@ public enum ScheduleFixture {
 		"월간 일정",
 		"매달 첫째 주 화요일에 반복되는 일정입니다.",
 		LocalDateTime.of(2024, 10, 20, 10, 0),
-		LocalDateTime.of(2024, 10, 20, 11, 0),
+		LocalDateTime.of(2024, 10, 21, 11, 0),
 		LocalDate.of(2024, 10, 20),
 		LocalDate.of(2025, 2, 1),
 		RepetitionCycle.MONTH,
 		2, // 화요일
 		1 // 매월 반복
+	),
+	YEARLY_SCHEDULE(
+		"연간 일정",
+		"매년 10월 20일에 반복되는 일정입니다.",
+		LocalDateTime.of(2024, 10, 20, 10, 0),
+		LocalDateTime.of(2024, 10, 21, 11, 0),
+		LocalDate.of(2024, 10, 20),
+		LocalDate.of(2026, 10, 20),
+		RepetitionCycle.YEAR,
+		null,
+		null
 	);
+
 
 	private final String title;
 	private final String description;
