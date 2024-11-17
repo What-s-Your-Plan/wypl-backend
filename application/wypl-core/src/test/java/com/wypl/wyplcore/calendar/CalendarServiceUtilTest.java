@@ -25,6 +25,7 @@ class CalendarServiceUtilTest {
 	private Schedule weekRepetitionScheduleWithDayOfWeek;
 	private Schedule weekRepetitionScheduleWithoutDayOfWeek;
 	private Schedule monthRepetitionSchedule;
+	private Schedule yearRepetitionSchedule;
 
 	@BeforeEach
 	void setUpDayRepetitionSchedule() {
@@ -89,6 +90,22 @@ class CalendarServiceUtilTest {
 		when(monthRepetitionSchedule.getDayOfWeek()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getDayOfWeek());
 		when(monthRepetitionSchedule.getWeekInterval()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getWeekInterval());
 		when(monthRepetitionSchedule.isRepetition()).thenReturn(true);
+	}
+
+	@BeforeEach
+	void setUpYearRepetitionSchedule() {
+		yearRepetitionSchedule = mock(Schedule.class);
+		when(yearRepetitionSchedule.getId()).thenReturn(1L);
+		when(yearRepetitionSchedule.getTitle()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getTitle());
+		when(yearRepetitionSchedule.getDescription()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getDescription());
+		when(yearRepetitionSchedule.getStartDateTime()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getStartDateTime());
+		when(yearRepetitionSchedule.getEndDateTime()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getEndDateTime());
+		when(yearRepetitionSchedule.getRepetitionStartDate()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate());
+		when(yearRepetitionSchedule.getRepetitionEndDate()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getRepetitionEndDate());
+		when(yearRepetitionSchedule.getRepetitionCycle()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getRepetitionCycle());
+		when(yearRepetitionSchedule.getDayOfWeek()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getDayOfWeek());
+		when(yearRepetitionSchedule.getWeekInterval()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getWeekInterval());
+		when(yearRepetitionSchedule.isRepetition()).thenReturn(true);
 	}
 
 
@@ -309,6 +326,59 @@ class CalendarServiceUtilTest {
 			// when
 			List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
 				monthRepetitionSchedule, startDate, endDate);
+
+			// then
+			assertEquals(3, scheduleResponses.size());
+
+		}
+	}
+
+	@Nested
+	class YearRepetitionTest{
+
+		@Test
+		@DisplayName("오늘 검색 조건으로 반복일정 조회 - 결과가 없는 경우")
+		void getSchedulesResponsesForNoResult(){
+
+			// given
+			LocalDate startDate = ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate().with(TemporalAdjusters.firstDayOfYear());
+
+			// when
+			List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+				yearRepetitionSchedule, startDate, startDate);
+
+			// then
+			assertEquals(0, scheduleResponses.size());
+
+		}
+
+		@Test
+		@DisplayName("오늘 검색 조건으로 반복일정 조회 - 결과가 1건인 경우")
+		void getSchedulesResponsesForToday(){
+
+			// given
+			LocalDate startDate = ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate().plusYears(1).plusDays(1);
+
+			// when
+			List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+				yearRepetitionSchedule, startDate, startDate);
+
+			// then
+			assertEquals(1, scheduleResponses.size());
+
+		}
+
+		@Test
+		@DisplayName("Year 검색 조건으로 반복일정 조회")
+		void getSchedulesResponsesForYear(){
+
+			// given
+			LocalDate startDate = ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate().plusDays(1);
+			LocalDate endDate = startDate.plusYears(2);
+
+			// when
+			List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+				yearRepetitionSchedule, startDate, endDate);
 
 			// then
 			assertEquals(3, scheduleResponses.size());

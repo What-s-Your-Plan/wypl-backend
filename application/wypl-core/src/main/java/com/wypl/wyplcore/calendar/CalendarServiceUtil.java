@@ -151,6 +151,25 @@ public class CalendarServiceUtil {
 		return responses;
 	}
 
+	private static List<ScheduleFindResponse> getYearRepetitionSchedule(Schedule schedule, LocalDate startDate, LocalDate endDate) {
+		List<ScheduleFindResponse> responses = new ArrayList<>();
+
+		startDate = getMaxDate(startDate, schedule.getRepetitionStartDate());
+		endDate = getMinDate(endDate, schedule.getRepetitionEndDate());
+
+		// startDate와 같거나 가장 가까운 schedule.endDateTime의 날짜, 시간을 가진 LocalDateTime 생성
+		LocalDateTime nearestEndDateTime = LocalDateTime.of(startDate.withDayOfYear(schedule.getEndDateTime().getDayOfYear()), schedule.getEndDateTime().toLocalTime());
+		LocalDateTime nearestStartDateTime = nearestEndDateTime.minus(Duration.between(schedule.getStartDateTime(), schedule.getEndDateTime()));
+
+		for(LocalDate date = nearestStartDateTime.toLocalDate(); !date.isAfter(endDate); date = date.plusYears(1)) {
+			LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
+			LocalDateTime endDateTime = startDateTime.plus(Duration.between(schedule.getStartDateTime(), schedule.getEndDateTime()));
+			responses.add(ScheduleFindResponse.of(schedule, startDateTime, endDateTime));
+		}
+
+		return responses;
+	}
+
 	/**
 	 * repetitionDayOfWeek에 해당하는 요일이 선택되었는지 확인
 	 * @param repetitionDayOfWeek of Schedule
