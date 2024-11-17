@@ -31,10 +31,10 @@ public class Schedule extends JpaBaseEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "start_datetime", nullable = false)
+    @Column(name = "start_date_time", nullable = false)
     private LocalDateTime startDateTime;
 
-    @Column(name = "end_datetime", nullable = false)
+    @Column(name = "end_date_time", nullable = false)
     private LocalDateTime endDateTime;
 
     @Column(name = "repetition_start_date")
@@ -43,14 +43,15 @@ public class Schedule extends JpaBaseEntity {
     @Column(name = "repetition_end_date")
     private LocalDate repetitionEndDate;
 
+    @Getter
     @Enumerated(EnumType.STRING)
     private RepetitionCycle repetitionCycle; // 반복 주기 (일, 주, 달, 년)
 
     @Column(name = "day_of_week")
-    private Integer dayOfWeek; // 반복 요일
+    private Integer dayOfWeek; // 반복 요일: Bit Masking
 
     @Column(name = "week_interval")
-    private Integer weekInterval; // 주 반복
+    private Integer weekInterval; // 주 반복 (1~3)
 
     // Todo: Review Mapping
 
@@ -67,4 +68,13 @@ public class Schedule extends JpaBaseEntity {
         this.dayOfWeek = dayOfWeek;
         this.weekInterval = weekInterval;
     }
+
+    public boolean isRepetition() {
+        return repetitionCycle != null;
+    }
+
+    public boolean existsDayOfWeek() {
+        return dayOfWeek != null;
+    }
+
 }
