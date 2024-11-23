@@ -16,5 +16,6 @@ dependencies {
     implementation project(':domain:jpamongo-review-domain')
     implementation project(':domain:jpa-calendar-domain')
     implementation project(':domain:jpa-member-domain')
+    implementation project(':domain:redis-embedded-domain')
     implementation project(':common')
 }
