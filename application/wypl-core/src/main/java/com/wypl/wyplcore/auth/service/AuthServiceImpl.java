@@ -1,5 +1,7 @@
 package com.wypl.wyplcore.auth.service;
 
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,18 +35,20 @@ public class AuthServiceImpl {
 		GoogleUserInfoResponse googleUserInfoResponse = googleOAuthClient.fetchUserInfo(
 			googleTokenResponse.accessToken());
 
-		long memberId = findMemberIdAfterSaveMember(googleUserInfoResponse);
+		long memberId = findMemberIdAfterSaveMember(googleTokenResponse.accessToken(), googleUserInfoResponse);
 
 		authDomainService.saveToken(googleTokenResponse.accessToken(), googleTokenResponse.refreshToken());
 
 		return AuthTokensResponse.of(memberId, googleTokenResponse);
 	}
 
-	private long findMemberIdAfterSaveMember(GoogleUserInfoResponse googleUserInfoResponse) {
-		if(socialMemberRepository.notexistsByOauthProviderAndOauthId(OauthProvider.GOOGLE, googleUserInfoResponse.id())) {
+	private long findMemberIdAfterSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
+		if(!socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE, googleUserInfoResponse.id())) {
+			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
+
 			MemberDto memberDto = MemberDto.builder()
 				.email(googleUserInfoResponse.email())
-				.birthday(null)
+				.birthday(birthday)
 				.nickname(googleUserInfoResponse.name())
 				.profileImage(googleUserInfoResponse.picture())
 				.build();
