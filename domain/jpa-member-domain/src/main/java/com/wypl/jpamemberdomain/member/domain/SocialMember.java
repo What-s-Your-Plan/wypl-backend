@@ -39,6 +39,6 @@ public class SocialMember {
 	private OauthProvider oauthProvider;
 
 	@Column(name = "oauth_id", nullable = false)
-	private String OauthId;
+	private String oauthId;
 }
 
