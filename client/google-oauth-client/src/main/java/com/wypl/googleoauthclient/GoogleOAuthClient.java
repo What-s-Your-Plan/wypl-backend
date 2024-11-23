@@ -88,20 +88,17 @@ public class GoogleOAuthClient {
 		headers.setBearerAuth(accessToken);
 
 		HttpEntity<String> entity = new HttpEntity<>("", headers);
-		ResponseEntity<GoogleUserInfoResponse> response = restTemplate.exchange(
-			USERINFO_URI,
-			HttpMethod.GET,
-			entity,
-			GoogleUserInfoResponse.class);
 
-		// Todo : 예외 처리
-
-		return response.getBody();
-
-		// Todo : response의 id값 저장
-		// 회원가입 때 저장하는 거 아닌가?
-		// 로그인 요청했을 때, 유저 정보 받아오고, id 값이 존재하면 로그인 처리 / 없으면 회원가입 처리?
-
+		try {
+			return restTemplate.exchange(
+				USERINFO_URI,
+				HttpMethod.GET,
+				entity,
+				GoogleUserInfoResponse.class)
+				.getBody();
+		} catch (HttpClientErrorException e) {
+			throw new GoogleOAuthException(GoogleOAuthErrorCode.INVALID_TOKEN);
+		}
 	}
 
 	/**
