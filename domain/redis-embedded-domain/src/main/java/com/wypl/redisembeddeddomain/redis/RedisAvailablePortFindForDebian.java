@@ -1,8 +1,11 @@
-package com.seikim.redisembeddeddomain.redis;
+package com.wypl.redisembeddeddomain.redis;
 
 import java.io.IOException;
 
-public class RedisAvailablePortFindForUbuntu extends RedisAvailablePortFind {
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class RedisAvailablePortFindForDebian extends RedisAvailablePortFind {
 
 	private final RedisAvailablePortFindForMac redisAvailablePortFindForMac = new RedisAvailablePortFindForMac();
 

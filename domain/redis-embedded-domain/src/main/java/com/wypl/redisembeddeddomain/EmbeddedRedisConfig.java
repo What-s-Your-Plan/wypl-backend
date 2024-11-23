@@ -1,4 +1,4 @@
-package com.seikim.redisembeddeddomain;
+package com.wypl.redisembeddeddomain;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.seikim.redisembeddeddomain.redis.*;
+import com.wypl.redisembeddeddomain.redis.*;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;

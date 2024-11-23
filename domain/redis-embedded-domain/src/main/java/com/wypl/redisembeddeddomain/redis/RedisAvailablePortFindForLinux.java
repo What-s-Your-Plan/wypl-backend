@@ -1,4 +1,4 @@
-package com.seikim.redisembeddeddomain.redis;
+package com.wypl.redisembeddeddomain.redis;
 
 import java.io.IOException;
 

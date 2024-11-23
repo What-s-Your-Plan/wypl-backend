@@ -18,4 +18,6 @@ dependencies {
     implementation project(':domain:jpa-member-domain')
     implementation project(':domain:redis-embedded-domain')
     implementation project(':common')
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
