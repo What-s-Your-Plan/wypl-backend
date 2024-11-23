@@ -35,4 +35,8 @@ public class AuthDomainServiceImpl {
 	public void saveToken(String accessToken, String refreshToken) {
 		tokenRepository.saveToken(accessToken, refreshToken);
 	}
+
+	public String getRefreshToken(String accessToken) {
+		return new String(redisTokenTemplate.opsForValue().get(accessToken.getBytes()));
+	}
 }
