@@ -9,6 +9,7 @@ java {
 
 dependencies {
     implementation project(':application:application-common')
+    implementation project(':client:google-oauth-client')
     implementation project(':client:openweather-client')
     implementation project(':domain:jpa-common')
     implementation project(':domain:mongo-common')

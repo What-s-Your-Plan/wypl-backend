@@ -1,9 +1,10 @@
-package com.wypl.jpamemberdomain.member;
+package com.wypl.jpamemberdomain.member.domain;
 
 import java.time.LocalDate;
 
 import com.wypl.common.Color;
 import com.wypl.jpacommon.JpaBaseEntity;
+import com.wypl.jpamemberdomain.member.TimeZone;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

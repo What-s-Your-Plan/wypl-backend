@@ -1,4 +1,6 @@
-package com.wypl.jpamemberdomain.member;
+package com.wypl.jpamemberdomain.member.domain;
+
+import com.wypl.jpamemberdomain.member.OauthProvider;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

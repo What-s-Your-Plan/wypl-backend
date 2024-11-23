@@ -1,4 +1,4 @@
-package com.wypl.wyplcore.auth.annotation;
+package com.wypl.googleoauthclient.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

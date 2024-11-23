@@ -1,16 +1,18 @@
 package com.wypl.wyplcore.schedule.controller;
 
-import com.wypl.applicationcommon.WyplResponseEntity;
-import com.wypl.wyplcore.auth.annotation.Authenticated;
-import com.wypl.wyplcore.auth.domain.AuthMember;
-import com.wypl.wyplcore.schedule.data.request.ScheduleCreateRequest;
-import com.wypl.wyplcore.schedule.data.response.ScheduleInfoCreateResponse;
-import com.wypl.wyplcore.schedule.service.ScheduleService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.wypl.applicationcommon.WyplResponseEntity;
+import com.wypl.googleoauthclient.annotation.Authenticated;
+import com.wypl.googleoauthclient.domain.AuthMember;
+import com.wypl.wyplcore.schedule.data.request.ScheduleCreateRequest;
+import com.wypl.wyplcore.schedule.data.response.ScheduleInfoCreateResponse;
+import com.wypl.wyplcore.schedule.service.ScheduleService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor

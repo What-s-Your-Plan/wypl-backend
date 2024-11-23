@@ -1,7 +1,7 @@
 package com.wypl.wyplcore.review.utils;
 
 import com.wypl.common.exception.CallConstructorException;
-import com.wypl.jpamemberdomain.member.Member;
+import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.jpamongoreviewdomain.review.domain.Review;
 import com.wypl.jpamongoreviewdomain.review.repository.ReviewRepository;
 import com.wypl.wyplcore.review.exception.ReviewErrorCode;
