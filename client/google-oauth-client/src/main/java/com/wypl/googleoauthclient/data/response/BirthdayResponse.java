@@ -13,6 +13,10 @@ public class BirthdayResponse {
 	private String etag;
 	private List<Birthday> birthdays;
 
+	public boolean emptyBirthday() {
+		return birthdays == null;
+	}
+
 	@Getter
 	@Builder
 	public static class Birthday {

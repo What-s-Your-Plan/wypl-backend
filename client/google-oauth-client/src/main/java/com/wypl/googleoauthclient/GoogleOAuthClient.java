@@ -135,7 +135,7 @@ public class GoogleOAuthClient {
 			entity,
 			BirthdayResponse.class);
 
-		if(response.getBody().getBirthdays().isEmpty()) {
+		if(response.getBody().emptyBirthday()) {
 			return null;
 		}
 
