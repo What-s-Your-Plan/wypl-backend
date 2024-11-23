@@ -9,4 +9,6 @@ import com.wypl.jpamemberdomain.member.domain.SocialMember;
 
 public interface SocialMemberRepository extends JpaRepository<SocialMember, Long> {
 	Optional<SocialMember> findByOauthProviderAndOauthId(OauthProvider oauthProvider, String oauthId);
+
+	boolean notexistsByOauthProviderAndOauthId(OauthProvider oauthProvider, String oauthId);
 }
