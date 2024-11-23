@@ -18,19 +18,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DayCalendarStrategy implements CalendarStrategy {
 
-    private final ScheduleRepository scheduleRepository;
-
     @Override
     public CalendarType getCalendarType() {
         return CalendarType.DAY;
     }
 
+    /**
+     * Day 달력의 전체 일정을 조회한다.
+     * @param calendarId
+     * @param startDate
+     * @return List<ScheduleFindResponse>
+     */
     @Override
-    public List<ScheduleFindResponse> getAllSchedule(long calendarId, LocalDate startDate) {
+    public List<ScheduleFindResponse> getAllSchedule(ScheduleRepository repository, long calendarId, LocalDate startDate) {
+
+        List<Schedule> schedules = repository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId, startDate, startDate);
 
         List<ScheduleFindResponse> scheduleFindResponses = new ArrayList<>();
-
-        List<Schedule> schedules = scheduleRepository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId, startDate, startDate);
 
         for (Schedule schedule : schedules) {
             RepetitionService.getScheduleResponses(schedule, startDate, startDate);

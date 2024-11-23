@@ -12,6 +12,14 @@ import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
 public class MonthRepetitionStrategy implements RepetitionStrategy{
+
+	/**
+	 * RepetitionCycle이 Month일 때 Schedule의 반복 일정을 조회한다.
+	 * @param schedule
+	 * @param searchStartDate
+	 * @param searchEndDate
+	 * @return List<ScheduleFindResponse>
+	 */
 	@Override
 	public List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
 		LocalDate searchEndDate) {

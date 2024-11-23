@@ -19,25 +19,30 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MonthCalendarStrategy implements CalendarStrategy {
 
-	private final ScheduleRepository scheduleRepository;
-
 	@Override
 	public CalendarType getCalendarType() {
-		return CalendarType.WEEK;
+		return CalendarType.MONTH;
 	}
 
+	/**
+	 * Month 달력의 전체 일정 조회한다.
+	 * @param calendarId
+	 * @param startDate
+	 * @return List<ScheduleFindResponse>
+	 */
 	@Override
-	public List<ScheduleFindResponse> getAllSchedule(long calendarId, LocalDate startDate) {
+	public List<ScheduleFindResponse> getAllSchedule(ScheduleRepository scheduleRepository, long calendarId, LocalDate startDate) {
+
+		LocalDate searchStartDate = startDate.withDayOfMonth(1);
+		LocalDate searchEndDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
+
+		List<Schedule> schedules = scheduleRepository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId, searchStartDate, searchEndDate);
 
 		List<ScheduleFindResponse> scheduleFindResponses = new ArrayList<>();
-		startDate = startDate.withDayOfMonth(1);
-		LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
-
-		List<Schedule> schedules = scheduleRepository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId, startDate, endDate);
-
 		for (Schedule schedule : schedules) {
-			scheduleFindResponses.addAll(RepetitionService.getScheduleResponses(schedule, startDate, endDate));
+			scheduleFindResponses.addAll(RepetitionService.getScheduleResponses(schedule, searchStartDate, searchEndDate));
 		}
 		return scheduleFindResponses;
 	}
+
 }

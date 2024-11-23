@@ -26,21 +26,28 @@ import java.util.Map;
 public class CalendarService {
 
     private final ScheduleRepository scheduleRepository;
-    private final ScheduleInfoRepository scheduleInfoRepository;
+
     private final Map<CalendarType, CalendarStrategy> calendarStrategyMap;
 
+    /**
+     * 회원의 캘린더를 조회한다.
+     * @param authMember
+     * @param calendarId
+     * @param calendarFindRequest
+     * @return FindCalendarResponse
+     */
     @Transactional
     public FindCalendarResponse findCalendar(AuthMember authMember, long calendarId, CalendarFindRequest calendarFindRequest) {
 
         Calendar foundCalendar = null;  // FIXME: calendarId로 foundCalendar 엔티티 검증 필요.
-        MemberCalendar foundMemberCalendar = null; // Fixme: memberCalendar 엔티티 검증 필요.
+        MemberCalendar foundMemberCalendar = null; // FIXME: memberCalendar 엔티티 검증 필요.
         Member foundMember = null; // FIXME: member 엔티티 검증 필요.
 
         CalendarType calendarType = calendarFindRequest.calendarType();
         LocalDate startDate = calendarFindRequest.startDate();
 
-        List<ScheduleFindResponse> foundScheduleFindResponses = calendarStrategyMap.get(calendarType).getAllSchedule(foundCalendar.getId(), startDate);
-
+        CalendarStrategy calendarStrategy = calendarStrategyMap.get(calendarType);
+        List<ScheduleFindResponse> foundScheduleFindResponses = calendarStrategy.getAllSchedule(scheduleRepository, foundCalendar.getId(), startDate);
 
         CalendarFindResponse calendarFindResponse = new CalendarFindResponse(foundCalendar.getId(), foundMemberCalendar.getColor(), foundCalendar.getName());
         return new FindCalendarResponse(calendarFindResponse, foundScheduleFindResponses);

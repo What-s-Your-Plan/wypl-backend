@@ -1,6 +1,7 @@
 package com.wypl.wyplcore.calendar.service.strategy;
 
 
+import com.wypl.jpacalendardomain.calendar.repository.ScheduleRepository;
 import com.wypl.wyplcore.schedule.data.CalendarType;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
@@ -11,5 +12,5 @@ public interface CalendarStrategy {
 
     CalendarType getCalendarType();
 
-    List<ScheduleFindResponse> getAllSchedule(long calendarId, LocalDate startDate);
+    List<ScheduleFindResponse> getAllSchedule(ScheduleRepository repository, long calendarId, LocalDate startDate);
 }

@@ -16,11 +16,16 @@ import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
 public class WeekRepetitionStrategy implements RepetitionStrategy{
 
+	/**
+	 * RepetitionCycle이 Week일 때 Schedule의 반복 일정을 조회한다.
+	 * @param schedule
+	 * @param searchStartDate
+	 * @param searchEndDate
+	 * @return List<ScheduleFindResponse>
+	 */
 	@Override
 	public List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
 		LocalDate searchEndDate) {
-
-		List<ScheduleFindResponse> responses = new ArrayList<>();
 
 		// 검색할 시작일자와 끝일자 설정
 		searchEndDate = getMinDate(searchEndDate, schedule.getRepetitionEndDate());
@@ -28,6 +33,7 @@ public class WeekRepetitionStrategy implements RepetitionStrategy{
 
 		// 반복 주에 포함되도록 가공
 		searchStartDate = getNearestDateUsingWeekInterval(searchStartDate, schedule.getWeekInterval(), schedule);
+		List<ScheduleFindResponse> responses = new ArrayList<>();
 
 		if(!schedule.existsDayOfWeek()){ // 반복 요일을 설정하지 않았을 경우
 
@@ -45,7 +51,7 @@ public class WeekRepetitionStrategy implements RepetitionStrategy{
 		// 반복 요일을 설정했을 경우
 		int repetitionDayOfWeek = schedule.getDayOfWeek();
 
-		for (int dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) {
+		for (int dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) { // 요일마다 처리
 			if( isSelectedDayOfWeek(repetitionDayOfWeek, dayOfWeek) ) {
 
 				// Find nearest day by dayOfWeek and increase weekInterval
@@ -105,7 +111,7 @@ public class WeekRepetitionStrategy implements RepetitionStrategy{
 	}
 
 	/**
-	 * repetitionDayOfWeek에 해당하는 요일이 선택되었는지 확인
+	 * repetitionDayOfWeek(반복요일)에 해당하는 요일이 선택되었는지 확인
 	 * @param repetitionDayOfWeek of Schedule
 	 * @param dayOfWeek (1: 월요일, 2: 화요일, 3: 수요일, 4: 목요일, 5: 금요일, 6: 토요일, 7: 일요일)
 	 * @return boolean

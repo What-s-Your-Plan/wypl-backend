@@ -23,6 +23,12 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final ScheduleInfoRepository scheduleInfoRepository;
 
+    /**
+     * Schedule을 생성한다.
+     * @param authMember
+     * @param scheduleCreateRequest
+     * @return ScheduleInfoCreateResponse
+     */
     @Transactional
     public ScheduleInfoCreateResponse createSchedule(AuthMember authMember, ScheduleCreateRequest scheduleCreateRequest) {
 

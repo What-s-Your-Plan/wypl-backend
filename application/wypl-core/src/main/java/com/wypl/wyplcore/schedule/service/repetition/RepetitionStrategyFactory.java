@@ -23,6 +23,11 @@ public class RepetitionStrategyFactory {
 		map.put(RepetitionCycle.YEAR, new YearRepetitionStrategy());
 	}
 
+	/**
+	 * RepetitionCycle에 따른 RepetitionStrategy를 반환한다.
+	 * @param repetitionCycle
+	 * @return RepetitionStrategy
+	 */
 	public static RepetitionStrategy getRepetitionStrategy(RepetitionCycle repetitionCycle) {
 		if (instance == null) {
 			instance = new RepetitionStrategyFactory();

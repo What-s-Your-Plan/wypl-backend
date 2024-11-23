@@ -9,7 +9,9 @@ import com.wypl.wyplcore.schedule.service.repetition.RepetitionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,23 +19,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WeekCalendarStrategy implements CalendarStrategy {
 
-    private final ScheduleRepository scheduleRepository;
-
     @Override
     public CalendarType getCalendarType() {
         return CalendarType.WEEK;
     }
 
+    /**
+     * Week 달력의 전체 일정 조회한다.
+     * @param calendarId
+     * @param startDate
+     * @return List<ScheduleFindResponse>
+     */
     @Override
-    public List<ScheduleFindResponse> getAllSchedule(long calendarId, LocalDate startDate) {
+    public List<ScheduleFindResponse> getAllSchedule(ScheduleRepository repository, long calendarId, LocalDate startDate) {
+
+        LocalDate searchStartDate = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate searchEndDate = startDate.plusDays(6);
+
+        List<Schedule> schedules = repository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId, searchStartDate, searchEndDate);
 
         List<ScheduleFindResponse> scheduleFindResponses = new ArrayList<>();
-        LocalDate endDate = startDate.plusDays(6);
-
-        List<Schedule> schedules = scheduleRepository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId, startDate, endDate);
-
         for (Schedule schedule : schedules) {
-            scheduleFindResponses.addAll(RepetitionService.getScheduleResponses(schedule, startDate, endDate));
+            scheduleFindResponses.addAll(RepetitionService.getScheduleResponses(schedule, searchStartDate, searchEndDate));
         }
         return scheduleFindResponses;
     }
