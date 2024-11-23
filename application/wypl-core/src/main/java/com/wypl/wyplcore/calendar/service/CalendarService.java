@@ -1,12 +1,10 @@
 package com.wypl.wyplcore.calendar.service;
 
+import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.jpacalendardomain.calendar.domain.Calendar;
 import com.wypl.jpacalendardomain.calendar.domain.MemberCalendar;
-import com.wypl.jpacalendardomain.calendar.mapper.ScheduleMapper;
-import com.wypl.jpacalendardomain.calendar.repository.ScheduleInfoRepository;
 import com.wypl.jpacalendardomain.calendar.repository.ScheduleRepository;
-import com.wypl.jpamemberdomain.member.Member;
-import com.wypl.wyplcore.auth.domain.AuthMember;
+import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.wyplcore.calendar.data.response.CalendarFindResponse;
 import com.wypl.wyplcore.calendar.data.response.FindCalendarResponse;
 import com.wypl.wyplcore.calendar.service.strategy.CalendarStrategy;
