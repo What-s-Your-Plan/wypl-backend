@@ -1,6 +1,7 @@
 package com.wypl.jpamemberdomain.member.domain;
 
 import com.wypl.jpamemberdomain.member.OauthProvider;
+import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,5 +41,13 @@ public class SocialMember {
 
 	@Column(name = "oauth_id", nullable = false)
 	private String oauthId;
+
+	public static SocialMember of(Member member, SocialMemberDto socialMemberDto) {
+		return SocialMember.builder()
+			.member(member)
+			.oauthProvider(socialMemberDto.getOauthProvider())
+			.oauthId(socialMemberDto.getOauthId())
+			.build();
+	}
 }
 
