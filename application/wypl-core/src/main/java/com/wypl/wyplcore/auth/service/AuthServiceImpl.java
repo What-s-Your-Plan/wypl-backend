@@ -58,8 +58,6 @@ public class AuthServiceImpl {
 				.oauthId(googleUserInfoResponse.id())
 				.build();
 
-			// Todo : birthday 정보 요청
-
 			return authDomainService.saveAuthData(memberDto, socialMemberDto);
 		}
 
