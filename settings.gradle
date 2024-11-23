@@ -17,6 +17,7 @@ include ':domain:jpamongo-review-domain'
 include ':domain:mongo-common'
 include ':domain:redis-token-domain'
 
+include ':domain:redis-embedded-domain'
 
 /* Client Module */
 include ':client'
