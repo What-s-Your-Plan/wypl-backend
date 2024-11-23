@@ -1,5 +1,6 @@
 package com.wypl.googleoauthclient;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import com.wypl.common.exception.GlobalErrorCode;
 import com.wypl.common.exception.WyplException;
 import com.wypl.googleoauthclient.config.GoogleOAuthProperties;
+import com.wypl.googleoauthclient.data.response.BirthdayResponse;
 import com.wypl.googleoauthclient.data.response.GoogleTokenResponse;
 import com.wypl.googleoauthclient.data.response.GoogleTokenValidationResponse;
 import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
@@ -34,6 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleOAuthClient {
 	private static final String VALIDATION_URI = "https://www.googleapis.com/oauth2/v1/tokeninfo";
 	private static final String USERINFO_URI = "https://www.googleapis.com/oauth2/v1/userinfo";
+	private static final String BIRTHDAY_URI = "https://people.googleapis.com/v1/people/me?personFields=birthdays";
 
 	private final GoogleOAuthProperties googleOAuthProperties;
 	private final RestTemplate restTemplate;
@@ -119,6 +122,26 @@ public class GoogleOAuthClient {
 		} catch (HttpClientErrorException e) {
 			throw new GoogleOAuthException(GoogleOAuthErrorCode.INVALID_TOKEN);
 		}
+	}
+
+	public LocalDate fetchBirthday(String accessToken) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(accessToken);
+
+		HttpEntity<String> entity = new HttpEntity<>("", headers);
+		ResponseEntity<BirthdayResponse> response = restTemplate.exchange(
+			BIRTHDAY_URI,
+			HttpMethod.GET,
+			entity,
+			BirthdayResponse.class);
+
+		if(response.getBody().getBirthdays().isEmpty()) {
+			return null;
+		}
+
+		BirthdayResponse.Birthday.Date date = response.getBody().getBirthdays().get(0).getDate();
+
+		return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
 	}
 
 	private GoogleTokenResponse requestToken(MultiValueMap<String, String> params) {
