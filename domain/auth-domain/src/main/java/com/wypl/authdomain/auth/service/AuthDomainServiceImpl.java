@@ -22,7 +22,7 @@ public class AuthDomainServiceImpl {
 	private final TokenRepository tokenRepository;
 
 	public boolean checkExistsToken(String accessToken) {
-		byte[] refreshToken = redisTokenTemplate.opsForValue().get(accessToken);
+		byte[] refreshToken = redisTokenTemplate.opsForValue().get(accessToken.getBytes());
 		return refreshToken != null;
 	}
 
