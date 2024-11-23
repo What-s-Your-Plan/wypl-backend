@@ -33,8 +33,12 @@ public class AuthServiceImpl {
 		GoogleUserInfoResponse googleUserInfoResponse = googleOAuthClient.fetchUserInfo(
 			googleTokenResponse.accessToken());
 
-		long memberId = 0L;
+		long memberId = findMemberIdAfterSaveMember(googleUserInfoResponse);
 
+		return AuthTokensResponse.of(memberId, googleTokenResponse);
+	}
+
+	private long findMemberIdAfterSaveMember(GoogleUserInfoResponse googleUserInfoResponse) {
 		if(socialMemberRepository.notexistsByOauthProviderAndOauthId(OauthProvider.GOOGLE, googleUserInfoResponse.id())) {
 			MemberDto memberDto = MemberDto.builder()
 				.email(googleUserInfoResponse.email())
@@ -50,12 +54,11 @@ public class AuthServiceImpl {
 
 			// Todo : birthday 정보 요청
 
-			memberId = authDomainService.saveAuthData(memberDto, socialMemberDto);
-		} else {
-			memberId = SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();
+			return authDomainService.saveAuthData(memberDto, socialMemberDto);
 		}
 
-		return AuthTokensResponse.of(memberId, googleTokenResponse);
+		return SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();
+
 	}
 }
 
