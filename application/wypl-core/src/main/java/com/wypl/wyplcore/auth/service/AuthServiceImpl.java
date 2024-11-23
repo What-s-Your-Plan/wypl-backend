@@ -35,6 +35,8 @@ public class AuthServiceImpl {
 
 		long memberId = findMemberIdAfterSaveMember(googleUserInfoResponse);
 
+		authDomainService.saveToken(googleTokenResponse.accessToken(), googleTokenResponse.refreshToken());
+
 		return AuthTokensResponse.of(memberId, googleTokenResponse);
 	}
 
