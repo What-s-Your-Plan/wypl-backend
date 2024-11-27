@@ -101,17 +101,19 @@ public class GoogleOAuthClient {
 	public LocalDate fetchBirthday(String accessToken) {
 		HttpEntity<String> entity = getAuthEntity(accessToken);
 
-		ResponseEntity<BirthdayResponse> response = restTemplate.exchange(
+		ResponseEntity<BirthdayResponse> responseEntity = restTemplate.exchange(
 			BIRTHDAY_URI,
 			HttpMethod.GET,
 			entity,
 			BirthdayResponse.class);
 
-		if(response.getBody().emptyBirthday()) {
+		BirthdayResponse response = responseEntity.getBody();
+
+		if(response.emptyBirthday()) {
 			return null;
 		}
 
-		BirthdayResponse.Birthday.Date date = response.getBody().getBirthdays().get(0).getDate();
+		BirthdayResponse.Birthday.Date date = response.getBirthdays().get(0).getDate();
 
 		return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
 	}
