@@ -84,10 +84,7 @@ public class GoogleOAuthClient {
 	 * @return 유저의 상세 정보
 	 */
 	public GoogleUserInfoResponse fetchUserInfo(String accessToken) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setBearerAuth(accessToken);
-
-		HttpEntity<String> entity = new HttpEntity<>("", headers);
+		HttpEntity<String> entity = getAuthEntity(accessToken);
 
 		try {
 			return restTemplate.exchange(
@@ -99,6 +96,31 @@ public class GoogleOAuthClient {
 		} catch (HttpClientErrorException e) {
 			throw new GoogleOAuthException(GoogleOAuthErrorCode.INVALID_TOKEN);
 		}
+	}
+
+	public LocalDate fetchBirthday(String accessToken) {
+		HttpEntity<String> entity = getAuthEntity(accessToken);
+
+		ResponseEntity<BirthdayResponse> response = restTemplate.exchange(
+			BIRTHDAY_URI,
+			HttpMethod.GET,
+			entity,
+			BirthdayResponse.class);
+
+		if(response.getBody().emptyBirthday()) {
+			return null;
+		}
+
+		BirthdayResponse.Birthday.Date date = response.getBody().getBirthdays().get(0).getDate();
+
+		return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+	}
+
+	private static HttpEntity<String> getAuthEntity(String accessToken) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth(accessToken);
+
+		return new HttpEntity<>("", headers);
 	}
 
 	/**
@@ -119,26 +141,6 @@ public class GoogleOAuthClient {
 		} catch (HttpClientErrorException e) {
 			throw new GoogleOAuthException(GoogleOAuthErrorCode.INVALID_TOKEN);
 		}
-	}
-
-	public LocalDate fetchBirthday(String accessToken) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.setBearerAuth(accessToken);
-
-		HttpEntity<String> entity = new HttpEntity<>("", headers);
-		ResponseEntity<BirthdayResponse> response = restTemplate.exchange(
-			BIRTHDAY_URI,
-			HttpMethod.GET,
-			entity,
-			BirthdayResponse.class);
-
-		if(response.getBody().emptyBirthday()) {
-			return null;
-		}
-
-		BirthdayResponse.Birthday.Date date = response.getBody().getBirthdays().get(0).getDate();
-
-		return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
 	}
 
 	private GoogleTokenResponse requestToken(MultiValueMap<String, String> params) {
