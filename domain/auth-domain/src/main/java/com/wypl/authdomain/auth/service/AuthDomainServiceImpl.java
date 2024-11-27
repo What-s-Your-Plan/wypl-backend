@@ -10,6 +10,8 @@ import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.redistokendomain.TokenRepository;
+import com.wypl.redistokendomain.exception.RedisTokenErrorCode;
+import com.wypl.redistokendomain.exception.RedisTokenException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +39,12 @@ public class AuthDomainServiceImpl {
 	}
 
 	public String getRefreshToken(String accessToken) {
-		return new String(redisTokenTemplate.opsForValue().get(accessToken.getBytes()));
+		byte[] refreshToken = redisTokenTemplate.opsForValue().get(accessToken.getBytes());
+
+		if(refreshToken == null) {
+			throw new RedisTokenException(RedisTokenErrorCode.TOKEN_IS_NOT_EXISTED);
+		}
+
+		return new String(refreshToken);
 	}
 }
