@@ -9,6 +9,7 @@ import com.wypl.authdomain.auth.service.AuthDomainServiceImpl;
 import com.wypl.googleoauthclient.GoogleOAuthClient;
 import com.wypl.googleoauthclient.data.response.GoogleTokenResponse;
 import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
+import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.jpamemberdomain.member.OauthProvider;
@@ -58,6 +59,11 @@ public class AuthServiceImpl {
 		authDomainService.saveToken(googleTokenResponse.accessToken(), refreshToken);
 
 		return AuthTokensResponse.of(googleTokenResponse.accessToken(), refreshToken);
+	}
+
+	@Transactional
+	public void deleteToken(AuthMember authMember) {
+		authDomainService.deleteToken(authMember.accessToken());
 	}
 
 	private boolean isInvalidRefreshToken(String accessToken, String refreshToken) {
