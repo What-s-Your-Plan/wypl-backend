@@ -98,6 +98,12 @@ public class GoogleOAuthClient {
 		}
 	}
 
+	/**
+	 * Access Token으로 구글에 생일 정보를 요청한다.
+	 *
+	 * @param accessToken 구글에서 발급받은 Access Token
+	 * @return 유저의 생일 정보. 생일 비공개 사용자는 null
+	 */
 	public LocalDate fetchBirthday(String accessToken) {
 		HttpEntity<String> entity = getAuthEntity(accessToken);
 
