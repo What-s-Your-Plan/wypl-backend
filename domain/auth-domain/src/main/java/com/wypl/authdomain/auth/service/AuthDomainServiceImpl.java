@@ -1,5 +1,7 @@
 package com.wypl.authdomain.auth.service;
 
+import java.util.Optional;
+
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +48,10 @@ public class AuthDomainServiceImpl {
 		}
 
 		return new String(refreshToken);
+	}
+
+	public void deleteToken(String accessToken) {
+		Optional.ofNullable(redisTokenTemplate.delete(accessToken.getBytes()))
+			.orElseThrow(() -> new RedisTokenException(RedisTokenErrorCode.TOKEN_IS_NOT_EXISTED));
 	}
 }
