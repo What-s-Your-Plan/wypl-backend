@@ -39,8 +39,8 @@ public class AwsS3StorageService {
 	 */
 	public void filesRemove(List<String> fileNames) {
 		List<DeleteObjectsRequest.KeyVersion> list = fileNames.stream()
-				.map(DeleteObjectsRequest.KeyVersion::new)
-				.toList();
+			.map(DeleteObjectsRequest.KeyVersion::new)
+			.toList();
 		DeleteObjectsRequest deleteObjectRequest = new DeleteObjectsRequest(awsS3Properties.getBucket());
 		deleteObjectRequest.setKeys(list);
 		amazonS3Client.deleteObjects(deleteObjectRequest);
