@@ -9,6 +9,8 @@ import com.wypl.authdomain.auth.service.AuthDomainServiceImpl;
 import com.wypl.googleoauthclient.GoogleOAuthClient;
 import com.wypl.googleoauthclient.data.response.GoogleTokenResponse;
 import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
+import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
+import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.jpamemberdomain.member.OauthProvider;
 import com.wypl.jpamemberdomain.member.data.MemberDto;
 import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
@@ -42,6 +44,26 @@ public class AuthServiceImpl {
 		return AuthTokensResponse.of(memberId, googleTokenResponse);
 	}
 
+	@Transactional
+	public AuthTokensResponse reissueToken(final String accessToken, final String refreshToken) {
+		if(isInvalidRefreshToken(accessToken, refreshToken)) {
+			throw new GoogleOAuthException(GoogleOAuthErrorCode.NOT_AUTHORIZATION_MEMBER);
+		}
+
+		// FIXME : member Id를 같이 보내야할까? 안 보내도 될 것 같은데.. redis에 access_token : {refresh_token, member_id}로 저장?
+
+		GoogleTokenResponse googleTokenResponse = googleOAuthClient.fetchRefreshGoogleOAuthToken(refreshToken);
+
+		authDomainService.deleteToken(accessToken);
+		authDomainService.saveToken(googleTokenResponse.accessToken(), refreshToken);
+
+		return AuthTokensResponse.of(googleTokenResponse.accessToken(), refreshToken);
+	}
+
+	private boolean isInvalidRefreshToken(String accessToken, String refreshToken) {
+		return refreshToken.equals(authDomainService.getRefreshToken(accessToken));
+	}
+
 	private long findMemberIdAfterSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
 		if(!socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE, googleUserInfoResponse.id())) {
 			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
@@ -62,7 +84,6 @@ public class AuthServiceImpl {
 		}
 
 		return SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();
-
 	}
 }
 

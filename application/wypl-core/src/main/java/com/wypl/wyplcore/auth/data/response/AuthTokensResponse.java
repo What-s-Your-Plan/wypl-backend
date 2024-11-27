@@ -21,4 +21,11 @@ public record AuthTokensResponse(
 			.refreshToken(googleTokenResponse.refreshToken())
 			.build();
 	}
+
+	public static AuthTokensResponse of(String accessToken, String refreshToken) {
+		return AuthTokensResponse.builder()
+			.accessToken(accessToken)
+			.refreshToken(refreshToken)
+			.build();
+	}
 }
