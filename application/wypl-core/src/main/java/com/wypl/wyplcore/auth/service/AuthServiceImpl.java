@@ -47,7 +47,7 @@ public class AuthServiceImpl {
 
 	@Transactional
 	public AuthTokensResponse reissueToken(final String accessToken, final String refreshToken) {
-		if(isInvalidRefreshToken(accessToken, refreshToken)) {
+		if (isInvalidRefreshToken(accessToken, refreshToken)) {
 			throw new GoogleOAuthException(GoogleOAuthErrorCode.NOT_AUTHORIZATION_MEMBER);
 		}
 
@@ -62,8 +62,23 @@ public class AuthServiceImpl {
 	}
 
 	@Transactional
-	public void deleteToken(AuthMember authMember) {
+	public void logout(AuthMember authMember) {
+		deleteToken(authMember);
+	}
+
+	@Transactional
+	public void quitMember(AuthMember authMember) {
+		// Todo : 회원 탈퇴 로직 논의
+		deleteMember(authMember);
+		deleteMember(authMember);
+	}
+
+	private void deleteToken(AuthMember authMember) {
 		authDomainService.deleteToken(authMember.accessToken());
+	}
+
+	private void deleteMember(AuthMember authMember) {
+		memberRepository.deleteById(authMember.id());
 	}
 
 	private boolean isInvalidRefreshToken(String accessToken, String refreshToken) {
@@ -71,7 +86,8 @@ public class AuthServiceImpl {
 	}
 
 	private long findMemberIdAfterSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
-		if(!socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE, googleUserInfoResponse.id())) {
+		if (!socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE,
+			googleUserInfoResponse.id())) {
 			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
 
 			MemberDto memberDto = MemberDto.builder()
