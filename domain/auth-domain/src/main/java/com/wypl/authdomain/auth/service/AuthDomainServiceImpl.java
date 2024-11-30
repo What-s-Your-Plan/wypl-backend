@@ -43,7 +43,7 @@ public class AuthDomainServiceImpl {
 	public String getRefreshToken(String accessToken) {
 		byte[] refreshToken = redisTokenTemplate.opsForValue().get(accessToken.getBytes());
 
-		if(refreshToken == null) {
+		if (refreshToken == null) {
 			throw new RedisTokenException(RedisTokenErrorCode.TOKEN_IS_NOT_EXISTED);
 		}
 

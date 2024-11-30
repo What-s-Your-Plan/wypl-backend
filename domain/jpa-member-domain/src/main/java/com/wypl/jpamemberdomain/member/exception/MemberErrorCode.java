@@ -6,8 +6,7 @@ import lombok.Getter;
 
 @Getter
 public enum MemberErrorCode implements ServerErrorCode {
-	NO_SUCH_MEMBER(400, "MEMBER_001", "존재하지 않는 회원입니다.")
-	;
+	NO_SUCH_MEMBER(400, "MEMBER_001", "존재하지 않는 회원입니다.");
 
 	private final int statusCode;
 	private final String errorCode;

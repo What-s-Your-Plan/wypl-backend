@@ -88,10 +88,10 @@ public class GoogleOAuthClient {
 
 		try {
 			return restTemplate.exchange(
-				USERINFO_URI,
-				HttpMethod.GET,
-				entity,
-				GoogleUserInfoResponse.class)
+					USERINFO_URI,
+					HttpMethod.GET,
+					entity,
+					GoogleUserInfoResponse.class)
 				.getBody();
 		} catch (HttpClientErrorException e) {
 			throw new GoogleOAuthException(GoogleOAuthErrorCode.INVALID_TOKEN);
@@ -115,7 +115,7 @@ public class GoogleOAuthClient {
 
 		BirthdayResponse response = responseEntity.getBody();
 
-		if(response.emptyBirthday()) {
+		if (response.emptyBirthday()) {
 			return null;
 		}
 

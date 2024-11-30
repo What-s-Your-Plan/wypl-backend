@@ -16,7 +16,8 @@ public class RedisConfig {
 
 	@Bean
 	public RedisConnectionFactory redisTokenConnectionFactory() {
-		RedisStandaloneConfiguration redisConfiguration = new RedisStandaloneConfiguration(redisProperties.getHost(), redisProperties.getPort());
+		RedisStandaloneConfiguration redisConfiguration = new RedisStandaloneConfiguration(
+			redisProperties.getHost(), redisProperties.getPort());
 		redisConfiguration.setPassword(redisProperties.getPassword());
 		return new LettuceConnectionFactory(redisConfiguration);
 	}

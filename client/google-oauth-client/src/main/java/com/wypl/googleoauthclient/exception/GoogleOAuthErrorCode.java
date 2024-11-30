@@ -10,8 +10,7 @@ public enum GoogleOAuthErrorCode implements ServerErrorCode {
 	MALFORMED(400, "GOOGLE_OAUTH_002", "올바르지 않은 토큰입니다."),
 	INVALID_TOKEN(400, "GOOGLE_OAUTH_003", "올바르지 않은 값입니다."),
 	NOT_AUTHORIZATION_MEMBER(400, "GOOGLE_OAUTH_004", "인증되지 않은 회원입니다."),
-	REFRESH_TOKEN(401, "GOOGLE_OAUTH_005", "만료된 토큰입니다.")
-	;
+	REFRESH_TOKEN(401, "GOOGLE_OAUTH_005", "만료된 토큰입니다.");
 
 	private final int statusCode;
 	private final String errorCode;
