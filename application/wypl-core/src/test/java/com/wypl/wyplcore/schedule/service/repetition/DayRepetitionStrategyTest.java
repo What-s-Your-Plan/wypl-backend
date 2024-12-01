@@ -29,9 +29,12 @@ class DayRepetitionStrategyTest {
 		when(dayRepetitionSchedule.getDescription()).thenReturn(ScheduleFixture.DAILY_SCHEDULE.getDescription());
 		when(dayRepetitionSchedule.getStartDateTime()).thenReturn(ScheduleFixture.DAILY_SCHEDULE.getStartDateTime());
 		when(dayRepetitionSchedule.getEndDateTime()).thenReturn(ScheduleFixture.DAILY_SCHEDULE.getEndDateTime());
-		when(dayRepetitionSchedule.getRepetitionStartDate()).thenReturn(ScheduleFixture.DAILY_SCHEDULE.getRepetitionStartDate());
-		when(dayRepetitionSchedule.getRepetitionEndDate()).thenReturn(ScheduleFixture.DAILY_SCHEDULE.getRepetitionEndDate());
-		when(dayRepetitionSchedule.getRepetitionCycle()).thenReturn(ScheduleFixture.DAILY_SCHEDULE.getRepetitionCycle());
+		when(dayRepetitionSchedule.getRepetitionStartDate()).thenReturn(
+			ScheduleFixture.DAILY_SCHEDULE.getRepetitionStartDate());
+		when(dayRepetitionSchedule.getRepetitionEndDate()).thenReturn(
+			ScheduleFixture.DAILY_SCHEDULE.getRepetitionEndDate());
+		when(dayRepetitionSchedule.getRepetitionCycle()).thenReturn(
+			ScheduleFixture.DAILY_SCHEDULE.getRepetitionCycle());
 		when(dayRepetitionSchedule.getDayOfWeek()).thenReturn(ScheduleFixture.DAILY_SCHEDULE.getDayOfWeek());
 		when(dayRepetitionSchedule.getWeekInterval()).thenReturn(ScheduleFixture.DAILY_SCHEDULE.getWeekInterval());
 		when(dayRepetitionSchedule.isRepetition()).thenReturn(true);
@@ -67,6 +70,7 @@ class DayRepetitionStrategyTest {
 		assertEquals(7, scheduleResponses.size());
 
 	}
+
 	@Test
 	void getSchedulesResponsesForMonth() {
 

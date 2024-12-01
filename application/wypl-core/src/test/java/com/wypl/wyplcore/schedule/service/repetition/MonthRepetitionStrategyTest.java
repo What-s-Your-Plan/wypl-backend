@@ -20,7 +20,6 @@ import com.wypl.wyplcore.schedule.service.repetition.strategy.MonthRepetitionStr
 class MonthRepetitionStrategyTest {
 
 	private Schedule monthRepetitionSchedule;
-	private final MonthRepetitionStrategy monthRepetitionStrategy = new MonthRepetitionStrategy();
 
 	@BeforeEach
 	void setUpMonthRepetitionSchedule() {
@@ -28,11 +27,15 @@ class MonthRepetitionStrategyTest {
 		when(monthRepetitionSchedule.getId()).thenReturn(1L);
 		when(monthRepetitionSchedule.getTitle()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getTitle());
 		when(monthRepetitionSchedule.getDescription()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getDescription());
-		when(monthRepetitionSchedule.getStartDateTime()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getStartDateTime());
+		when(monthRepetitionSchedule.getStartDateTime()).thenReturn(
+			ScheduleFixture.MONTHLY_SCHEDULE.getStartDateTime());
 		when(monthRepetitionSchedule.getEndDateTime()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getEndDateTime());
-		when(monthRepetitionSchedule.getRepetitionStartDate()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate());
-		when(monthRepetitionSchedule.getRepetitionEndDate()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionEndDate());
-		when(monthRepetitionSchedule.getRepetitionCycle()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionCycle());
+		when(monthRepetitionSchedule.getRepetitionStartDate()).thenReturn(
+			ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate());
+		when(monthRepetitionSchedule.getRepetitionEndDate()).thenReturn(
+			ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionEndDate());
+		when(monthRepetitionSchedule.getRepetitionCycle()).thenReturn(
+			ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionCycle());
 		when(monthRepetitionSchedule.getDayOfWeek()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getDayOfWeek());
 		when(monthRepetitionSchedule.getWeekInterval()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getWeekInterval());
 		when(monthRepetitionSchedule.isRepetition()).thenReturn(true);
@@ -40,7 +43,7 @@ class MonthRepetitionStrategyTest {
 
 	@Test
 	@DisplayName("오늘 검색 조건으로 반복일정 조회")
-	void getSchedulesResponsesForToday(){
+	void getSchedulesResponsesForToday() {
 
 		// given: Set today as the start date of the monthRepetitionSchedule
 		LocalDate startDate = ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate().plusMonths(1).plusDays(1);
@@ -56,13 +59,13 @@ class MonthRepetitionStrategyTest {
 
 	@Test
 	@DisplayName("Month 검색 조건으로 반복일정 조회")
-	void getSchedulesResponsesForMonth(){
+	void getSchedulesResponsesForMonth() {
 
 		// given: Set today as the start date of the monthRepetitionSchedule
 		LocalDate startDate = ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate().plusMonths(1).plusDays(1);
 		LocalDate endDate = startDate.plusYears(1);
 
-		System.out.println("startDate -> "+ startDate + ", endDate -> "+ endDate);
+		System.out.println("startDate -> " + startDate + ", endDate -> " + endDate);
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(

@@ -8,6 +8,7 @@ import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
 public interface RepetitionStrategy {
 
-	List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate, LocalDate searchEndDate);
+	List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
+		LocalDate searchEndDate);
 
 }

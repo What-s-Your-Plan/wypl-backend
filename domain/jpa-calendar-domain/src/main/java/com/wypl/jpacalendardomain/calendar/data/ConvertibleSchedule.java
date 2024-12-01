@@ -5,21 +5,21 @@ import java.time.LocalDateTime;
 
 public interface ConvertibleSchedule {
 
-    String getTitle();
+	String getTitle();
 
-    String getDescription();
+	String getDescription();
 
-    LocalDateTime getStartDateTime();
+	LocalDateTime getStartDateTime();
 
-    LocalDateTime getEndDateTime();
+	LocalDateTime getEndDateTime();
 
-    LocalDate getRepetitionStartDate();
+	LocalDate getRepetitionStartDate();
 
-    LocalDate getRepetitionEndDate();
+	LocalDate getRepetitionEndDate();
 
-    RepetitionCycle getRepetitionCycle();
+	RepetitionCycle getRepetitionCycle();
 
-    Integer getDayOfWeek();
+	Integer getDayOfWeek();
 
-    Integer getWeekInterval();
+	Integer getWeekInterval();
 }

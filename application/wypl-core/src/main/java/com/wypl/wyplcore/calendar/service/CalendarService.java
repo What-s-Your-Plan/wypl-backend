@@ -28,54 +28,59 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CalendarService {
 
-    private final ScheduleRepository scheduleRepository;
+	private final ScheduleRepository scheduleRepository;
 
-    private final Map<CalendarType, CalendarStrategy> calendarStrategyMap;
+	private final Map<CalendarType, CalendarStrategy> calendarStrategyMap;
 
-    /**
-     * 캘린더 정보와 캘린더의 일정을 함께 조회한다.
-     * @param authMember : 인증된 사용자 정보
-     * @param calendarId : 조회할 캘린더 ID
-     * @param calendarFindRequest : 캘린더 조회 조건
-     * @return FindCalendarResponse
-     */
-    @Transactional
-    public CalendarSchedulesResponse findCalendar(AuthMember authMember, long calendarId, CalendarFindRequest calendarFindRequest) {
+	/**
+	 * 캘린더 정보와 캘린더의 일정을 함께 조회한다.
+	 * @param authMember : 인증된 사용자 정보
+	 * @param calendarId : 조회할 캘린더 ID
+	 * @param calendarFindRequest : 캘린더 조회 조건
+	 * @return FindCalendarResponse
+	 */
+	@Transactional
+	public CalendarSchedulesResponse findCalendar(AuthMember authMember, long calendarId,
+		CalendarFindRequest calendarFindRequest) {
 
-        Calendar foundCalendar = null;  // FIXME: calendarId로 foundCalendar 엔티티 검증 필요.
-        MemberCalendar foundMemberCalendar = null; // FIXME: memberCalendar 엔티티 검증 필요.
-        Member foundMember = null; // FIXME: member 엔티티 검증 필요.
+		Calendar foundCalendar = null;  // FIXME: calendarId로 foundCalendar 엔티티 검증 필요.
+		MemberCalendar foundMemberCalendar = null; // FIXME: memberCalendar 엔티티 검증 필요.
+		Member foundMember = null; // FIXME: member 엔티티 검증 필요.
 
-        DateSearchCondition dateSearchCondition = getDateSearchCondition(calendarFindRequest.today(), calendarFindRequest.calendarType());
+		DateSearchCondition dateSearchCondition = getDateSearchCondition(calendarFindRequest.today(),
+			calendarFindRequest.calendarType());
 
-        List<Schedule> schedules = scheduleRepository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId, dateSearchCondition.startDate(), dateSearchCondition.endDate());
+		List<Schedule> schedules = scheduleRepository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId,
+			dateSearchCondition.startDate(), dateSearchCondition.endDate());
 
-        List<ScheduleFindResponse> scheduleFindResponses = new ArrayList<>();
-        schedules.forEach(schedule -> {
-            scheduleFindResponses.addAll(getScheduleResponsesWithRepetition(schedule, dateSearchCondition.startDate(), dateSearchCondition.endDate()));
-        });
+		List<ScheduleFindResponse> scheduleFindResponses = new ArrayList<>();
+		schedules.forEach(schedule -> {
+			scheduleFindResponses.addAll(getScheduleResponsesWithRepetition(schedule, dateSearchCondition.startDate(),
+				dateSearchCondition.endDate()));
+		});
 
-        return new CalendarSchedulesResponse(scheduleFindResponses.size(), scheduleFindResponses);
-    }
+		return new CalendarSchedulesResponse(scheduleFindResponses.size(), scheduleFindResponses);
+	}
 
-    /**
-     * RepetitionService를 통해 반복 일정을 가공하여 조회한다.
-     * @param schedule : 일정 정보
-     * @param startDate : 조회 시작일
-     * @param endDate : 조회 종료일
-     * @return List<ScheduleFindResponse> : 일정 반복 정보를 통해 리스트 형태로 가공하여 반환된다.
-     */
-    private List<ScheduleFindResponse> getScheduleResponsesWithRepetition(Schedule schedule, LocalDate startDate, LocalDate endDate) {
-        return RepetitionService.getScheduleResponses(schedule, startDate, endDate);
-    }
+	/**
+	 * RepetitionService를 통해 반복 일정을 가공하여 조회한다.
+	 * @param schedule : 일정 정보
+	 * @param startDate : 조회 시작일
+	 * @param endDate : 조회 종료일
+	 * @return List<ScheduleFindResponse> : 일정 반복 정보를 통해 리스트 형태로 가공하여 반환된다.
+	 */
+	private List<ScheduleFindResponse> getScheduleResponsesWithRepetition(Schedule schedule, LocalDate startDate,
+		LocalDate endDate) {
+		return RepetitionService.getScheduleResponses(schedule, startDate, endDate);
+	}
 
-    /**
-     * CalendarType에 따라 DateSearchCondition을 반환한다.
-     * @param today : 조회 기준일
-     * @param calendarType : 조회할 캘린더 타입
-     * @return DateSearchCondition : DateSearchCondition 객체를 반환한다.
-     */
-    private DateSearchCondition getDateSearchCondition(LocalDate today, CalendarType calendarType) {
-        return calendarStrategyMap.get(calendarType).getDateSearchCondition(today);
-    }
+	/**
+	 * CalendarType에 따라 DateSearchCondition을 반환한다.
+	 * @param today : 조회 기준일
+	 * @param calendarType : 조회할 캘린더 타입
+	 * @return DateSearchCondition : DateSearchCondition 객체를 반환한다.
+	 */
+	private DateSearchCondition getDateSearchCondition(LocalDate today, CalendarType calendarType) {
+		return calendarStrategyMap.get(calendarType).getDateSearchCondition(today);
+	}
 }

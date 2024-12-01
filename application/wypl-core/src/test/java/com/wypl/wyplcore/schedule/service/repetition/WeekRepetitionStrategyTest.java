@@ -28,14 +28,22 @@ class WeekRepetitionStrategyTest {
 		weekRepetitionScheduleWithDayOfWeek = mock(Schedule.class);
 		when(weekRepetitionScheduleWithDayOfWeek.getId()).thenReturn(1L);
 		when(weekRepetitionScheduleWithDayOfWeek.getTitle()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getTitle());
-		when(weekRepetitionScheduleWithDayOfWeek.getDescription()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getDescription());
-		when(weekRepetitionScheduleWithDayOfWeek.getStartDateTime()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getStartDateTime());
-		when(weekRepetitionScheduleWithDayOfWeek.getEndDateTime()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getEndDateTime());
-		when(weekRepetitionScheduleWithDayOfWeek.getRepetitionStartDate()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionStartDate());
-		when(weekRepetitionScheduleWithDayOfWeek.getRepetitionEndDate()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionEndDate());
-		when(weekRepetitionScheduleWithDayOfWeek.getRepetitionCycle()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionCycle());
-		when(weekRepetitionScheduleWithDayOfWeek.getDayOfWeek()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getDayOfWeek());
-		when(weekRepetitionScheduleWithDayOfWeek.getWeekInterval()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE.getWeekInterval());
+		when(weekRepetitionScheduleWithDayOfWeek.getDescription()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE.getDescription());
+		when(weekRepetitionScheduleWithDayOfWeek.getStartDateTime()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE.getStartDateTime());
+		when(weekRepetitionScheduleWithDayOfWeek.getEndDateTime()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE.getEndDateTime());
+		when(weekRepetitionScheduleWithDayOfWeek.getRepetitionStartDate()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionStartDate());
+		when(weekRepetitionScheduleWithDayOfWeek.getRepetitionEndDate()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionEndDate());
+		when(weekRepetitionScheduleWithDayOfWeek.getRepetitionCycle()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionCycle());
+		when(weekRepetitionScheduleWithDayOfWeek.getDayOfWeek()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE.getDayOfWeek());
+		when(weekRepetitionScheduleWithDayOfWeek.getWeekInterval()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE.getWeekInterval());
 		when(weekRepetitionScheduleWithDayOfWeek.isRepetition()).thenReturn(true);
 		when(weekRepetitionScheduleWithDayOfWeek.existsDayOfWeek()).thenReturn(true);
 	}
@@ -44,21 +52,30 @@ class WeekRepetitionStrategyTest {
 	void setUpWeekRepetitionScheduleWithoutDayOfWeek() {
 		weekRepetitionScheduleWithoutDayOfWeek = mock(Schedule.class);
 		when(weekRepetitionScheduleWithoutDayOfWeek.getId()).thenReturn(1L);
-		when(weekRepetitionScheduleWithoutDayOfWeek.getTitle()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getTitle());
-		when(weekRepetitionScheduleWithoutDayOfWeek.getDescription()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getDescription());
-		when(weekRepetitionScheduleWithoutDayOfWeek.getStartDateTime()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getStartDateTime());
-		when(weekRepetitionScheduleWithoutDayOfWeek.getEndDateTime()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getEndDateTime());
-		when(weekRepetitionScheduleWithoutDayOfWeek.getRepetitionStartDate()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate());
-		when(weekRepetitionScheduleWithoutDayOfWeek.getRepetitionEndDate()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionEndDate());
-		when(weekRepetitionScheduleWithoutDayOfWeek.getRepetitionCycle()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionCycle());
-		when(weekRepetitionScheduleWithoutDayOfWeek.getDayOfWeek()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getDayOfWeek());
-		when(weekRepetitionScheduleWithoutDayOfWeek.getWeekInterval()).thenReturn(ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getWeekInterval());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getTitle()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getTitle());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getDescription()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getDescription());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getStartDateTime()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getStartDateTime());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getEndDateTime()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getEndDateTime());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getRepetitionStartDate()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getRepetitionEndDate()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionEndDate());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getRepetitionCycle()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionCycle());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getDayOfWeek()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getDayOfWeek());
+		when(weekRepetitionScheduleWithoutDayOfWeek.getWeekInterval()).thenReturn(
+			ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getWeekInterval());
 		when(weekRepetitionScheduleWithoutDayOfWeek.isRepetition()).thenReturn(true);
 		when(weekRepetitionScheduleWithoutDayOfWeek.existsDayOfWeek()).thenReturn(false);
 	}
 
 	@Test
-	void getSchedulesResponsesForTodayWithDayOfWeek(){
+	void getSchedulesResponsesForTodayWithDayOfWeek() {
 
 		// given: weekRepetitionSchedule의 시작일로 오늘을 설정
 		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionStartDate().with(
@@ -73,10 +90,11 @@ class WeekRepetitionStrategyTest {
 	}
 
 	@Test
-	void getSchedulesResponsesForWeekWithDayOfWeek(){
+	void getSchedulesResponsesForWeekWithDayOfWeek() {
 
 		// given: weekRepetitionSchedule의 시작일 기준 다음 주 조회 (월요일 ~ 일요일)
-		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionStartDate().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionStartDate()
+			.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
 		LocalDate endDate = startDate.plusDays(6);
 
 		// when
@@ -88,10 +106,11 @@ class WeekRepetitionStrategyTest {
 	}
 
 	@Test
-	void getSchedulesResponsesForMonthWithDayOfWeek(){
+	void getSchedulesResponsesForMonthWithDayOfWeek() {
 
 		// given: weekRepetitionSchedule의 시작일 기준 월 조회 (2024년 10월)
-		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionStartDate().with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionStartDate()
+			.with(TemporalAdjusters.firstDayOfMonth());
 		LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
 
 		// when
@@ -100,7 +119,8 @@ class WeekRepetitionStrategyTest {
 
 		// then
 		for (ScheduleFindResponse scheduleResponse : scheduleResponses) {
-			System.out.println(scheduleResponse.title() + " : "+ scheduleResponse.startDateTime() + " - " + scheduleResponse.endDateTime());
+			System.out.println(scheduleResponse.title() + " : " + scheduleResponse.startDateTime() + " - "
+				+ scheduleResponse.endDateTime());
 		}
 		assertEquals(5, scheduleResponses.size());
 
@@ -108,11 +128,13 @@ class WeekRepetitionStrategyTest {
 
 	@Test
 	@DisplayName("요일이 설정되지 않은 일정의 DAY 검색 조건으로 반복일정 조회")
-	void getSchedulesResponsesForTodayWithoutDayOfWeek(){
+	void getSchedulesResponsesForTodayWithoutDayOfWeek() {
 
 		// given: Set today after 1 week, and the range is 'RepetitionStartDate 요일 < today < RepetitionEndDate 요일'
-		LocalDate today = ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate().plusDays(1).plusWeeks(1);
-		System.out.println("today -> "+ today);
+		LocalDate today = ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate()
+			.plusDays(1)
+			.plusWeeks(1);
+		System.out.println("today -> " + today);
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
@@ -120,19 +142,21 @@ class WeekRepetitionStrategyTest {
 
 		// then
 		for (ScheduleFindResponse scheduleResponse : scheduleResponses) {
-			System.out.println(scheduleResponse.title() + " : "+ scheduleResponse.startDateTime() + " - " + scheduleResponse.endDateTime());
+			System.out.println(scheduleResponse.title() + " : " + scheduleResponse.startDateTime() + " - "
+				+ scheduleResponse.endDateTime());
 		}
 		assertEquals(1, scheduleResponses.size());
 	}
 
 	@Test
 	@DisplayName("요일이 설정되지 않은 일정의 WEEK 검색 조건으로 반복일정 조회")
-	void getSchedulesResponsesForWeekWithoutDayOfWeek(){
+	void getSchedulesResponsesForWeekWithoutDayOfWeek() {
 
 		// given: Set today after 1 week, and the range is 'RepetitionStartDate 요일 < today < RepetitionEndDate 요일'
-		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate().with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
+		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate()
+			.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
 		LocalDate endDate = startDate.plusDays(6);
-		System.out.println("startDate -> "+ startDate + ", endDate -> "+ endDate);
+		System.out.println("startDate -> " + startDate + ", endDate -> " + endDate);
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
@@ -140,14 +164,15 @@ class WeekRepetitionStrategyTest {
 
 		// then
 		for (ScheduleFindResponse scheduleResponse : scheduleResponses) {
-			System.out.println(scheduleResponse.title() + " : "+ scheduleResponse.startDateTime() + " - " + scheduleResponse.endDateTime());
+			System.out.println(scheduleResponse.title() + " : " + scheduleResponse.startDateTime() + " - "
+				+ scheduleResponse.endDateTime());
 		}
 		assertEquals(1, scheduleResponses.size());
 	}
 
 	@Test
 	@DisplayName("요일이 설정되지 않은 일정의 WEEK 검색 조건으로 반복일정 조회 - 반복 주에 포함되지 않는 조회 조건")
-	void getSchedulesResponsesForWeekWithoutDayOfWeek2(){
+	void getSchedulesResponsesForWeekWithoutDayOfWeek2() {
 
 		// given: Set today after 1 week, and the range is 'RepetitionStartDate 요일 < today < RepetitionEndDate 요일'
 		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate().plusWeeks(1);
@@ -159,19 +184,22 @@ class WeekRepetitionStrategyTest {
 
 		// then
 		for (ScheduleFindResponse scheduleResponse : scheduleResponses) {
-			System.out.println(scheduleResponse.title() + " : "+ scheduleResponse.startDateTime() + " - " + scheduleResponse.endDateTime());
+			System.out.println(scheduleResponse.title() + " : " + scheduleResponse.startDateTime() + " - "
+				+ scheduleResponse.endDateTime());
 		}
 		assertEquals(0, scheduleResponses.size());
 	}
 
 	@Test
 	@DisplayName("요일이 설정되지 않은 일정의 MONTH 검색 조건으로 반복일정 조회")
-	void getSchedulesResponsesForMonthWithoutDayOfWeek(){
+	void getSchedulesResponsesForMonthWithoutDayOfWeek() {
 
 		// given: Set today after 1 week, and the range is 'RepetitionStartDate 요일 < today < RepetitionEndDate 요일'
-		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate().plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.getRepetitionStartDate()
+			.plusMonths(1)
+			.with(TemporalAdjusters.firstDayOfMonth());
 		LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
-		System.out.println("startDate -> "+ startDate + ", endDate -> "+ endDate);
+		System.out.println("startDate -> " + startDate + ", endDate -> " + endDate);
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
@@ -179,7 +207,8 @@ class WeekRepetitionStrategyTest {
 
 		// then
 		for (ScheduleFindResponse scheduleResponse : scheduleResponses) {
-			System.out.println(scheduleResponse.title() + " : "+ scheduleResponse.startDateTime() + " - " + scheduleResponse.endDateTime());
+			System.out.println(scheduleResponse.title() + " : " + scheduleResponse.startDateTime() + " - "
+				+ scheduleResponse.endDateTime());
 		}
 		assertEquals(2, scheduleResponses.size());
 	}

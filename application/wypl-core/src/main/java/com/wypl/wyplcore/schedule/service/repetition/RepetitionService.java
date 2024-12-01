@@ -16,8 +16,10 @@ public class RepetitionService {
 	 * @param searchEndDate
 	 * @return List<ScheduleFindResponse>
 	 */
-	public static List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate, LocalDate searchEndDate) {
-		RepetitionStrategy repetitionStrategy = RepetitionStrategyFactory.getRepetitionStrategy(schedule.getRepetitionCycle());
+	public static List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
+		LocalDate searchEndDate) {
+		RepetitionStrategy repetitionStrategy = RepetitionStrategyFactory.getRepetitionStrategy(
+			schedule.getRepetitionCycle());
 		return repetitionStrategy.getScheduleResponses(schedule, searchStartDate, searchEndDate);
 	}
 }

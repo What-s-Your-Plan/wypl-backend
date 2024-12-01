@@ -13,14 +13,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DayCalendarStrategy implements CalendarStrategy {
 
-    @Override
-    public CalendarType getCalendarType() {
-        return CalendarType.DAY;
-    }
+	@Override
+	public CalendarType getCalendarType() {
+		return CalendarType.DAY;
+	}
 
-    @Override
-    public DateSearchCondition getDateSearchCondition(LocalDate today) {
-        return new DateSearchCondition(today, today);
-    }
+	@Override
+	public DateSearchCondition getDateSearchCondition(LocalDate today) {
+		return new DateSearchCondition(today, today);
+	}
 
 }

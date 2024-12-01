@@ -2,10 +2,10 @@ package com.wypl.wyplcore;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import com.wypl.jpacalendardomain.calendar.data.RepetitionCycle;
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.jpacalendardomain.calendar.domain.ScheduleInfo;
-
 
 import lombok.Getter;
 
@@ -79,7 +79,6 @@ public enum ScheduleFixture {
 		null
 	);
 
-
 	private final String title;
 	private final String description;
 	private final LocalDateTime startDateTime;
@@ -132,7 +131,5 @@ public enum ScheduleFixture {
 			.weekInterval(this.weekInterval)
 			.build();
 	}
-
-
 
 }

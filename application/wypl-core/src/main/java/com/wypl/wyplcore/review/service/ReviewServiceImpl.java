@@ -66,7 +66,7 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 	public ReviewIdResponse updateReview(long memberId, long reviewId, ReviewUpdateRequest reviewUpdateRequest) {
 		validateReviewContents(reviewUpdateRequest.contents(), reviewUpdateRequest.title());
 
-		Member member = null;	// Todo : 조회
+		Member member = null;    // Todo : 조회
 
 		Review review = ReviewUtils.findByReviewIdAndMember(reviewRepository, reviewId, member);
 		review.updateTitle(reviewUpdateRequest.title());
@@ -82,7 +82,7 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 	@Override
 	@Transactional
 	public ReviewIdResponse deleteReview(long memberId, long reviewId) {
-		Member member = null;	// Todo : 조회
+		Member member = null;    // Todo : 조회
 		Review review = ReviewUtils.findByReviewIdAndMember(reviewRepository, reviewId, member);
 
 		ReviewContents reviewContents = reviewContentsRepository.findByReviewIdAndDeletedAtNull(review.getReviewId());
@@ -97,7 +97,7 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 
 	@Override
 	public ReviewDetailResponse getDetailReview(long memberId, long reviewId) {
-		Member member = null;	// Todo : 조회
+		Member member = null;    // Todo : 조회
 		Review review = ReviewUtils.findByReviewIdAndMember(reviewRepository, reviewId, member);
 		Schedule schedule = review.getSchedule();
 
@@ -165,8 +165,8 @@ public class ReviewServiceImpl implements ReviewModifyService, ReviewReadService
 		// MemberSchedule memberSchedule = memberScheduleService.getMemberScheduleByMemberAndSchedule(memberId,
 		// 	ScheduleServiceUtils.findById(scheduleRepository, scheduleId));
 
-		Member member = null;		// Todo : 조회
-		Schedule schedule = null;	// Todo : 조회
+		Member member = null;        // Todo : 조회
+		Schedule schedule = null;    // Todo : 조회
 
 		List<Review> reviews = switch (reviewType) {
 			case NEWEST -> {

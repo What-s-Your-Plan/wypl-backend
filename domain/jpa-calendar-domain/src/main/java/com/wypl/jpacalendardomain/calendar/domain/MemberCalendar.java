@@ -1,10 +1,10 @@
 package com.wypl.jpacalendardomain.calendar.domain;
 
-import com.wypl.jpacommon.JpaBaseEntity;
 import org.hibernate.annotations.SQLRestriction;
 
 import com.wypl.common.Color;
 import com.wypl.jpacalendardomain.calendar.data.InviteStatus;
+import com.wypl.jpacommon.JpaBaseEntity;
 import com.wypl.jpamemberdomain.member.domain.Member;
 
 import jakarta.persistence.Column;

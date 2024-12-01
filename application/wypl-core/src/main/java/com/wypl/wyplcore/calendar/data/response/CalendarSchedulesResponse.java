@@ -12,5 +12,5 @@ public record CalendarSchedulesResponse(
 
 	@JsonProperty("schedules")
 	List<ScheduleFindResponse> schedules
-){
+) {
 }

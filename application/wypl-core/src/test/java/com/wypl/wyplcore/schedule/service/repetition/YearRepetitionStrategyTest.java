@@ -20,8 +20,8 @@ import com.wypl.wyplcore.schedule.service.repetition.strategy.YearRepetitionStra
 @SpringBootTest
 class YearRepetitionStrategyTest {
 
-	private Schedule yearRepetitionSchedule;
 	private final YearRepetitionStrategy yearRepetitionStrategy = new YearRepetitionStrategy();
+	private Schedule yearRepetitionSchedule;
 
 	@BeforeEach
 	void setUpYearRepetitionSchedule() {
@@ -31,9 +31,12 @@ class YearRepetitionStrategyTest {
 		when(yearRepetitionSchedule.getDescription()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getDescription());
 		when(yearRepetitionSchedule.getStartDateTime()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getStartDateTime());
 		when(yearRepetitionSchedule.getEndDateTime()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getEndDateTime());
-		when(yearRepetitionSchedule.getRepetitionStartDate()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate());
-		when(yearRepetitionSchedule.getRepetitionEndDate()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getRepetitionEndDate());
-		when(yearRepetitionSchedule.getRepetitionCycle()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getRepetitionCycle());
+		when(yearRepetitionSchedule.getRepetitionStartDate()).thenReturn(
+			ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate());
+		when(yearRepetitionSchedule.getRepetitionEndDate()).thenReturn(
+			ScheduleFixture.YEARLY_SCHEDULE.getRepetitionEndDate());
+		when(yearRepetitionSchedule.getRepetitionCycle()).thenReturn(
+			ScheduleFixture.YEARLY_SCHEDULE.getRepetitionCycle());
 		when(yearRepetitionSchedule.getDayOfWeek()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getDayOfWeek());
 		when(yearRepetitionSchedule.getWeekInterval()).thenReturn(ScheduleFixture.YEARLY_SCHEDULE.getWeekInterval());
 		when(yearRepetitionSchedule.isRepetition()).thenReturn(true);
@@ -41,10 +44,11 @@ class YearRepetitionStrategyTest {
 
 	@Test
 	@DisplayName("오늘 검색 조건으로 반복일정 조회 - 결과가 없는 경우")
-	void getSchedulesResponsesForNoResult(){
+	void getSchedulesResponsesForNoResult() {
 
 		// given
-		LocalDate startDate = ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate().with(TemporalAdjusters.firstDayOfYear());
+		LocalDate startDate = ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate()
+			.with(TemporalAdjusters.firstDayOfYear());
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = yearRepetitionStrategy.getScheduleResponses(
@@ -57,7 +61,7 @@ class YearRepetitionStrategyTest {
 
 	@Test
 	@DisplayName("오늘 검색 조건으로 반복일정 조회 - 결과가 1건인 경우")
-	void getSchedulesResponsesForToday(){
+	void getSchedulesResponsesForToday() {
 
 		// given
 		LocalDate startDate = ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate().plusYears(1).plusDays(1);
@@ -73,7 +77,7 @@ class YearRepetitionStrategyTest {
 
 	@Test
 	@DisplayName("Year 검색 조건으로 반복일정 조회")
-	void getSchedulesResponsesForYear(){
+	void getSchedulesResponsesForYear() {
 
 		// given
 		LocalDate startDate = ScheduleFixture.YEARLY_SCHEDULE.getRepetitionStartDate().plusDays(1);

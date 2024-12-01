@@ -10,7 +10,7 @@ import java.util.List;
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
-public class DayRepetitionStrategy implements RepetitionStrategy{
+public class DayRepetitionStrategy implements RepetitionStrategy {
 
 	/**
 	 * RepetitionCycle이 Day일 때 Schedule의 반복 일정을 조회한다.
@@ -20,14 +20,15 @@ public class DayRepetitionStrategy implements RepetitionStrategy{
 	 * @return List<ScheduleFindResponse>
 	 */
 	@Override
-	public List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate, LocalDate searchEndDate) {
+	public List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
+		LocalDate searchEndDate) {
 
 		List<ScheduleFindResponse> responses = new ArrayList<>();
 
 		searchStartDate = getMaxDate(searchStartDate, schedule.getRepetitionStartDate());
 		searchEndDate = getMinDate(searchEndDate, schedule.getRepetitionEndDate());
 
-		for(; !searchStartDate.isAfter(searchEndDate); searchStartDate = searchStartDate.plusDays(1)) {
+		for (; !searchStartDate.isAfter(searchEndDate); searchStartDate = searchStartDate.plusDays(1)) {
 			LocalDateTime startDateTime = LocalDateTime.of(searchStartDate, schedule.getStartDateTime().toLocalTime());
 			LocalDateTime endDateTime = LocalDateTime.of(searchStartDate, schedule.getEndDateTime().toLocalTime());
 			responses.add(ScheduleFindResponse.of(schedule, startDateTime, endDateTime));
