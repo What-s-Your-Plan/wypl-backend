@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.wyplcore.ScheduleFixture;
-import com.wypl.wyplcore.calendar.CalendarServiceUtil;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
 @SpringBootTest
@@ -45,7 +44,7 @@ class DayRepetitionStrategyTest {
 		LocalDate startDate = dayRepetitionSchedule.getRepetitionStartDate();
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			dayRepetitionSchedule, startDate, startDate);
 
 		// then
@@ -61,7 +60,7 @@ class DayRepetitionStrategyTest {
 		LocalDate endDate = startDate.plusDays(6);
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			dayRepetitionSchedule, startDate, endDate);
 
 		// then
@@ -76,7 +75,7 @@ class DayRepetitionStrategyTest {
 		LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			dayRepetitionSchedule, startDate, endDate);
 
 		// then

@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.wyplcore.ScheduleFixture;
-import com.wypl.wyplcore.calendar.CalendarServiceUtil;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 import com.wypl.wyplcore.schedule.service.repetition.strategy.MonthRepetitionStrategy;
 
@@ -47,7 +46,7 @@ class MonthRepetitionStrategyTest {
 		LocalDate startDate = ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate().plusMonths(1).plusDays(1);
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			monthRepetitionSchedule, startDate, startDate);
 
 		// then
@@ -66,7 +65,7 @@ class MonthRepetitionStrategyTest {
 		System.out.println("startDate -> "+ startDate + ", endDate -> "+ endDate);
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			monthRepetitionSchedule, startDate, endDate);
 
 		// then

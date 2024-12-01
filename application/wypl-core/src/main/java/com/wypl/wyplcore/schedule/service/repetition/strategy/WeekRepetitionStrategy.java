@@ -1,6 +1,6 @@
 package com.wypl.wyplcore.schedule.service.repetition.strategy;
 
-import static com.wypl.wyplcore.calendar.CalendarServiceUtil.*;
+import static com.wypl.wyplcore.calendar.service.CalendarServiceUtil.*;
 
 import java.time.DayOfWeek;
 import java.time.Duration;

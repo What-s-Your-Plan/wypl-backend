@@ -13,12 +13,23 @@ import lombok.Getter;
 public enum ScheduleFixture {
 
 	DAILY_SCHEDULE(
-		"일일 일정",
-		"매일 반복되는 일정입니다.",
+		"일일 일정 1",
+		"매일 오전 9시에서 오전 10시까지 반복되는 일정입니다.",
 		LocalDateTime.of(2024, 10, 20, 9, 0),
 		LocalDateTime.of(2024, 10, 20, 10, 0),
 		LocalDate.of(2024, 10, 20),
 		LocalDate.of(2024, 12, 31),
+		RepetitionCycle.DAY,
+		null,
+		null
+	),
+	DAILY_SCHEDULE_2(
+		"일일 일정 2",
+		"매일 오후 한시에서 오후 2시 반까지 반복되는 일정입니다.",
+		LocalDateTime.of(2024, 10, 20, 13, 0),
+		LocalDateTime.of(2024, 10, 20, 14, 30),
+		LocalDate.of(2024, 10, 20),
+		LocalDate.of(2025, 12, 31),
 		RepetitionCycle.DAY,
 		null,
 		null
@@ -96,6 +107,20 @@ public enum ScheduleFixture {
 	public Schedule toEntity(ScheduleInfo scheduleInfo) {
 		return Schedule.builder()
 			.scheduleInfo(scheduleInfo)
+			.title(this.title)
+			.description(this.description)
+			.startDateTime(this.startDateTime)
+			.endDateTime(this.endDateTime)
+			.repetitionStartDate(this.repetitionStartDate)
+			.repetitionEndDate(this.repetitionEndDate)
+			.repetitionCycle(this.repetitionCycle)
+			.dayOfWeek(this.dayOfWeek)
+			.weekInterval(this.weekInterval)
+			.build();
+	}
+
+	public Schedule toObject() {
+		return Schedule.builder()
 			.title(this.title)
 			.description(this.description)
 			.startDateTime(this.startDateTime)

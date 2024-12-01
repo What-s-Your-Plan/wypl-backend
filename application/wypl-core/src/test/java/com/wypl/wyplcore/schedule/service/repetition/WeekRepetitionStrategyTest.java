@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.wyplcore.ScheduleFixture;
-import com.wypl.wyplcore.calendar.CalendarServiceUtil;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
 @SpringBootTest
@@ -66,7 +65,7 @@ class WeekRepetitionStrategyTest {
 			TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			weekRepetitionScheduleWithDayOfWeek, startDate, startDate);
 
 		// then
@@ -81,7 +80,7 @@ class WeekRepetitionStrategyTest {
 		LocalDate endDate = startDate.plusDays(6);
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			weekRepetitionScheduleWithDayOfWeek, startDate, endDate);
 
 		// then
@@ -96,7 +95,7 @@ class WeekRepetitionStrategyTest {
 		LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			weekRepetitionScheduleWithDayOfWeek, startDate, endDate);
 
 		// then
@@ -116,7 +115,7 @@ class WeekRepetitionStrategyTest {
 		System.out.println("today -> "+ today);
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			weekRepetitionScheduleWithoutDayOfWeek, today, today);
 
 		// then
@@ -136,7 +135,7 @@ class WeekRepetitionStrategyTest {
 		System.out.println("startDate -> "+ startDate + ", endDate -> "+ endDate);
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			weekRepetitionScheduleWithoutDayOfWeek, startDate, endDate);
 
 		// then
@@ -155,7 +154,7 @@ class WeekRepetitionStrategyTest {
 		LocalDate endDate = startDate.plusDays(6);
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			weekRepetitionScheduleWithoutDayOfWeek, startDate, endDate);
 
 		// then
@@ -175,7 +174,7 @@ class WeekRepetitionStrategyTest {
 		System.out.println("startDate -> "+ startDate + ", endDate -> "+ endDate);
 
 		// when
-		List<ScheduleFindResponse> scheduleResponses = CalendarServiceUtil.getScheduleResponses(
+		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			weekRepetitionScheduleWithoutDayOfWeek, startDate, endDate);
 
 		// then
