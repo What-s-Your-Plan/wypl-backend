@@ -70,7 +70,6 @@ public class AuthServiceImpl {
 	public void quitMember(AuthMember authMember) {
 		// Todo : 회원 탈퇴 로직 논의
 		deleteMember(authMember);
-		deleteMember(authMember);
 	}
 
 	private void deleteToken(AuthMember authMember) {
