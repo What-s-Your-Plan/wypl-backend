@@ -6,7 +6,9 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,53 +35,63 @@ class AuthServiceImplTest {
 	@Mock
 	private AuthDomainServiceImpl authDomainService;
 
-	@DisplayName("이미 가입한 회원인 경우, 로그인에 성공한다.")
-	@Test
-	void generateTokenTest() {
-		//Given
-		GoogleTokenResponse mockGoogleTokenResponse = new GoogleTokenResponse(
-			"accessToken",
-			3600,
-			"refreshToken",
-			"scope",
-			"idToken",
-			"tokenType"
-		);
+	@DisplayName("로그인 및 회원가입 로직을 테스트한다.")
+	@Nested
+	class loginTest {
+		private GoogleTokenResponse mockGoogleTokenResponse;
+		private GoogleUserInfoResponse mockGoogleUserInfoResponse;
 
-		GoogleUserInfoResponse mockGoogleUserInfoResponse = new GoogleUserInfoResponse(
-			"id",
-			"email",
-			"verifiedEmail",
-			"name",
-			"givenName",
-			"familyName"
-		);
+		@BeforeEach
+		void setUp() {
+			mockGoogleTokenResponse = new GoogleTokenResponse(
+				"accessToken",
+				3600,
+				"refreshToken",
+				"scope",
+				"idToken",
+				"tokenType"
+			);
 
-		SocialMember mockSocialMember = SocialMember.builder()
-			.id(1L)
-			.oauthProvider(OauthProvider.GOOGLE)
-			.oauthId("mockOauthId")
-			.build();
+			mockGoogleUserInfoResponse = new GoogleUserInfoResponse(
+				"id",
+				"email",
+				"verifiedEmail",
+				"name",
+				"givenName",
+				"familyName"
+			);
 
-		given(googleOAuthClient.fetchGoogleOAuthToken(anyString()))
-			.willReturn(mockGoogleTokenResponse);
+			given(googleOAuthClient.fetchGoogleOAuthToken(anyString()))
+				.willReturn(mockGoogleTokenResponse);
 
-		given(googleOAuthClient.fetchUserInfo(anyString()))
-			.willReturn(mockGoogleUserInfoResponse);
+			given(googleOAuthClient.fetchUserInfo(anyString()))
+				.willReturn(mockGoogleUserInfoResponse);
+		}
 
-		given(socialMemberRepository.existsByOauthProviderAndOauthId(any(OauthProvider.class), anyString()))
-			.willReturn(true);
+		@DisplayName("이미 가입한 회원인 경우, 로그인에 성공한다.")
+		@Test
+		void generateTokenTest() {
+			//Given
+			SocialMember mockSocialMember = SocialMember.builder()
+				.id(1L)
+				.oauthProvider(OauthProvider.GOOGLE)
+				.oauthId("mockOauthId")
+				.build();
+
+			given(socialMemberRepository.existsByOauthProviderAndOauthId(any(OauthProvider.class), anyString()))
+				.willReturn(true);
 
 
-		given(socialMemberRepository.findByOauthProviderAndOauthId(any(OauthProvider.class), anyString()))
-			.willReturn(Optional.of(mockSocialMember));
+			given(socialMemberRepository.findByOauthProviderAndOauthId(any(OauthProvider.class), anyString()))
+				.willReturn(Optional.of(mockSocialMember));
 
-		// When
-		AuthTokensResponse result = authService.generateToken("provider", "Authroization code");
+			// When
+			AuthTokensResponse result = authService.generateToken("provider", "Authroization code");
 
-		// Then
-		verify(authDomainService).saveToken(mockGoogleTokenResponse.accessToken(),
-			mockGoogleTokenResponse.refreshToken());
-		assertThat(result.memberId()).isEqualTo(mockSocialMember.getId());
+			// Then
+			verify(authDomainService).saveToken(mockGoogleTokenResponse.accessToken(),
+				mockGoogleTokenResponse.refreshToken());
+			assertThat(result.memberId()).isEqualTo(mockSocialMember.getId());
+		}
 	}
 }
