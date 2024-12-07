@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,8 @@ import com.wypl.googleoauthclient.GoogleOAuthClient;
 import com.wypl.googleoauthclient.data.response.GoogleTokenResponse;
 import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
 import com.wypl.jpamemberdomain.member.OauthProvider;
+import com.wypl.jpamemberdomain.member.data.MemberDto;
+import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
@@ -92,6 +95,32 @@ class AuthServiceImplTest {
 			verify(authDomainService).saveToken(mockGoogleTokenResponse.accessToken(),
 				mockGoogleTokenResponse.refreshToken());
 			assertThat(result.memberId()).isEqualTo(mockSocialMember.getId());
+			assertThat(result.accessToken()).isEqualTo(mockGoogleTokenResponse.accessToken());
+			assertThat(result.refreshToken()).isEqualTo(mockGoogleTokenResponse.refreshToken());
+		}
+
+		@DisplayName("신규 회원인 경우, 회원가입에 성공한다.")
+		@Test
+		void signUpTest() {
+			// Given
+			given(socialMemberRepository.existsByOauthProviderAndOauthId(any(OauthProvider.class), anyString()))
+				.willReturn(false);
+
+			given(googleOAuthClient.fetchBirthday(anyString()))
+				.willReturn(LocalDate.now());
+
+			given(authDomainService.saveAuthData(any(MemberDto.class), any(SocialMemberDto.class)))
+				.willReturn(2L);
+
+			// When
+			AuthTokensResponse result = authService.generateToken("provider", "Authroization code");
+
+			// Then
+			verify(authDomainService).saveToken(mockGoogleTokenResponse.accessToken(),
+				mockGoogleTokenResponse.refreshToken());
+			assertThat(result.memberId()).isEqualTo(2L);
+			assertThat(result.accessToken()).isEqualTo(mockGoogleTokenResponse.accessToken());
+			assertThat(result.refreshToken()).isEqualTo(mockGoogleTokenResponse.refreshToken());
 		}
 	}
 }
