@@ -86,8 +86,7 @@ public class AuthServiceImpl {
 	}
 
 	private long findMemberIdAfterSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
-		if (!socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE,
-			googleUserInfoResponse.id())) {
+		if (isNewMember(googleUserInfoResponse)) {
 			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
 
 			MemberDto memberDto = MemberDto.builder()
@@ -106,6 +105,11 @@ public class AuthServiceImpl {
 		}
 
 		return SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();
+	}
+
+	private boolean isNewMember(GoogleUserInfoResponse googleUserInfoResponse) {
+		return !socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE,
+			googleUserInfoResponse.id());
 	}
 }
 
