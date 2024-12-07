@@ -82,7 +82,7 @@ public class AuthServiceImpl {
 	}
 
 	private boolean isInvalidRefreshToken(String accessToken, String refreshToken) {
-		return refreshToken.equals(authDomainService.getRefreshToken(accessToken));
+		return refreshToken.isEmpty() || !refreshToken.equals(authDomainService.getRefreshToken(accessToken));
 	}
 
 	private long findMemberIdAfterSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
