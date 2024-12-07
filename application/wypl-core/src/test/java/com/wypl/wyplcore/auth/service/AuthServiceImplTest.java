@@ -30,6 +30,7 @@ import com.wypl.jpamemberdomain.member.OauthProvider;
 import com.wypl.jpamemberdomain.member.data.MemberDto;
 import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
+import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
 
@@ -43,6 +44,8 @@ class AuthServiceImplTest {
 	private SocialMemberRepository socialMemberRepository;
 	@Mock
 	private AuthDomainServiceImpl authDomainService;
+	@Mock
+	private MemberRepository memberRepository;
 
 	@DisplayName("로그인 및 회원가입 로직을 테스트한다.")
 	@Nested
@@ -179,7 +182,7 @@ class AuthServiceImplTest {
 
 	@DisplayName("로그아웃 로직이 정상적으로 동작한다.")
 	@Test
-	void deleteToken() {
+	void logoutTest() {
 		// Given
 		AuthMember mockAuthMember = AuthMember.of(
 			1L,
@@ -191,5 +194,22 @@ class AuthServiceImplTest {
 
 		// Then
 		verify(authDomainService).deleteToken(anyString());
+	}
+
+	@DisplayName("회원탈퇴 로직이 정상적으로 동작한다.")
+	@Test
+	void quitMemberTest() {
+		// Given
+		AuthMember mockAuthMember = AuthMember.of(
+			1L,
+			"accessToken"
+		);
+
+		// When
+		authService.quitMember(mockAuthMember);
+
+		// Then
+		verify(authDomainService).deleteToken(anyString());
+		verify(memberRepository).deleteById(anyLong());
 	}
 }
