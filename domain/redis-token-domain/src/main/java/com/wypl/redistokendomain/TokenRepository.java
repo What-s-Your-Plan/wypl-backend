@@ -1,10 +1,14 @@
 package com.wypl.redistokendomain;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.wypl.redistokendomain.exception.RedisTokenErrorCode;
+import com.wypl.redistokendomain.exception.RedisTokenException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,9 +17,29 @@ import lombok.RequiredArgsConstructor;
 public class TokenRepository {
 	private final RedisTemplate<byte[], byte[]> redisTokenTemplate;
 
+	public boolean checkExistsToken(String accessToken) {
+		byte[] refreshToken = redisTokenTemplate.opsForValue().get(accessToken.getBytes());
+		return refreshToken != null;
+	}
+
 	@Transactional
 	public void saveToken(String accessToken, String refreshToken) {
 		redisTokenTemplate.opsForValue().set(accessToken.getBytes(), refreshToken.getBytes());
 		redisTokenTemplate.expire(accessToken.getBytes(), 1, TimeUnit.HOURS);
+	}
+
+	public String getRefreshToken(String accessToken) {
+		byte[] refreshToken = redisTokenTemplate.opsForValue().get(accessToken.getBytes());
+
+		if (refreshToken == null) {
+			throw new RedisTokenException(RedisTokenErrorCode.TOKEN_IS_NOT_EXISTED);
+		}
+
+		return new String(refreshToken);
+	}
+
+	public void deleteToken(String accessToken) {
+		Optional.ofNullable(redisTokenTemplate.delete(accessToken.getBytes()))
+			.orElseThrow(() -> new RedisTokenException(RedisTokenErrorCode.TOKEN_IS_NOT_EXISTED));
 	}
 }
