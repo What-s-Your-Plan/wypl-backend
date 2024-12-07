@@ -37,7 +37,7 @@ class AuthServiceImplTest {
 
 	@DisplayName("로그인 및 회원가입 로직을 테스트한다.")
 	@Nested
-	class loginTest {
+	class generateTokenTest {
 		private GoogleTokenResponse mockGoogleTokenResponse;
 		private GoogleUserInfoResponse mockGoogleUserInfoResponse;
 
@@ -70,7 +70,7 @@ class AuthServiceImplTest {
 
 		@DisplayName("이미 가입한 회원인 경우, 로그인에 성공한다.")
 		@Test
-		void generateTokenTest() {
+		void signInTest() {
 			//Given
 			SocialMember mockSocialMember = SocialMember.builder()
 				.id(1L)
