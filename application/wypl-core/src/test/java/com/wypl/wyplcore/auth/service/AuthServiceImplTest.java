@@ -23,6 +23,7 @@ import com.wypl.authdomain.auth.service.AuthDomainServiceImpl;
 import com.wypl.googleoauthclient.GoogleOAuthClient;
 import com.wypl.googleoauthclient.data.response.GoogleTokenResponse;
 import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
+import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.jpamemberdomain.member.OauthProvider;
@@ -174,5 +175,21 @@ class AuthServiceImplTest {
 			assertThat(result.accessToken()).isEqualTo(mockGoogleTokenResponse.accessToken());
 			assertThat(result.refreshToken()).isEqualTo("refreshToken");
 		}
+	}
+
+	@DisplayName("로그아웃 로직이 정상적으로 동작한다.")
+	@Test
+	void deleteToken() {
+		// Given
+		AuthMember mockAuthMember = AuthMember.of(
+			1L,
+			"accessToken"
+		);
+
+		// When
+		authService.logout(mockAuthMember);
+
+		// Then
+		verify(authDomainService).deleteToken(anyString());
 	}
 }
