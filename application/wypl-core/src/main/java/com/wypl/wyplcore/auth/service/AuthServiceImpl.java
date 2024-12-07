@@ -69,6 +69,7 @@ public class AuthServiceImpl {
 	@Transactional
 	public void quitMember(AuthMember authMember) {
 		// Todo : 회원 탈퇴 로직 논의
+		deleteToken(authMember);
 		deleteMember(authMember);
 	}
 
