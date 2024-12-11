@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.wypl.redistokendomain.exception.RedisTokenErrorCode;
 import com.wypl.redistokendomain.exception.RedisTokenException;
@@ -22,7 +21,6 @@ public class TokenRepository {
 		return refreshToken != null;
 	}
 
-	@Transactional
 	public void saveToken(String accessToken, String refreshToken) {
 		redisTokenTemplate.opsForValue().set(accessToken.getBytes(), refreshToken.getBytes());
 		redisTokenTemplate.expire(accessToken.getBytes(), 1, TimeUnit.HOURS);

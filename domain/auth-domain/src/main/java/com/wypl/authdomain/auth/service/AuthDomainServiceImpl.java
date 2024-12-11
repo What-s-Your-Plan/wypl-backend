@@ -1,6 +1,7 @@
 package com.wypl.authdomain.auth.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wypl.jpamemberdomain.member.data.MemberDto;
 import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
@@ -29,6 +30,7 @@ public class AuthDomainServiceImpl {
 		return tokenRepository.checkExistsToken(accessToken);
 	}
 
+	@Transactional
 	public void saveToken(String accessToken, String refreshToken) {
 		tokenRepository.saveToken(accessToken, refreshToken);
 	}
