@@ -1,7 +1,6 @@
 package com.wypl.wyplcore.calendar.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,13 +32,13 @@ public class CalendarService {
 	private final Map<CalendarType, CalendarStrategy> calendarStrategyMap;
 
 	/**
-	 * 캘린더 정보와 캘린더의 일정을 함께 조회한다.
+	 * 캘린더의 일정을 조회한다.
 	 * @param authMember : 인증된 사용자 정보
 	 * @param calendarId : 조회할 캘린더 ID
 	 * @param calendarFindRequest : 캘린더 조회 조건
 	 * @return FindCalendarResponse
 	 */
-	@Transactional
+	@Transactional(readOnly = true)
 	public CalendarSchedulesResponse findCalendar(AuthMember authMember, long calendarId,
 		CalendarFindRequest calendarFindRequest) {
 
@@ -53,13 +52,12 @@ public class CalendarService {
 		List<Schedule> schedules = scheduleRepository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId,
 			dateSearchCondition.startDate(), dateSearchCondition.endDate());
 
-		List<ScheduleFindResponse> scheduleFindResponses = new ArrayList<>();
-		schedules.forEach(schedule -> {
-			scheduleFindResponses.addAll(getScheduleResponsesWithRepetition(schedule, dateSearchCondition.startDate(),
-				dateSearchCondition.endDate()));
-		});
+		List<ScheduleFindResponse> responses = schedules.stream()
+			.flatMap(schedule -> getScheduleResponsesWithRepetition(schedule, dateSearchCondition.startDate(),
+				dateSearchCondition.endDate()).stream())
+			.toList();
 
-		return new CalendarSchedulesResponse(scheduleFindResponses.size(), scheduleFindResponses);
+		return new CalendarSchedulesResponse(responses.size(), responses);
 	}
 
 	/**
