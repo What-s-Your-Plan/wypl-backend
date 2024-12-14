@@ -2,11 +2,16 @@ package com.wypl.redisembeddeddomain;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.wypl.redisembeddeddomain.redis.*;
+import com.wypl.redisembeddeddomain.redis.OS;
+import com.wypl.redisembeddeddomain.redis.RedisAvailablePortFind;
+import com.wypl.redisembeddeddomain.redis.RedisAvailablePortFindForDebian;
+import com.wypl.redisembeddeddomain.redis.RedisAvailablePortFindForLinux;
+import com.wypl.redisembeddeddomain.redis.RedisAvailablePortFindForMac;
+import com.wypl.redisembeddeddomain.redis.RedisAvailablePortFindForUbuntu;
+import com.wypl.redisembeddeddomain.redis.RedisAvailablePortFindForWindows;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -18,9 +23,7 @@ import redis.embedded.RedisServer;
 @Configuration
 public class EmbeddedRedisConfig {
 	private static final String OS_NAME = System.getProperty("os.name");
-
-	@Value("${spring.data.redis.port}")
-	private int redisPort;
+	private final int REDIS_DEFAULT_PORT = 6379;
 
 	private RedisServer redisServer;
 
@@ -28,9 +31,9 @@ public class EmbeddedRedisConfig {
 	private void start() throws IOException {
 		RedisAvailablePortFind findAvailablePortUtils = getRedisAvailablePortFind();
 
-		int port = findAvailablePortUtils.isRedisRunning(redisPort)
-			? findAvailablePortUtils.findAvailablePort(redisPort)
-			: redisPort;
+		int port = findAvailablePortUtils.isRedisRunning(REDIS_DEFAULT_PORT)
+			? findAvailablePortUtils.findAvailablePort(REDIS_DEFAULT_PORT)
+			: REDIS_DEFAULT_PORT;
 		log.info("Embedded Redis Running Port : [{}]", port);
 
 		redisServer = new RedisServer(port);
