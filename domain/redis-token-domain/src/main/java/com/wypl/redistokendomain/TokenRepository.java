@@ -22,8 +22,7 @@ public class TokenRepository {
 	}
 
 	public void saveToken(String accessToken, String refreshToken) {
-		redisTokenTemplate.opsForValue().set(accessToken.getBytes(), refreshToken.getBytes());
-		redisTokenTemplate.expire(accessToken.getBytes(), 1, TimeUnit.HOURS);
+		redisTokenTemplate.opsForValue().set(accessToken.getBytes(), refreshToken.getBytes(), 1, TimeUnit.HOURS);
 	}
 
 	public String getRefreshToken(String accessToken) {
