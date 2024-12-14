@@ -1,6 +1,5 @@
 package com.wypl.redistokendomain;
 
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.data.redis.core.RedisTemplate;
@@ -36,7 +35,8 @@ public class TokenRepository {
 	}
 
 	public void deleteToken(String accessToken) {
-		Optional.ofNullable(redisTokenTemplate.delete(accessToken.getBytes()))
-			.orElseThrow(() -> new RedisTokenException(RedisTokenErrorCode.TOKEN_IS_NOT_EXISTED));
+		if(Boolean.FALSE.equals(redisTokenTemplate.delete(accessToken.getBytes()))) {
+			throw new RedisTokenException((RedisTokenErrorCode.TOKEN_IS_NOT_EXISTED));
+		}
 	}
 }
