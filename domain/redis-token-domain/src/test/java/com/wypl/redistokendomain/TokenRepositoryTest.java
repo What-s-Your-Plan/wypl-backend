@@ -52,6 +52,7 @@ class TokenRepositoryTest {
 		}
 	}
 
+	@DisplayName("토큰 정보 저장 후 테스트한다.")
 	@Nested
 	class WithSaveTest {
 		private final String accessToken = "accessToken";
