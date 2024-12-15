@@ -1,5 +1,6 @@
 package com.wypl.jpacalendardomain.calendar.domain;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -92,6 +93,10 @@ public class Schedule extends JpaBaseEntity {
 
 	public boolean existsDayOfWeek() {
 		return dayOfWeek != null;
+	}
+
+	public Duration getDuration(){
+		return Duration.between(this.startDateTime, this.endDateTime);
 	}
 
 }

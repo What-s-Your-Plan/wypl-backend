@@ -2,7 +2,6 @@ package com.wypl.wyplcore.schedule.service.repetition.strategy;
 
 import static com.wypl.wyplcore.calendar.service.CalendarServiceUtil.*;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,13 +25,11 @@ public class MonthRepetitionStrategy implements RepetitionStrategy {
 
 		LocalDate startDate = getStartDate(schedule, getMaxDate(searchStartDate, schedule.getRepetitionStartDate()));
 		searchEndDate = getMinDate(searchEndDate, schedule.getRepetitionEndDate());
-		Duration duration = Duration.between(schedule.getStartDateTime(), schedule.getEndDateTime());
 
 		List<ScheduleFindResponse> responses = new ArrayList<>();
-
 		for (LocalDate date = startDate; !date.isAfter(searchEndDate); date = date.plusMonths(1)) {
 			LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
-			LocalDateTime endDateTime = startDateTime.plus(duration);
+			LocalDateTime endDateTime = startDateTime.plus(schedule.getDuration());
 			responses.add(ScheduleFindResponse.of(schedule, startDateTime, endDateTime));
 		}
 		return responses;
@@ -50,9 +47,7 @@ public class MonthRepetitionStrategy implements RepetitionStrategy {
 
 		LocalDateTime searchEndDateTime = LocalDateTime.of(searchEndDate, schedule.getEndDateTime().toLocalTime());
 
-		Duration duration = Duration.between(schedule.getStartDateTime(), schedule.getEndDateTime());
-
-		return searchEndDateTime.minus(duration).toLocalDate();
+		return searchEndDateTime.minus(schedule.getDuration()).toLocalDate();
 
 	}
 
