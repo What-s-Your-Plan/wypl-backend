@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import com.wypl.jpamemberdomain.member.data.MemberDto;
 import com.wypl.jpamemberdomain.member.domain.Member;
@@ -25,6 +26,7 @@ public class MemberRepositoryTest {
 	@Nested
 	class memberSaveTest {
 		private MemberDto memberDtoMock;
+		private Member member;
 
 		@BeforeEach
 		void beforeEach() {
@@ -34,13 +36,16 @@ public class MemberRepositoryTest {
 				.birthday(LocalDate.of(1999, 1, 15))
 				.profileImage("profileImage")
 				.build();
+
+			member = Member.of(memberDtoMock);
 		}
 
 		@DisplayName("Member를 성공적으로 저장한다.")
 		@Test
 		void saveSuccessTest() {
+
 			// When
-			Member result = memberRepository.save(Member.of(memberDtoMock));
+			Member result = memberRepository.save(member);
 			Member findMember = memberRepository.findById(result.getMemberId()).get();
 
 			// Then
@@ -51,20 +56,14 @@ public class MemberRepositoryTest {
 			assertThat(result.getProfileImage()).isEqualTo(memberDtoMock.getProfileImage());
 		}
 
-		// @DisplayName("중복된 Member 저장에 실패한다.")
-		// @Test
-		// void duplicatedMemberSaveTest() {
-		// 	// When
-		// 	Member result = memberRepository.save(Member.of(memberDtoMock));
-		//
-		// 	// Then
-		// 	assertThatThrownBy(() -> memberRepository.save(result))
-		// 		.isInstanceOf(DataIntegrityViolationException.class)
-		// 		.hasMessage("Unique index or primary key violation");
-		// }
-
+		@DisplayName("중복된 Member 저장에 실패한다.")
+		@Test
+		void duplicatedMemberSaveTest() {
+			// When & Then
+			assertThatThrownBy(() -> memberRepository.save(member))
+				.isInstanceOf(DataIntegrityViolationException.class)
+				.hasMessageContaining("Unique index or primary key violation");
+		}
 	}
-
-
 }
 
