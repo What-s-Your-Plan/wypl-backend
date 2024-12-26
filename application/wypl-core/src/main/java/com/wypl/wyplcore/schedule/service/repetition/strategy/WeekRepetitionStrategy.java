@@ -3,12 +3,12 @@ package com.wypl.wyplcore.schedule.service.repetition.strategy;
 import static com.wypl.wyplcore.calendar.service.CalendarServiceUtil.*;
 
 import java.time.DayOfWeek;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
@@ -17,50 +17,106 @@ import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 public class WeekRepetitionStrategy implements RepetitionStrategy {
 
 	/**
-	 * 검색 조건에는 포함되지만, 검색이 시작된 날짜보다 이전에 시작한 Schedule 반영
-	 * @param searchStartDate
-	 * @param schedule
-	 * @return searchStartDate
-	 * Todo: 일정이 일주일 이상 지속될 경우에는 처리 불가, 생각해 보기
+	 * RepetitionCycle = Week 인 경우, Schedule 반복 일정을 조회한다.
+	 * @param schedule Target Schedule
+	 * @param searchStartDate 검색 시작일자
+	 * @param searchEndDate 검색 종료일자
+	 * @return {List<ScheduleFindResponse>}
 	 */
-	private static LocalDate resetForBeforeStarted(LocalDate searchStartDate, Schedule schedule) {
+	@Override
+	public List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
+		LocalDate searchEndDate) {
 
-		// 끝나는 요일 찾기
-		DayOfWeek endDayOfWeek = schedule.getEndDateTime().getDayOfWeek();
-		Duration duration = Duration.between(schedule.getStartDateTime(), schedule.getEndDateTime());
+		searchStartDate = getMaxDate(searchStartDate, schedule.getRepetitionStartDate()); // 검색 범위의 시작일
+		searchEndDate = getMinDate(searchEndDate, schedule.getRepetitionEndDate());
 
-		// 탐색을 시작할 일자 설정
-		LocalDateTime endDateTimeForSearch = searchStartDate.with(TemporalAdjusters.nextOrSame(endDayOfWeek))
-			.atTime(schedule.getEndDateTime().toLocalTime());
+		List<ScheduleFindResponse> responses = new ArrayList<>();
 
-		return endDateTimeForSearch.minus(duration).toLocalDate();
+		if (!schedule.existsDayOfWeek()) { // 반복 요일을 설정하지 않았을 경우
+
+			LocalDate firstScheduleStartDate = getFirstScheduleStartDate(searchStartDate, schedule); // 검색 조건에 부합하는 첫 번째 일정의 시작일
+
+			for (LocalDate date = firstScheduleStartDate; !date.isAfter(searchEndDate); date = date.plusWeeks(
+				schedule.getWeekInterval())) {
+				LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
+				LocalDateTime endDateTime = startDateTime.plus(schedule.getDuration());
+				responses.add(ScheduleFindResponse.of(schedule, startDateTime, endDateTime));
+			}
+			return responses;
+
+		} else { // 반복 요일을 설정했을 경우
+
+			int repetitionDayOfWeek = schedule.getDayOfWeek();
+
+			for (int dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) { // 요일마다 처리
+				if (isSelectedDayOfWeek(repetitionDayOfWeek, dayOfWeek)) {
+					LocalDate nearestDate = getNextOrSame(DayOfWeek.of(dayOfWeek), searchStartDate);
+					for (LocalDate date = nearestDate; isWithin(date, searchEndDate); date = date.plusWeeks(schedule.getWeekInterval())) {
+						responses.add(ScheduleFindResponse.of(schedule, date, date));
+					}
+				}
+			}
+			responses.sort(Comparator.comparing(ScheduleFindResponse::startDateTime));
+			return responses;
+		}
+	}
+
+	private static boolean isWithin(LocalDate date, LocalDate targetDate) {
+		return !date.isAfter(targetDate);
 	}
 
 	/**
-	 * 검색 시작일자에 WeekInterval을 적용
-	 * @param searchStartDate
-	 * @param weekInterval
-	 * @param schedule
-	 * @return searchStartDate
+	 * searchStartDate 이후 주의 반복 주기를 고려한 첫 번째 일정의 시작일을 찾는다.
+	 * @param searchStartDate 검색 시작 날짜
+	 * @param schedule 일정
+	 * @return 검색된 첫 번째 일정의 시작일
 	 */
-	public static LocalDate getNearestDateUsingWeekInterval(LocalDate searchStartDate, Integer weekInterval,
-		Schedule schedule) {
+	private LocalDate getFirstScheduleStartDate(LocalDate searchStartDate, Schedule schedule){
 
-		// searchStartDate를 해당 주의 월요일로 설정
-		LocalDateTime searchStartMonday = LocalDateTime.of(
-			searchStartDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)), LocalTime.of(0, 0));
-		LocalDateTime scheduleStartMonday = LocalDateTime.of(
-			schedule.getRepetitionStartDate().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)),
-			LocalTime.of(0, 0));
+		LocalDate scheduleStartDate = schedule.getStartDateTime().toLocalDate();
+		LocalDate unadjustedStartDate = searchByScheduleDayOfWeek(searchStartDate, schedule); // WeekInterval 반영되지 않은 상태
 
-		int gapOfWeek = (int)Duration.between(scheduleStartMonday, searchStartMonday).toDays() / 7;
+		// 주의 차이를 계산
+		long weeksBetween = ChronoUnit.DAYS.between(scheduleStartDate, unadjustedStartDate) / 7;
+		int weekInterval = schedule.getWeekInterval();
 
-		if (gapOfWeek % weekInterval == 0)
-			return searchStartDate;
+		if (weeksBetween % weekInterval == 0) { // searchStartDate 가 반복 주기에 포함되는 Week 인 경우
+			return unadjustedStartDate;
+		}
 
-		int addWeek = (gapOfWeek / weekInterval + 1) * weekInterval - gapOfWeek;
+		long addWeek = (weeksBetween / weekInterval + 1) * weekInterval - weeksBetween; // 반복 주기에 포함되도록 더해야 할 Week
 
-		return searchStartDate.plusWeeks(addWeek);
+		return unadjustedStartDate.plusWeeks(addWeek);
+
+	}
+
+	/**
+	 * 검색시작일자(searchStartDate)에 부합하는 가장 가까운 일정시작요일(dayOfWeek of startDateTime of schedule)을 검색한다.
+	 * @param searchStartDate 검색시작일자
+	 * @param schedule 일정
+	 * @return {LocalDateTime} 검색 조건과 일정의 시작 및 끝나는 요일에 부합하는 가장 가까운 시작일시
+	 */
+	private LocalDate searchByScheduleDayOfWeek(LocalDate searchStartDate, Schedule schedule) {
+
+		// 일정이 끝나는 요일
+		DayOfWeek shcduleEndDayOfWeek = schedule.getEndDateTime().getDayOfWeek();
+
+		// 검색 시작일자 이후, 끝나는 요일과 같은 가장 가까운 날짜
+		LocalDate nearestEndDate = getNextOrSame(shcduleEndDayOfWeek, searchStartDate);
+
+		LocalDateTime nearestEndDateTime = LocalDateTime.of(nearestEndDate, schedule.getEndDateTime().toLocalTime());
+
+		return nearestEndDateTime.minus(schedule.getDuration()).toLocalDate();
+	}
+
+	/**
+	 * dayOfWeek 이후의 가장 가까운 dayOfWeek 에 해당하는 날짜를 구한다.
+	 * @param dayOfWeek 요일
+	 * @param date 기준 날짜
+	 * @return {LocalDate}
+	 */
+	private LocalDate getNextOrSame(DayOfWeek dayOfWeek, LocalDate date) {
+		return date.with(TemporalAdjusters.nextOrSame(dayOfWeek));
 	}
 
 	/**
@@ -69,60 +125,7 @@ public class WeekRepetitionStrategy implements RepetitionStrategy {
 	 * @param dayOfWeek (1: 월요일, 2: 화요일, 3: 수요일, 4: 목요일, 5: 금요일, 6: 토요일, 7: 일요일)
 	 * @return boolean
 	 */
-	static boolean isSelectedDayOfWeek(int repetitionDayOfWeek, int dayOfWeek) {
+	private boolean isSelectedDayOfWeek(int repetitionDayOfWeek, int dayOfWeek) {
 		return (repetitionDayOfWeek & (1 << dayOfWeek)) != 0;
-	}
-
-	/**
-	 * RepetitionCycle이 Week일 때 Schedule의 반복 일정을 조회한다.
-	 * @param schedule
-	 * @param searchStartDate
-	 * @param searchEndDate
-	 * @return List<ScheduleFindResponse>
-	 */
-	@Override
-	public List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
-		LocalDate searchEndDate) {
-
-		// 검색할 시작일자와 끝일자 설정
-		searchEndDate = getMinDate(searchEndDate, schedule.getRepetitionEndDate());
-		searchStartDate = getMaxDate(searchStartDate, schedule.getRepetitionStartDate());
-
-		// 반복 주에 포함되도록 가공
-		searchStartDate = getNearestDateUsingWeekInterval(searchStartDate, schedule.getWeekInterval(), schedule);
-		List<ScheduleFindResponse> responses = new ArrayList<>();
-
-		if (!schedule.existsDayOfWeek()) { // 반복 요일을 설정하지 않았을 경우
-
-			searchStartDate = resetForBeforeStarted(searchStartDate, schedule);
-			Duration duration = Duration.between(schedule.getStartDateTime(), schedule.getEndDateTime());
-
-			// 설정한 weekInterval 만큼씩 증가하면서 endDate까지 반복
-			for (LocalDate date = searchStartDate; !date.isAfter(searchEndDate); date = date.plusWeeks(
-				schedule.getWeekInterval())) {
-				LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
-				LocalDateTime endDateTime = startDateTime.plus(duration);
-				responses.add(ScheduleFindResponse.of(schedule, startDateTime, endDateTime));
-			}
-			return responses;
-		}
-		// 반복 요일을 설정했을 경우
-		int repetitionDayOfWeek = schedule.getDayOfWeek();
-
-		for (int dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) { // 요일마다 처리
-			if (isSelectedDayOfWeek(repetitionDayOfWeek, dayOfWeek)) {
-
-				// Find nearest day by dayOfWeek and increase weekInterval
-				LocalDate date = getMaxDate(searchStartDate, schedule.getRepetitionStartDate()).with(
-					TemporalAdjusters.nextOrSame(DayOfWeek.of(dayOfWeek)));
-
-				for (; !date.isAfter(searchEndDate); date = date.plusWeeks(schedule.getWeekInterval())) {
-					responses.add(ScheduleFindResponse
-						.of(schedule, LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime()),
-							LocalDateTime.of(date, schedule.getEndDateTime().toLocalTime())));
-				}
-			}
-		}
-		return responses;
 	}
 }
