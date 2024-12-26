@@ -54,7 +54,7 @@ public enum ScheduleFixture {
 		LocalDate.of(2025, 1, 1),
 		RepetitionCycle.WEEK,
 		null, // 월, 수, 금 반복
-		2 // 매주 반복
+		2 // 2주 마다 반복
 	),
 	MONTHLY_SCHEDULE(
 		"월간 일정",

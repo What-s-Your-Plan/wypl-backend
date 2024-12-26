@@ -57,7 +57,7 @@ class MonthRepetitionStrategyTest {
 	@DisplayName("반복일정 조회 - Today")
 	void getSchedulesResponsesForToday() {
 
-		// given: Set today as the start date of the monthRepetitionSchedule
+		// given
 		LocalDate startDate = ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate().plusMonths(1).plusDays(1);
 
 		// when

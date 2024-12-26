@@ -1,5 +1,6 @@
 package com.wypl.wyplcore.schedule.data.response;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,5 +33,11 @@ public record ScheduleFindResponse(
 			startDateTime,
 			endDateTime
 		);
+	}
+
+	public static ScheduleFindResponse of(Schedule schedule, LocalDate startDate, LocalDate endDate) {
+		LocalDateTime startDateTime = LocalDateTime.of(startDate, schedule.getStartDateTime().toLocalTime());
+		LocalDateTime endDateTime = LocalDateTime.of(endDate, schedule.getStartDateTime().toLocalTime());
+		return of(schedule, startDateTime, endDateTime);
 	}
 }
