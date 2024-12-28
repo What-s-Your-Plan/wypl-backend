@@ -19,11 +19,14 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/schedule/v2/schedules")
 public class ScheduleController {
 
-    private final ScheduleService scheduleService;
+	private final ScheduleService scheduleService;
 
-    @PostMapping
-    public WyplResponseEntity<ScheduleInfoCreateResponse> addSchedule(@Authenticated AuthMember authMember, @RequestBody ScheduleCreateRequest scheduleCreateRequest) {
-        ScheduleInfoCreateResponse response = scheduleService.createSchedule(authMember, scheduleCreateRequest);
-        return WyplResponseEntity.created(response, "일정이 생성됐습니다.");
-    }
+	@PostMapping
+	public WyplResponseEntity<ScheduleInfoCreateResponse> addSchedule(
+		@Authenticated AuthMember authMember,
+		@RequestBody ScheduleCreateRequest scheduleCreateRequest
+	) {
+		ScheduleInfoCreateResponse response = scheduleService.create(authMember, scheduleCreateRequest);
+		return WyplResponseEntity.created(response, "일정이 생성됐습니다.");
+	}
 }
