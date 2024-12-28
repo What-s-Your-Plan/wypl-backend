@@ -24,9 +24,9 @@ public class ScheduleController {
 	@PostMapping
 	public WyplResponseEntity<ScheduleInfoCreateResponse> addSchedule(
 		@Authenticated AuthMember authMember,
-		@RequestBody ScheduleCreateRequest scheduleCreateRequest
+		@RequestBody ScheduleCreateRequest request
 	) {
-		ScheduleInfoCreateResponse response = scheduleService.create(authMember, scheduleCreateRequest);
+		ScheduleInfoCreateResponse response = scheduleService.save(authMember, request);
 		return WyplResponseEntity.created(response, "일정이 생성됐습니다.");
 	}
 }
