@@ -9,15 +9,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import com.wypl.jpamemberdomain.member.data.MemberDto;
 import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 
-@SpringBootTest
-// @DataJpaTest
+@DataJpaTest
 public class MemberRepositoryTest {
 	@Autowired
 	private MemberRepository memberRepository;
@@ -43,7 +42,6 @@ public class MemberRepositoryTest {
 		@DisplayName("Member를 성공적으로 저장한다.")
 		@Test
 		void saveSuccessTest() {
-
 			// When
 			Member result = memberRepository.save(member);
 			Member findMember = memberRepository.findById(result.getMemberId()).get();
@@ -59,8 +57,14 @@ public class MemberRepositoryTest {
 		@DisplayName("중복된 Member 저장에 실패한다.")
 		@Test
 		void duplicatedMemberSaveTest() {
-			// When & Then
-			assertThatThrownBy(() -> memberRepository.save(member))
+			// Given
+			Member duplicatedMember = Member.of(memberDtoMock);
+
+			// When
+			memberRepository.save(member);
+
+			// Then
+			assertThatThrownBy(() -> memberRepository.save(duplicatedMember))
 				.isInstanceOf(DataIntegrityViolationException.class)
 				.hasMessageContaining("Unique index or primary key violation");
 		}
