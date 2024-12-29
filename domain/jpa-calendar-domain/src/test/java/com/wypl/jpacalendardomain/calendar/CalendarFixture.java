@@ -3,7 +3,7 @@ package com.wypl.jpacalendardomain.calendar;
 import com.wypl.jpacalendardomain.calendar.domain.Calendar;
 
 public enum CalendarFixture {
-	wyplProject("와플 개발 일정", "와플 스터디 개발 일정 달력입니다.", 1L, true);
+	WYPL_PROJECT("와플 개발 일정", "와플 스터디 개발 일정 달력입니다.", 1L, true);
 
 	private final String name;
 	private final String description;
