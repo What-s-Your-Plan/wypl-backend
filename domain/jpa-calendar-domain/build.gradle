@@ -8,6 +8,4 @@ dependencies {
     implementation project(':common')
     implementation project(':domain:jpa-common')
     implementation project(':domain:jpa-member-domain')
-
-    implementation('org.springframework.boot:spring-boot-starter-test')
 }
