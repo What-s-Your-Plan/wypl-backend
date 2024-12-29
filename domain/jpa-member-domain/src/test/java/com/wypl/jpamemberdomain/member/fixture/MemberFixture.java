@@ -8,7 +8,8 @@ import com.wypl.jpamemberdomain.member.TimeZone;
 import com.wypl.jpamemberdomain.member.domain.Member;
 
 public enum MemberFixture {
-	JEONG_HOON(1L, "biosjh@gmail.com", "sjh", LocalDate.of(1999, 1, 15), "JHprofile", OauthProvider.GOOGLE);
+	JEONG_HOON(1L, "biosjh@gmail.com", "sjh", LocalDate.of(1999, 1, 15), "JHprofile", OauthProvider.GOOGLE),
+	JEONG_UK(2L, "workju1124@gmail.com", "kimsei1124", LocalDate.of(1998, 11, 24), "JUprofile", OauthProvider.GOOGLE);
 
 	private final Long memberId;
 	private final String email;
