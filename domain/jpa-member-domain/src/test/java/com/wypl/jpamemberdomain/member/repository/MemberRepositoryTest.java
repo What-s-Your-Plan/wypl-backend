@@ -2,7 +2,10 @@ package com.wypl.jpamemberdomain.member.repository;
 
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.jpamemberdomain.member.fixture.MemberFixture;
+
+import jakarta.persistence.EntityManager;
 
 @DataJpaTest
 class MemberRepositoryTest {
@@ -35,5 +40,42 @@ class MemberRepositoryTest {
 			.usingRecursiveComparison()
 			.ignoringFields("createdAt", "modifiedAt")    // JPA 관련 설정
 			.isEqualTo(member);
+	}
+
+	@DisplayName("Member 설정과 조회 테스트")
+	@Nested
+	class MemberSetupTest {
+		private final EntityManager em;
+
+		private Member savedMember;
+
+		@Autowired
+		public MemberSetupTest(EntityManager em) {
+			this.em = em;
+		}
+
+		@BeforeEach
+		void setUp() {
+			savedMember = repository.save(MemberFixture.JEONG_HOON.toMember());
+
+			em.flush();
+			em.clear();
+		}
+
+		@DisplayName("ID로 Member를 조회하면 저장된 Member를 반환한다.")
+		@Test
+		void findByIdTest() {
+			/* Given */
+			Long memberId = savedMember.getMemberId();
+
+			/* When */
+			Member foundMember = repository.findById(memberId).orElseThrow();
+
+			/* Then */
+			assertThat(foundMember)
+				.usingRecursiveComparison()
+				.ignoringFields("created", "lastModified")
+				.isEqualTo(savedMember);
+		}
 	}
 }
