@@ -13,6 +13,7 @@ import com.wypl.redistokendomain.TokenRepository;
 
 import lombok.RequiredArgsConstructor;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class AuthDomainServiceImpl {
@@ -20,6 +21,7 @@ public class AuthDomainServiceImpl {
 	private final SocialMemberRepository socialMemberRepository;
 	private final TokenRepository tokenRepository;
 
+	@Transactional
 	public long saveAuthData(MemberDto memberDto, SocialMemberDto socialMemberDto) {
 		Member newMember = memberRepository.save(Member.of(memberDto));
 		SocialMember socialMember = socialMemberRepository.save(SocialMember.of(newMember, socialMemberDto));
@@ -39,6 +41,7 @@ public class AuthDomainServiceImpl {
 		return tokenRepository.getRefreshToken(accessToken);
 	}
 
+	@Transactional
 	public void deleteToken(String accessToken) {
 		tokenRepository.deleteToken(accessToken);
 	}
