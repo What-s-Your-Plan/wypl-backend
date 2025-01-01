@@ -51,8 +51,6 @@ public class AuthServiceImpl {
 			throw new GoogleOAuthException(GoogleOAuthErrorCode.NOT_AUTHORIZATION_MEMBER);
 		}
 
-		// FIXME : member Id를 같이 보내야할까? 안 보내도 될 것 같은데.. redis에 access_token : {refresh_token, member_id}로 저장?
-
 		GoogleTokenResponse googleTokenResponse = googleOAuthClient.fetchRefreshGoogleOAuthToken(refreshToken);
 
 		authDomainService.deleteToken(accessToken);
