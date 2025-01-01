@@ -30,7 +30,7 @@ class TokenRepositoryTest {
 			boolean result = tokenRepository.checkExistsToken(accessToken);
 
 			// Then
-			assertThat(result).isEqualTo(false);
+			assertThat(result).isFalse();
 		}
 
 		@DisplayName("존재하지 않는 리프레시 토큰 조회로 인해 에러를 던진다.")
