@@ -58,10 +58,7 @@ public class SocialMemberRepositoryTest {
 			SocialMember findSocialMember = socialMemberRepository.findById(result.getId()).get();
 
 			// Then
-			assertThat(result.getId()).isEqualTo(findSocialMember.getId());
-			assertThat(result.getMember().getMemberId()).isEqualTo(findSocialMember.getMember().getMemberId());
-			assertThat(result.getOauthId()).isEqualTo(findSocialMember.getOauthId());
-			assertThat(result.getOauthProvider()).isEqualTo(findSocialMember.getOauthProvider());
+			assertThat(result).isEqualTo(findSocialMember);
 		}
 
 		@DisplayName("중복된 SocialMember 저장에 실패한다.")
