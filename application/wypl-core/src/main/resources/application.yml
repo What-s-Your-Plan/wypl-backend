@@ -14,4 +14,3 @@ spring:
         - local
         - dev
         - prod
-        - test
