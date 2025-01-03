@@ -12,8 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
@@ -33,8 +32,9 @@ import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
 import com.wypl.wyplcore.auth.service.AuthServiceImpl;
 
 @AutoConfigureRestDocs
-@AutoConfigureMockMvc
-@SpringBootTest
+// @AutoConfigureMockMvc
+// @SpringBootTest
+@WebMvcTest(AuthController.class)
 class AuthControllerTest {
 	private final String AUTHORIZATION_HEADER_VALUE = "Bearer oauth..";
 	@Autowired
