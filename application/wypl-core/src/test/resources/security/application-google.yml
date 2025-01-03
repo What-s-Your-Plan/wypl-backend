@@ -1,0 +1,6 @@
+google:
+  oauth:
+    client-id: google-client-id
+    client-secret: google-client-secret
+    access-token-uri: google-access-token-uri
+    redirect-uri: wypl-redirect-uri
