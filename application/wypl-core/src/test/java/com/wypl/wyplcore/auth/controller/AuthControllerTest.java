@@ -32,8 +32,6 @@ import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
 import com.wypl.wyplcore.auth.service.AuthServiceImpl;
 
 @AutoConfigureRestDocs
-// @AutoConfigureMockMvc
-// @SpringBootTest
 @WebMvcTest(AuthController.class)
 class AuthControllerTest {
 	private final String AUTHORIZATION_HEADER_VALUE = "Bearer oauth..";
