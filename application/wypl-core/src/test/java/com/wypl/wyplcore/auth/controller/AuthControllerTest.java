@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -28,10 +29,12 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.googleoauthclient.service.AuthMemberService;
 import com.wypl.googleoauthclient.utils.AuthenticatedArgumentResolver;
+import com.wypl.wyplcore.WyplCoreTestApplication;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
 import com.wypl.wyplcore.auth.service.AuthServiceImpl;
 
 @AutoConfigureRestDocs
+@ContextConfiguration(classes = WyplCoreTestApplication.class)
 @WebMvcTest(AuthController.class)
 class AuthControllerTest {
 	private final String AUTHORIZATION_HEADER_VALUE = "Bearer oauth..";
