@@ -13,8 +13,8 @@ import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.jpamemberdomain.member.OauthProvider;
-import com.wypl.jpamemberdomain.member.data.MemberDto;
-import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
+import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
+import com.wypl.jpamemberdomain.member.data.SocialMemberSaveDto;
 import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.jpamemberdomain.member.utils.SocialMemberRepositoryUtils;
@@ -87,19 +87,19 @@ public class AuthServiceImpl {
 		if (isNewMember(googleUserInfoResponse)) {
 			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
 
-			MemberDto memberDto = MemberDto.builder()
+			MemberSaveDto memberSaveDto = MemberSaveDto.builder()
 				.email(googleUserInfoResponse.email())
 				.birthday(birthday)
 				.nickname(googleUserInfoResponse.name())
 				.profileImage(googleUserInfoResponse.picture())
 				.build();
 
-			SocialMemberDto socialMemberDto = SocialMemberDto.builder()
+			SocialMemberSaveDto socialMemberSaveDto = SocialMemberSaveDto.builder()
 				.oauthProvider(OauthProvider.GOOGLE)
 				.oauthId(googleUserInfoResponse.id())
 				.build();
 
-			return authDomainService.saveAuthData(memberDto, socialMemberDto);
+			return authDomainService.saveAuthData(memberSaveDto, socialMemberSaveDto);
 		}
 
 		return SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();

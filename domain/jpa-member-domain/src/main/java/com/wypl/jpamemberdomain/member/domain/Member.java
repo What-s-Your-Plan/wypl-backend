@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import com.wypl.common.Color;
 import com.wypl.jpacommon.JpaBaseEntity;
 import com.wypl.jpamemberdomain.member.TimeZone;
-import com.wypl.jpamemberdomain.member.data.MemberDto;
+import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,12 +57,12 @@ public class Member extends JpaBaseEntity {
 //	@OneToMany(mappedBy = "member")
 //	private List<MemberCalendar> memberCalendars;
 
-	public static Member of(MemberDto memberDto) {
+	public static Member of(MemberSaveDto memberSaveDto) {
 		return Member.builder()
-			.email(memberDto.getEmail())
-			.nickname(memberDto.getNickname())
-			.birthday(memberDto.getBirthday())
-			.profileImage(memberDto.getProfileImage())
+			.email(memberSaveDto.getEmail())
+			.nickname(memberSaveDto.getNickname())
+			.birthday(memberSaveDto.getBirthday())
+			.profileImage(memberSaveDto.getProfileImage())
 			.color(Color.labelBrown)
 			.timeZone(TimeZone.KOREA)
 			.build();

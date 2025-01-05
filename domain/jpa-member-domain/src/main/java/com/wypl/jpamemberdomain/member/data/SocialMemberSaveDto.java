@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class SocialMemberDto {
+public class SocialMemberSaveDto {
 	OauthProvider oauthProvider;
 	String oauthId;
 }

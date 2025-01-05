@@ -16,8 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.wypl.authdomain.auth.service.fixture.MemberFixture;
 import com.wypl.jpamemberdomain.member.OauthProvider;
-import com.wypl.jpamemberdomain.member.data.MemberDto;
-import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
+import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
+import com.wypl.jpamemberdomain.member.data.SocialMemberSaveDto;
 import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.MemberRepository;
@@ -40,14 +40,14 @@ class AuthDomainServiceImplTest {
 	@EnumSource
 	void saveAuthDateTest(MemberFixture fixture) {
 		// Given
-		MemberDto memberDtoMock = MemberDto.builder()
+		MemberSaveDto memberSaveDtoMock = MemberSaveDto.builder()
 			.email("email")
 			.nickname("nickname")
 			.birthday(LocalDate.of(1999, 1, 15))
 			.profileImage("profileImage")
 			.build();
 
-		SocialMemberDto socialMemberDtoMock = SocialMemberDto.builder()
+		SocialMemberSaveDto socialMemberSaveDtoMock = SocialMemberSaveDto.builder()
 			.oauthProvider(OauthProvider.GOOGLE)
 			.oauthId("oauthId")
 			.build();
@@ -63,7 +63,7 @@ class AuthDomainServiceImplTest {
 			.willReturn(socialMemberMock);
 
 		// When
-		long result = authDomainService.saveAuthData(memberDtoMock, socialMemberDtoMock);
+		long result = authDomainService.saveAuthData(memberSaveDtoMock, socialMemberSaveDtoMock);
 
 		// Then
 		assertThat(result).isEqualTo(socialMemberMock.getId());

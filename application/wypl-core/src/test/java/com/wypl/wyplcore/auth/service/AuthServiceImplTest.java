@@ -27,8 +27,8 @@ import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.jpamemberdomain.member.OauthProvider;
-import com.wypl.jpamemberdomain.member.data.MemberDto;
-import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
+import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
+import com.wypl.jpamemberdomain.member.data.SocialMemberSaveDto;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
@@ -117,7 +117,7 @@ class AuthServiceImplTest {
 			given(googleOAuthClient.fetchBirthday(anyString()))
 				.willReturn(LocalDate.now());
 
-			given(authDomainService.saveAuthData(any(MemberDto.class), any(SocialMemberDto.class)))
+			given(authDomainService.saveAuthData(any(MemberSaveDto.class), any(SocialMemberSaveDto.class)))
 				.willReturn(2L);
 
 			// When

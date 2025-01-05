@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class MemberDto {
+public class MemberSaveDto {
 	String email;
 	String nickname;
 	LocalDate birthday;

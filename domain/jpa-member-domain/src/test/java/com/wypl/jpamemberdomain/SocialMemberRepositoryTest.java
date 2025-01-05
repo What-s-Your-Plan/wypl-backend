@@ -13,8 +13,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DuplicateKeyException;
 
 import com.wypl.jpamemberdomain.member.OauthProvider;
-import com.wypl.jpamemberdomain.member.data.MemberDto;
-import com.wypl.jpamemberdomain.member.data.SocialMemberDto;
+import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
+import com.wypl.jpamemberdomain.member.data.SocialMemberSaveDto;
 import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
@@ -27,27 +27,27 @@ public class SocialMemberRepositoryTest {
 	@DisplayName("SocialMember를 저장한다.")
 	@Nested
 	class socialMemberSaveTest {
-		private SocialMemberDto socialMemberDtoMock;
+		private SocialMemberSaveDto socialMemberSaveDtoMock;
 		private Member member;
 		private SocialMember socialMember;
 
 		@BeforeEach
 		void beforeEach() {
-			MemberDto memberDtoMock = MemberDto.builder()
+			MemberSaveDto memberSaveDtoMock = MemberSaveDto.builder()
 				.email("email")
 				.nickname("nickname")
 				.birthday(LocalDate.of(1999, 1, 15))
 				.profileImage("profileImage")
 				.build();
 
-			socialMemberDtoMock = SocialMemberDto.builder()
+			socialMemberSaveDtoMock = SocialMemberSaveDto.builder()
 				.oauthProvider(OauthProvider.GOOGLE)
 				.oauthId("oauthId")
 				.build();
 
-			member = Member.of(memberDtoMock);
+			member = Member.of(memberSaveDtoMock);
 
-			socialMember = SocialMember.of(member, socialMemberDtoMock);
+			socialMember = SocialMember.of(member, socialMemberSaveDtoMock);
 		}
 
 		@DisplayName("SocialMember를 성공적으로 저장한다.")
@@ -65,7 +65,7 @@ public class SocialMemberRepositoryTest {
 		@Test
 		void duplicatedMemberSaveTest() {
 			// Given
-			SocialMember duplicatedSocialMember = SocialMember.of(member, socialMemberDtoMock);
+			SocialMember duplicatedSocialMember = SocialMember.of(member, socialMemberSaveDtoMock);
 
 			// When
 			socialMemberRepository.save(socialMember);
