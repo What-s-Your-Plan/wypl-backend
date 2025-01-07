@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import com.wypl.common.Color;
 import com.wypl.jpacommon.JpaBaseEntity;
 import com.wypl.jpamemberdomain.member.TimeZone;
+import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,8 +15,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 @Entity
 @Table(name = "member_tbl")
@@ -48,5 +56,16 @@ public class Member extends JpaBaseEntity {
 
 //	@OneToMany(mappedBy = "member")
 //	private List<MemberCalendar> memberCalendars;
+
+	public static Member of(MemberSaveDto memberSaveDto) {
+		return Member.builder()
+			.email(memberSaveDto.getEmail())
+			.nickname(memberSaveDto.getNickname())
+			.birthday(memberSaveDto.getBirthday())
+			.profileImage(memberSaveDto.getProfileImage())
+			.color(Color.labelBrown)
+			.timeZone(TimeZone.KOREA)
+			.build();
+	}
 
 }
