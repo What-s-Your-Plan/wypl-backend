@@ -1,5 +1,6 @@
 package com.wypl.jpacalendardomain.calendar.domain;
 
+import com.wypl.jpacalendardomain.schedule.domain.ScheduleInfo;
 import com.wypl.jpacommon.JpaBaseEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;

@@ -5,12 +5,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.jpacalendardomain.calendar.domain.Calendar;
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
-import com.wypl.jpacalendardomain.calendar.domain.ScheduleInfo;
-import com.wypl.jpacalendardomain.calendar.mapper.ScheduleInfoMapper;
-import com.wypl.jpacalendardomain.calendar.mapper.ScheduleMapper;
-import com.wypl.jpacalendardomain.calendar.repository.ScheduleInfoRepository;
-import com.wypl.jpacalendardomain.calendar.repository.ScheduleRepository;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.ScheduleInfo;
+import com.wypl.jpacalendardomain.schedule.mapper.ScheduleInfoMapper;
+import com.wypl.jpacalendardomain.schedule.mapper.ScheduleMapper;
+import com.wypl.jpacalendardomain.schedule.repository.ScheduleInfoRepository;
+import com.wypl.jpacalendardomain.schedule.repository.ScheduleRepository;
 import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.wyplcore.schedule.data.request.ScheduleCreateRequest;
 import com.wypl.wyplcore.schedule.data.response.ScheduleInfoCreateResponse;
