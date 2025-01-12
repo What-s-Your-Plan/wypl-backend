@@ -1,86 +1,87 @@
 package com.wypl.wyplcore.schedule.data.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wypl.jpacalendardomain.schedule.data.ConvertibleSchedule;
-import com.wypl.jpacalendardomain.schedule.data.RepetitionCycle;
-import lombok.Builder;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.wypl.jpacalendardomain.schedule.data.ConvertibleSchedule;
+import com.wypl.jpacalendardomain.schedule.domain.embedded.RepetitionCycle;
+
+import lombok.Builder;
 
 @Builder
 public record ScheduleCreateRequest(
 
-        @JsonProperty("calendar_id")
-        long calenderId,
+	@JsonProperty("calendar_id")
+	long calenderId,
 
-        String title,
+	String title,
 
-        String description,
+	String description,
 
-        @JsonProperty("start_datetime")
-        LocalDateTime startDateTime,
+	@JsonProperty("start_datetime")
+	LocalDateTime startDateTime,
 
-        @JsonProperty("end_datetime")
-        LocalDateTime endDateTime,
+	@JsonProperty("end_datetime")
+	LocalDateTime endDateTime,
 
-        @JsonProperty("repetition_cycle")
-        RepetitionCycle repetitionCycle,
+	@JsonProperty("repetition_cycle")
+	RepetitionCycle repetitionCycle,
 
-        @JsonProperty("day_of_week")
-        int dayOfWeek,
+	@JsonProperty("day_of_week")
+	int dayOfWeek,
 
-        @JsonProperty("week_interval")
-        Integer weekInterval,
+	@JsonProperty("week_interval")
+	Integer weekInterval,
 
-        @JsonProperty("repetition_start_date")
-        LocalDate repetitionStartDate,
+	@JsonProperty("repetition_start_date")
+	LocalDate repetitionStartDate,
 
-        @JsonProperty("repetition_end_date")
-        LocalDate repetitionEndDate
+	@JsonProperty("repetition_end_date")
+	LocalDate repetitionEndDate
 ) implements ConvertibleSchedule {
-        @Override
-        public String getTitle() {
-                return this.title;
-        }
+	@Override
+	public String getTitle() {
+		return this.title;
+	}
 
-        @Override
-        public String getDescription() {
-                return this.description;
-        }
+	@Override
+	public String getDescription() {
+		return this.description;
+	}
 
-        @Override
-        public LocalDateTime getStartDateTime() {
-                return this.startDateTime;
-        }
+	@Override
+	public LocalDateTime getStartDateTime() {
+		return this.startDateTime;
+	}
 
-        @Override
-        public LocalDateTime getEndDateTime() {
-                return this.endDateTime;
-        }
+	@Override
+	public LocalDateTime getEndDateTime() {
+		return this.endDateTime;
+	}
 
-        @Override
-        public LocalDate getRepetitionStartDate() {
-                return this.repetitionStartDate;
-        }
+	@Override
+	public LocalDate getRepetitionStartDate() {
+		return this.repetitionStartDate;
+	}
 
-        @Override
-        public LocalDate getRepetitionEndDate() {
-                return this.repetitionEndDate;
-        }
+	@Override
+	public LocalDate getRepetitionEndDate() {
+		return this.repetitionEndDate;
+	}
 
-        @Override
-        public RepetitionCycle getRepetitionCycle() {
-                return this.repetitionCycle;
-        }
+	@Override
+	public RepetitionCycle getRepetitionCycle() {
+		return this.repetitionCycle;
+	}
 
-        @Override
-        public Integer getDayOfWeek() {
-                return this.dayOfWeek;
-        }
+	@Override
+	public Integer getDayOfWeek() {
+		return this.dayOfWeek;
+	}
 
-        @Override
-        public Integer getWeekInterval() {
-                return this.weekInterval;
-        }
+	@Override
+	public Integer getWeekInterval() {
+		return this.weekInterval;
+	}
 }

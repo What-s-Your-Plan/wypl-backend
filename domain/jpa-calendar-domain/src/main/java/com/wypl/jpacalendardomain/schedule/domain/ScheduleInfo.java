@@ -1,15 +1,17 @@
 package com.wypl.jpacalendardomain.schedule.domain;
 
+import java.util.List;
+
+import org.hibernate.annotations.SQLRestriction;
+
 import com.wypl.jpacalendardomain.calendar.domain.Calendar;
 import com.wypl.jpacommon.JpaBaseEntity;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLRestriction;
-
-import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,24 +20,24 @@ import java.util.List;
 @Table(name = "schedule_info_tbl")
 public class ScheduleInfo extends JpaBaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "schedule_info_id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "schedule_info_id")
+	private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "calendar_id", nullable = false)
-    private Calendar calendar;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "calendar_id", nullable = false)
+	private Calendar calendar;
 
-    @Column(name = "creator_id")
-    private Long creatorId;
+	@Column(name = "creator_id")
+	private Long creatorId;
 
-    @OneToMany(mappedBy = "scheduleInfo")
-    private List<Schedule> schedules;
+	@OneToMany(mappedBy = "scheduleInfo")
+	private List<Schedule> schedules;
 
-    @Builder
-    public ScheduleInfo(Calendar calendar, Long creatorId) {
-        this.calendar = calendar;
-        this.creatorId = creatorId;
-    }
+	@Builder
+	public ScheduleInfo(Calendar calendar, Long creatorId) {
+		this.calendar = calendar;
+		this.creatorId = creatorId;
+	}
 }
