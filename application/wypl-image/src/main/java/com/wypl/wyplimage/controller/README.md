@@ -25,3 +25,12 @@ flowchart TD
 ```
 
 ## Delete Image Request
+
+```mermaid
+flowchart TD
+    Request("DELETE /file/v1/images - 이미지 삭제 요청")
+    Service("ImageService.removeImages() - 이미지 삭제")
+    Remove("AwsS3StorageService.filesRemove() - 파일 삭제")
+    Success("200 - 삭제 성공")
+    Request --> Service --> Remove --> Success
+```
