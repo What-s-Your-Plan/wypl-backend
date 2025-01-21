@@ -16,6 +16,9 @@ flowchart TD
     Success[201 </br> 업로드 성공]
     BadRequest[400 </br> 잘못된 요청]
     ServerError[500 </br> 서버 오류]
+    subgraph ImageController
+        Request
+    end
     Request --> Service
 
     subgraph ImageService
@@ -23,26 +26,23 @@ flowchart TD
     end
     Validate -- 확장자가 유효하지 않은 경우 --> BadRequest
     Validate -- 이미지 확장자를 avif로 변환 --> ImageMagic
-    ImageMagic -- 파일 경로가 잘못된 경우 --> ServerError
-    ImageMagic -- 유효하지 않은 명령어 --> ServerError
-    ImageMagic -- 프로세스 오류 발생 --> ServerError
 
     subgraph ImageMagickConvert
         ImageMagic
     end
-
+    ImageMagic -- 파일 경로가 잘못된 경우 --> ServerError
+    ImageMagic -- 유효하지 않은 명령어 --> ServerError
+    ImageMagic -- 프로세스 오류 발생 --> ServerError
     ImageMagic --> Upload
 
     subgraph AwsS3StorageService
         Upload
     end
-
     Upload --> Remove
 
     subgraph ImageRemoveUtils
         Remove
     end
-
     Remove -- 로컬 파일 삭제 실패 --> ServerError
     Remove --> Success
 ```
