@@ -30,9 +30,9 @@ import com.wypl.jpamemberdomain.member.OauthProvider;
 import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
 import com.wypl.jpamemberdomain.member.data.SocialMemberSaveDto;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
-import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
+import com.wypl.wyplcore.member.service.MemberServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 class AuthServiceImplTest {
@@ -45,7 +45,7 @@ class AuthServiceImplTest {
 	@Mock
 	private AuthDomainServiceImpl authDomainService;
 	@Mock
-	private MemberRepository memberRepository;
+	private MemberServiceImpl memberService;
 
 	@DisplayName("로그인 및 회원가입 로직을 테스트한다.")
 	@Nested
@@ -210,6 +210,6 @@ class AuthServiceImplTest {
 
 		// Then
 		verify(authDomainService).deleteToken(anyString());
-		verify(memberRepository).deleteById(anyLong());
+		verify(memberService).deleteMember(any(AuthMember.class));
 	}
 }
