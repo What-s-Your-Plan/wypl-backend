@@ -32,6 +32,7 @@ public class MemberServiceImpl {
 		memberRepository.deleteById(authMember.id());
 	}
 
+	@Transactional
 	public long findMemberIdOrSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
 		if (isNewMember(googleUserInfoResponse)) {
 			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
@@ -54,7 +55,6 @@ public class MemberServiceImpl {
 		return SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();
 	}
 
-	// todo:
 	private boolean isNewMember(GoogleUserInfoResponse googleUserInfoResponse) {
 		return !socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE,
 			googleUserInfoResponse.id());

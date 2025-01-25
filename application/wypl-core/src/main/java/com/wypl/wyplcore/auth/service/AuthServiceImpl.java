@@ -70,8 +70,5 @@ public class AuthServiceImpl {
 	private boolean isInvalidRefreshToken(String accessToken, String refreshToken) {
 		return refreshToken.isEmpty() || !refreshToken.equals(authDomainService.getRefreshToken(accessToken));
 	}
-
-	// todo:
-
 }
 
