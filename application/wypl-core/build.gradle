@@ -16,8 +16,15 @@ dependencies {
     implementation project(':domain:jpamongo-review-domain')
     implementation project(':domain:jpa-calendar-domain')
     implementation project(':domain:jpa-member-domain')
+    implementation project(':domain:auth-domain')
     implementation project(':domain:redis-embedded-domain')
     implementation project(':common')
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    /* API Docs */
+    testImplementation("com.epages:restdocs-api-spec-mockmvc:0.18.4")
+
+    /* Test */
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 }

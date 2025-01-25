@@ -1,0 +1,13 @@
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+
+dependencies {
+    implementation project(':common')
+    implementation project(':domain:redis-embedded-domain')
+
+    api('org.springframework.boot:spring-boot-starter-data-redis')
+}

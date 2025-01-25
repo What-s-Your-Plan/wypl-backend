@@ -34,7 +34,7 @@ subprojects {
         compileOnly 'org.projectlombok:lombok'
         testImplementation 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'
+        implementation('org.springframework.boot:spring-boot-starter-test')
     }
 
     tasks.named('bootJar') {
