@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wypl.authdomain.auth.service.AuthDomainServiceImpl;
 import com.wypl.googleoauthclient.GoogleOAuthClient;
 import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
 import com.wypl.googleoauthclient.domain.AuthMember;
@@ -24,9 +23,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class MemberServiceImpl {
-	private final MemberRepository memberRepository;
 	private final GoogleOAuthClient googleOAuthClient;
-	private final AuthDomainServiceImpl authDomainService;
+	private final MemberRepository memberRepository;
 	private final SocialMemberRepository socialMemberRepository;
 
 	@Transactional
