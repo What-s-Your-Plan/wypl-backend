@@ -1,7 +1,5 @@
 package com.wypl.wyplcore.auth.service;
 
-import java.time.LocalDate;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +10,6 @@ import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
 import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
-import com.wypl.jpamemberdomain.member.OauthProvider;
-import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
-import com.wypl.jpamemberdomain.member.data.SocialMemberSaveDto;
-import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
-import com.wypl.jpamemberdomain.member.utils.SocialMemberRepositoryUtils;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
 import com.wypl.wyplcore.member.service.MemberServiceImpl;
 
@@ -27,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class AuthServiceImpl {
 	private final GoogleOAuthClient googleOAuthClient;
-	private final SocialMemberRepository socialMemberRepository;
 	private final AuthDomainServiceImpl authDomainService;
 	private final MemberServiceImpl memberService;
 
@@ -38,7 +30,7 @@ public class AuthServiceImpl {
 		GoogleUserInfoResponse googleUserInfoResponse = googleOAuthClient.fetchUserInfo(
 			googleTokenResponse.accessToken());
 
-		long memberId = findMemberIdAfterSaveMember(googleTokenResponse.accessToken(), googleUserInfoResponse);
+		long memberId = memberService.findMemberIdAfterSaveMember(googleTokenResponse.accessToken(), googleUserInfoResponse);
 
 		authDomainService.saveToken(googleTokenResponse.accessToken(), googleTokenResponse.refreshToken());
 
@@ -80,32 +72,6 @@ public class AuthServiceImpl {
 	}
 
 	// todo:
-	private long findMemberIdAfterSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
-		if (isNewMember(googleUserInfoResponse)) {
-			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
 
-			MemberSaveDto memberSaveDto = MemberSaveDto.builder()
-				.email(googleUserInfoResponse.email())
-				.birthday(birthday)
-				.nickname(googleUserInfoResponse.name())
-				.profileImage(googleUserInfoResponse.picture())
-				.build();
-
-			SocialMemberSaveDto socialMemberSaveDto = SocialMemberSaveDto.builder()
-				.oauthProvider(OauthProvider.GOOGLE)
-				.oauthId(googleUserInfoResponse.id())
-				.build();
-
-			return authDomainService.saveAuthData(memberSaveDto, socialMemberSaveDto);
-		}
-
-		return SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();
-	}
-
-	// todo:
-	private boolean isNewMember(GoogleUserInfoResponse googleUserInfoResponse) {
-		return !socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE,
-			googleUserInfoResponse.id());
-	}
 }
 
