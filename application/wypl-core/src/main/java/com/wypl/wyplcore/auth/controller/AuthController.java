@@ -12,7 +12,7 @@ import com.wypl.applicationcommon.WyplResponseEntity;
 import com.wypl.googleoauthclient.annotation.Authenticated;
 import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
-import com.wypl.wyplcore.auth.service.AuthServiceImpl;
+import com.wypl.wyplcore.facade.AuthMemberFacade;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,14 +20,14 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/auth")
 @RestController
 public class AuthController {
-	private final AuthServiceImpl authService;
+	private final AuthMemberFacade authMemberFacade;
 
 	@PostMapping("/v1/sign-in/{provider}")
 	public WyplResponseEntity<AuthTokensResponse> signIn(
 		@PathVariable("provider") String provider,
 		@RequestParam("code") String code
 	) {
-		AuthTokensResponse response = authService.generateToken(provider, code);
+		AuthTokensResponse response = authMemberFacade.generateToken(provider, code);
 		return WyplResponseEntity.ok(response, "로그인에 성공하였습니다.");
 	}
 
@@ -36,7 +36,7 @@ public class AuthController {
 		@RequestParam("access_token") String accessToken,
 		@RequestParam("refresh_token") String refreshToken
 	) {
-		AuthTokensResponse response = authService.reissueToken(accessToken, refreshToken);
+		AuthTokensResponse response = authMemberFacade.reissueToken(accessToken, refreshToken);
 		return WyplResponseEntity.created(response, "토큰 재발급에 성공하였습니다.");
 	}
 
@@ -44,7 +44,7 @@ public class AuthController {
 	public WyplResponseEntity<Void> logout(
 		@Authenticated AuthMember authMember
 	) {
-		authService.logout(authMember);
+		authMemberFacade.logout(authMember);
 		return WyplResponseEntity.ok("로그아웃에 성공하였습니다.");
 	}
 }
