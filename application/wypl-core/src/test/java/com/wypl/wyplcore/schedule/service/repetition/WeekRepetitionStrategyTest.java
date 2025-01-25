@@ -26,10 +26,10 @@ class WeekRepetitionStrategyTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(MonthRepetitionStrategyTest.class);
 
-	private Schedule weekRepetitionScheduleWithDayOfWeek;
-	private Schedule weekRepetitionScheduleWithoutDayOfWeek;
+	private Schedule weekRepetitionScheduleWithDayOfWeek = WEEKLY_SCHEDULE.toObject();
+	private Schedule weekRepetitionScheduleWithoutDayOfWeek = WEEKLY_SCHEDULE_WITHOUT_DAY_OF_WEEK.toObject();
 
-	@BeforeEach
+	// @BeforeEach
 	void setUpWeekRepetitionSchedule() {
 		weekRepetitionScheduleWithDayOfWeek = mock(Schedule.class);
 		when(weekRepetitionScheduleWithDayOfWeek.getId()).thenReturn(1L);
@@ -91,11 +91,16 @@ class WeekRepetitionStrategyTest {
 		LocalDate startDate = ScheduleFixture.WEEKLY_SCHEDULE.getRepetitionStartDate().with(
 			TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY));
 
+		logger.info("searchStartDate : {} ~  searchEndDate : {}", startDate, startDate);
+
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			weekRepetitionScheduleWithDayOfWeek, startDate, startDate);
 
 		// then
+		for (ScheduleFindResponse response : scheduleResponses){
+			logger.info("할일 : {}, {} ~ {}", response.title(), response.startDateTime(), response.endDateTime());
+		}
 		assertEquals(1, scheduleResponses.size());
 	}
 

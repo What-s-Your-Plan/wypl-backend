@@ -1,7 +1,6 @@
 package com.wypl.wyplcore.schedule.service.repetition;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +23,7 @@ import ch.qos.logback.classic.LoggerContext;
 class MonthRepetitionStrategyTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(MonthRepetitionStrategyTest.class);
-	private Schedule monthRepetitionSchedule;
+	private final Schedule monthRepetitionSchedule = ScheduleFixture.MONTHLY_SCHEDULE.toObject();
 
 	@BeforeEach
 	public void setLogLevel() {
@@ -33,38 +32,23 @@ class MonthRepetitionStrategyTest {
 		rootLogger.setLevel(Level.DEBUG); // 동적으로 로그 레벨 설정
 	}
 
-	@BeforeEach
-	void setUpMonthRepetitionSchedule() {
-		monthRepetitionSchedule = mock(Schedule.class);
-		when(monthRepetitionSchedule.getId()).thenReturn(1L);
-		when(monthRepetitionSchedule.getTitle()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getTitle());
-		when(monthRepetitionSchedule.getDescription()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getDescription());
-		when(monthRepetitionSchedule.getStartDateTime()).thenReturn(
-			ScheduleFixture.MONTHLY_SCHEDULE.getStartDateTime());
-		when(monthRepetitionSchedule.getEndDateTime()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getEndDateTime());
-		when(monthRepetitionSchedule.getRepetitionStartDate()).thenReturn(
-			ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate());
-		when(monthRepetitionSchedule.getRepetitionEndDate()).thenReturn(
-			ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionEndDate());
-		when(monthRepetitionSchedule.getRepetitionCycle()).thenReturn(
-			ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionCycle());
-		when(monthRepetitionSchedule.getDayOfWeek()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getDayOfWeek());
-		when(monthRepetitionSchedule.getWeekInterval()).thenReturn(ScheduleFixture.MONTHLY_SCHEDULE.getWeekInterval());
-		when(monthRepetitionSchedule.isRepetition()).thenReturn(true);
-	}
-
 	@Test
-	@DisplayName("반복일정 조회 - Today")
+	@DisplayName("반복 일정 조회 - Today")
 	void getSchedulesResponsesForToday() {
 
 		// given
 		LocalDate startDate = ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate().plusMonths(1).plusDays(1);
+		logger.debug("조회 조건: {} ~ {}", startDate, startDate);
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
 			monthRepetitionSchedule, startDate, startDate);
 
 		// then
+		logger.debug("조회 결과: {} 건", scheduleResponses.size());
+		for (ScheduleFindResponse response : scheduleResponses) {
+			logger.debug("{}: {} ~ {}", response.title(), response.startDateTime(), response.endDateTime());
+		}
 		assertEquals(1, scheduleResponses.size());
 
 	}
@@ -83,7 +67,6 @@ class MonthRepetitionStrategyTest {
 
 		// then
 		assertEquals(1, scheduleResponses.size());
-
 	}
 
 	@Test
@@ -110,7 +93,6 @@ class MonthRepetitionStrategyTest {
 		// given
 		LocalDate searchStartDate = ScheduleFixture.MONTHLY_SCHEDULE.getRepetitionStartDate().withDayOfMonth(10);
 		LocalDate searchEndDate = searchStartDate.plusMonths(1);
-		logger.debug("searchStartDate : {} ~  searchEndDate : {}", searchStartDate, searchEndDate);
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(

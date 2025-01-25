@@ -9,7 +9,7 @@ import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 public record ScheduleFindResponse(
 
 	@JsonProperty("schedule_id")
-	long scheduleId,
+	Long scheduleId,
 
 	@JsonProperty("title")
 	String title,
@@ -37,7 +37,7 @@ public record ScheduleFindResponse(
 
 	public static ScheduleFindResponse of(Schedule schedule, LocalDate startDate, LocalDate endDate) {
 		LocalDateTime startDateTime = LocalDateTime.of(startDate, schedule.getStartDateTime().toLocalTime());
-		LocalDateTime endDateTime = LocalDateTime.of(endDate, schedule.getStartDateTime().toLocalTime());
+		LocalDateTime endDateTime = LocalDateTime.of(endDate, schedule.getEndDateTime().toLocalTime());
 		return of(schedule, startDateTime, endDateTime);
 	}
 }

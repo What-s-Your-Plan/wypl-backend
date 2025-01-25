@@ -1,9 +1,11 @@
 package com.wypl.wyplcore.schedule.service.repetition.strategy;
 
+import static com.wypl.common.utils.DateUtil.*;
 import static com.wypl.wyplcore.calendar.service.CalendarServiceUtil.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,32 +31,30 @@ public class YearRepetitionStrategy implements RepetitionStrategy {
 		searchStartDate = getMaxDate(searchStartDate, schedule.getRepetitionStartDate());
 		searchEndDate = getMinDate(searchEndDate, schedule.getRepetitionEndDate());
 
-		LocalDateTime nearestStartDateTime = getNearestStartDateTime(schedule, searchStartDate);
+		LocalDate firstStartScheduleDate = getFirstScheduleStartDate(schedule, searchStartDate);
 
-		List<ScheduleFindResponse> responses = new ArrayList<>();
-		for (LocalDate date = nearestStartDateTime.toLocalDate(); !date.isAfter(searchEndDate); date = date.plusYears(
-			1)) {
-			LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
-			LocalDateTime endDateTime = startDateTime.plus(
-				schedule.getDuration());
-			responses.add(ScheduleFindResponse.of(schedule, startDateTime, endDateTime));
+		if (firstStartScheduleDate.isAfter(searchEndDate)) {
+			return new ArrayList<>();
 		}
-		return responses;
+
+		return firstStartScheduleDate.datesUntil(searchEndDate.plusDays(1), Period.ofYears(1)).map(
+			date -> {
+				LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
+				LocalDateTime endDateTime = startDateTime.plus(schedule.getDuration());
+				return ScheduleFindResponse.of(schedule, startDateTime, endDateTime);
+			}
+		).toList();
 	}
 
 	/**
-	 *
+	 * searchStartDate 와 같거나 그 이후의 첫 번째 일정 시작일을 찾는다.
 	 * @param schedule 할일
-	 * @param searchStartDate
+	 * @param searchStartDate 검색 시작 일자
 	 * @return LocalDateTime
 	 */
-	private static LocalDateTime getNearestStartDateTime(Schedule schedule, LocalDate searchStartDate) {
-		LocalDateTime nearestEndDateTime = LocalDateTime.of(
-			searchStartDate.withDayOfYear(schedule.getEndDateTime().getDayOfYear()),
-			schedule.getEndDateTime().toLocalTime());
-		LocalDateTime nearestStartDateTime = nearestEndDateTime.minus(
-			schedule.getDuration());
-		return nearestStartDateTime;
+	private static LocalDate getFirstScheduleStartDate(Schedule schedule, LocalDate searchStartDate) {
+		LocalDate firstScheduleEndDate = findNextOrSame(searchStartDate, schedule.getEndDateTime().getMonth(), schedule.getEndDateTime().getDayOfMonth());
+		LocalDateTime firstScheduleEndDateTime = LocalDateTime.of(firstScheduleEndDate, schedule.getEndDateTime().toLocalTime());
+		return firstScheduleEndDateTime.minus(schedule.getDuration()).toLocalDate();
 	}
-
 }
