@@ -32,7 +32,7 @@ public class MemberServiceImpl {
 		memberRepository.deleteById(authMember.id());
 	}
 
-	public long findMemberIdAfterSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
+	public long findMemberIdOrSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
 		if (isNewMember(googleUserInfoResponse)) {
 			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
 

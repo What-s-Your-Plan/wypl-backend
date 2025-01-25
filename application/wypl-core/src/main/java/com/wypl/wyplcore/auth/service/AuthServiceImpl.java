@@ -30,7 +30,7 @@ public class AuthServiceImpl {
 		GoogleUserInfoResponse googleUserInfoResponse = googleOAuthClient.fetchUserInfo(
 			googleTokenResponse.accessToken());
 
-		long memberId = memberService.findMemberIdAfterSaveMember(googleTokenResponse.accessToken(), googleUserInfoResponse);
+		long memberId = memberService.findMemberIdOrSaveMember(googleTokenResponse.accessToken(), googleUserInfoResponse);
 
 		authDomainService.saveToken(googleTokenResponse.accessToken(), googleTokenResponse.refreshToken());
 
