@@ -12,6 +12,8 @@ import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.jpamemberdomain.member.OauthProvider;
 import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
 import com.wypl.jpamemberdomain.member.data.SocialMemberSaveDto;
+import com.wypl.jpamemberdomain.member.domain.Member;
+import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.jpamemberdomain.member.utils.SocialMemberRepositoryUtils;
@@ -49,7 +51,7 @@ public class MemberServiceImpl {
 				.oauthId(googleUserInfoResponse.id())
 				.build();
 
-			return authDomainService.saveAuthData(memberSaveDto, socialMemberSaveDto);
+			return saveNewMember(memberSaveDto, socialMemberSaveDto);
 		}
 
 		return SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();
@@ -58,5 +60,11 @@ public class MemberServiceImpl {
 	private boolean isNewMember(GoogleUserInfoResponse googleUserInfoResponse) {
 		return !socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE,
 			googleUserInfoResponse.id());
+	}
+
+	private long saveNewMember(MemberSaveDto memberSaveDto, SocialMemberSaveDto socialMemberSaveDto) {
+		Member newMember = memberRepository.save(Member.of(memberSaveDto));
+		SocialMember socialMember = socialMemberRepository.save(SocialMember.of(newMember, socialMemberSaveDto));
+		return socialMember.getId();
 	}
 }
