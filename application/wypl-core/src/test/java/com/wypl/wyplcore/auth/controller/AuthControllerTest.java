@@ -31,7 +31,7 @@ import com.wypl.googleoauthclient.service.AuthMemberService;
 import com.wypl.googleoauthclient.utils.AuthenticatedArgumentResolver;
 import com.wypl.wyplcore.WyplCoreTestApplication;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
-import com.wypl.wyplcore.auth.service.AuthServiceImpl;
+import com.wypl.wyplcore.facade.AuthMemberFacade;
 
 @AutoConfigureRestDocs
 @ContextConfiguration(classes = WyplCoreTestApplication.class)
@@ -43,7 +43,7 @@ class AuthControllerTest {
 	@MockBean
 	private AuthenticatedArgumentResolver authenticatedArgumentResolver;
 	@MockBean
-	private AuthServiceImpl authService;
+	private AuthMemberFacade authMemberFacade;
 	@MockBean
 	private AuthMemberService authMemberService;
 
@@ -52,7 +52,7 @@ class AuthControllerTest {
 	void signInTest() throws Exception {
 		/* Given */
 		AuthTokensResponse response = new AuthTokensResponse(0, "at", "rt");
-		given(authService.generateToken(any(String.class), any(String.class)))
+		given(authMemberFacade.generateToken(any(String.class), any(String.class)))
 			.willReturn(response);
 
 		/* When */
@@ -95,7 +95,7 @@ class AuthControllerTest {
 	void reissueTest() throws Exception {
 		/* Given */
 		AuthTokensResponse response = new AuthTokensResponse(0, "at", "rt");
-		given(authService.reissueToken(any(String.class), any(String.class)))
+		given(authMemberFacade.reissueToken(any(String.class), any(String.class)))
 			.willReturn(response);
 
 		/* When */
