@@ -6,6 +6,6 @@ import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
 public interface AuthMemberFacade {
 	AuthTokensResponse generateToken(final String provider, final String code);
 	AuthTokensResponse reissueToken(final String accessToken, final String refreshToken);
-	void logout(AuthMember authMember);
+	void logout(final AuthMember authMember);
 	void quitMember(AuthMember authMember);
 }

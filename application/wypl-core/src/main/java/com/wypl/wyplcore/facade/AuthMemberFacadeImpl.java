@@ -55,7 +55,7 @@ public class AuthMemberFacadeImpl implements AuthMemberFacade {
 
 	@Override
 	@Transactional
-	public void logout(AuthMember authMember) {
+	public void logout(final AuthMember authMember) {
 		deleteToken(authMember);
 	}
 
