@@ -13,9 +13,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.wypl.redistokendomain.TokenRepository;
 
 @ExtendWith(MockitoExtension.class)
-class TokenServiceImplTest {
+class TokenServiceTest {
 	@InjectMocks
-	private TokenServiceImpl tokenService;
+	private TokenService tokenService;
 	@Mock
 	private TokenRepository tokenRepository;
 

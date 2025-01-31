@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
-public class MemberServiceImpl {
+public class MemberService {
 	private final GoogleOAuthClient googleOAuthClient;
 	private final MemberRepository memberRepository;
 	private final SocialMemberRepository socialMemberRepository;

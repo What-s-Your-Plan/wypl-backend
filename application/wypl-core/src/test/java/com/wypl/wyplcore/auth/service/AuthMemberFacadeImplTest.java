@@ -23,8 +23,8 @@ import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
 import com.wypl.wyplcore.facade.AuthMemberFacadeImpl;
-import com.wypl.wyplcore.member.service.MemberServiceImpl;
-import com.wypl.wyplcore.token.service.TokenServiceImpl;
+import com.wypl.wyplcore.member.service.MemberService;
+import com.wypl.wyplcore.token.service.TokenService;
 
 @ExtendWith(MockitoExtension.class)
 class AuthMemberFacadeImplTest {
@@ -33,9 +33,9 @@ class AuthMemberFacadeImplTest {
 	@Mock
 	private GoogleOAuthClient googleOAuthClient;
 	@Mock
-	private TokenServiceImpl tokenService;
+	private TokenService tokenService;
 	@Mock
-	private MemberServiceImpl memberService;
+	private MemberService memberService;
 
 	@DisplayName("토큰을 성공적으로 발행한다.")
 	@Test

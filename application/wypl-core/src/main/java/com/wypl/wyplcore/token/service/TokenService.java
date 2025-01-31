@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
-public class TokenServiceImpl {
+public class TokenService {
 	private final TokenRepository tokenRepository;
 
 	public boolean checkExistsToken(String accessToken) {

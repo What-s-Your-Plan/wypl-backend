@@ -11,7 +11,7 @@ import com.wypl.googleoauthclient.service.AuthMemberService;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.jpamemberdomain.member.utils.SocialMemberRepositoryUtils;
-import com.wypl.wyplcore.token.service.TokenServiceImpl;
+import com.wypl.wyplcore.token.service.TokenService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthMemberServiceImpl implements AuthMemberService {
 	private final GoogleOAuthClient googleOAuthClient;
 	private final SocialMemberRepository socialMemberRepository;
-	private final TokenServiceImpl tokenService;
+	private final TokenService tokenService;
 
 	@Override
 	public AuthMember getValidatedMemberId(String accessToken) {

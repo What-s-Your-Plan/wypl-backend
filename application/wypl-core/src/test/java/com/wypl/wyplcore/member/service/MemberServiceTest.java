@@ -29,9 +29,9 @@ import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.wyplcore.member.fixture.MemberFixture;
 
 @ExtendWith(MockitoExtension.class)
-public class MemberServiceImplTest {
+public class MemberServiceTest {
 	@InjectMocks
-	private MemberServiceImpl memberService;
+	private MemberService memberService;
 	@Mock
 	private MemberRepository memberRepository;
 	@Mock

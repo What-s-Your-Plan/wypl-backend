@@ -10,8 +10,8 @@ import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.googleoauthclient.exception.GoogleOAuthErrorCode;
 import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
-import com.wypl.wyplcore.member.service.MemberServiceImpl;
-import com.wypl.wyplcore.token.service.TokenServiceImpl;
+import com.wypl.wyplcore.member.service.MemberService;
+import com.wypl.wyplcore.token.service.TokenService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,8 +20,8 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class AuthMemberFacadeImpl implements AuthMemberFacade {
 	private final GoogleOAuthClient googleOAuthClient;
-	private final TokenServiceImpl tokenService;
-	private final MemberServiceImpl memberService;
+	private final TokenService tokenService;
+	private final MemberService memberService;
 
 	@Override
 	@Transactional
@@ -63,6 +63,7 @@ public class AuthMemberFacadeImpl implements AuthMemberFacade {
 	@Transactional
 	public void quitMember(AuthMember authMember) {
 		// Todo : 회원 탈퇴 로직 논의
+		// Todo : deleteToken은 스프링에서 비동기 처리하고(토큰이 아니라 멤버 탈퇴가 중요한거다), deleteMember는 Member 쪽으로 옮기자
 		deleteToken(authMember);
 		memberService.deleteMember(authMember);
 	}
