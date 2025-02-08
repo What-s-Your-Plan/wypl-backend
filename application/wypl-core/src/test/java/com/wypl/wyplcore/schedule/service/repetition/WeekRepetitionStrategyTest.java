@@ -98,7 +98,7 @@ class WeekRepetitionStrategyTest {
 			weekRepetitionScheduleWithDayOfWeek, startDate, startDate);
 
 		// then
-		for (ScheduleFindResponse response : scheduleResponses){
+		for (ScheduleFindResponse response : scheduleResponses) {
 			logger.info("할일 : {}, {} ~ {}", response.title(), response.startDateTime(), response.endDateTime());
 		}
 		assertEquals(1, scheduleResponses.size());

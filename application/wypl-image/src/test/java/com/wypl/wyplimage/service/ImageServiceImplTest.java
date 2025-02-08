@@ -54,7 +54,7 @@ class ImageServiceImplTest {
 
 			/* When & Then */
 			Assertions.assertThatCode(() -> imageService.saveImage(file))
-					.doesNotThrowAnyException();
+				.doesNotThrowAnyException();
 			mockedStatic.verify(() -> ImageRemoveUtils.removeImages(any(File.class)), times(1));
 		}
 	}
@@ -68,8 +68,8 @@ class ImageServiceImplTest {
 
 			/* When & Then */
 			Assertions.assertThatThrownBy(() -> imageService.saveImage(file))
-					.isInstanceOf(ImageException.class)
-					.hasMessageContaining(ImageErrorCode.NOT_ALLOWED_EXTENSION.getMessage());
+				.isInstanceOf(ImageException.class)
+				.hasMessageContaining(ImageErrorCode.NOT_ALLOWED_EXTENSION.getMessage());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -80,13 +80,13 @@ class ImageServiceImplTest {
 	void removeImagesTest() {
 		/* Given */
 		DeleteImageRequest request = new DeleteImageRequest(new ArrayList<>(List.of(
-				"https://bucket.region.s3.aws.com/image1.avif",
-				"https://bucket.region.s3.aws.com/image2.avif"
+			"https://bucket.region.s3.aws.com/image1.avif",
+			"https://bucket.region.s3.aws.com/image2.avif"
 		)));
 		doNothing().when(awsS3StorageService).filesRemove(any());
 
 		/* When & Then */
 		Assertions.assertThatCode(() -> imageService.removeImages(request))
-				.doesNotThrowAnyException();
+			.doesNotThrowAnyException();
 	}
 }

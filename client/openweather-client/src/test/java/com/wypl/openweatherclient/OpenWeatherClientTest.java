@@ -42,11 +42,11 @@ class OpenWeatherClientTest {
 	void status2xxTest() {
 		/* Given */
 		given(restTemplate.getForEntity(anyString(), eq(OpenWeatherResponse.class)))
-				.willReturn(OpenWeatherResponseFixture.KOREA_KR_CELSIUS.to2xxResponse());
+			.willReturn(OpenWeatherResponseFixture.KOREA_KR_CELSIUS.to2xxResponse());
 
 		/* When & Then */
 		assertThatCode(() -> openWeatherClient.fetchWeather(OpenWeatherFixture.KOREA.toOpenWeatherCond()))
-				.doesNotThrowAnyException();
+			.doesNotThrowAnyException();
 	}
 
 	@DisplayName("알 수 없는 오류로 인한 OpenWeatherException 발생 여부 검증")
@@ -55,12 +55,12 @@ class OpenWeatherClientTest {
 		/* Given */
 		OpenWeatherCond openWeatherCond = OpenWeatherFixture.KOREA.toOpenWeatherCond();
 		given(restTemplate.getForEntity(anyString(), eq(OpenWeatherResponse.class)))
-				.willReturn(OpenWeatherResponseFixture.KOREA_KR_CELSIUS.to3xxResponse());
+			.willReturn(OpenWeatherResponseFixture.KOREA_KR_CELSIUS.to3xxResponse());
 
 		/* When & Then */
 		assertThatThrownBy(() -> openWeatherClient.fetchWeather(openWeatherCond))
-				.isInstanceOf(OpenWeatherException.class)
-				.hasMessageContaining(OpenWeatherErrorCode.INVALID_OPEN_WEATHER_REQUEST.getMessage());
+			.isInstanceOf(OpenWeatherException.class)
+			.hasMessageContaining(OpenWeatherErrorCode.INVALID_OPEN_WEATHER_REQUEST.getMessage());
 	}
 
 	@DisplayName("잘못된 요청으로 인한(5xx) 시 OpenWeatherException 발생 여부 검증")
@@ -69,11 +69,11 @@ class OpenWeatherClientTest {
 		/* Given */
 		OpenWeatherCond openWeatherCond = OpenWeatherFixture.KOREA.toOpenWeatherCond();
 		given(restTemplate.getForEntity(anyString(), eq(OpenWeatherResponse.class)))
-				.willReturn(OpenWeatherResponseFixture.KOREA_KR_CELSIUS.to5xxResponse());
+			.willReturn(OpenWeatherResponseFixture.KOREA_KR_CELSIUS.to5xxResponse());
 
 		/* When & Then */
 		assertThatThrownBy(() -> openWeatherClient.fetchWeather(openWeatherCond))
-				.isInstanceOf(OpenWeatherException.class)
-				.hasMessageContaining(OpenWeatherErrorCode.INTERNAL_SERVER_ERROR.getMessage());
+			.isInstanceOf(OpenWeatherException.class)
+			.hasMessageContaining(OpenWeatherErrorCode.INTERNAL_SERVER_ERROR.getMessage());
 	}
 }

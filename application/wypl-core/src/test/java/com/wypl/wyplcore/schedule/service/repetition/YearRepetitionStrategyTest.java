@@ -40,7 +40,7 @@ class YearRepetitionStrategyTest {
 			yearRepetitionSchedule, startDate, startDate);
 
 		// then
-		for (ScheduleFindResponse response : scheduleResponses){
+		for (ScheduleFindResponse response : scheduleResponses) {
 			logger.info("할일 : {}, {} ~ {}", response.title(), response.startDateTime(), response.endDateTime());
 		}
 		assertEquals(0, scheduleResponses.size());
@@ -72,13 +72,12 @@ class YearRepetitionStrategyTest {
 		LocalDate endDate = startDate.plusYears(2);
 		logger.info("searchStartDate : {} ~  searchEndDate : {}", startDate, endDate);
 
-
 		// when
 		List<ScheduleFindResponse> scheduleResponses = yearRepetitionStrategy.getScheduleResponses(
 			yearRepetitionSchedule, startDate, endDate);
 
 		// then
-		for (ScheduleFindResponse response : scheduleResponses){
+		for (ScheduleFindResponse response : scheduleResponses) {
 			logger.info("할일 : {}, {} ~ {}", response.title(), response.startDateTime(), response.endDateTime());
 		}
 		assertEquals(2, scheduleResponses.size());

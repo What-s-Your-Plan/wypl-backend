@@ -24,14 +24,14 @@ public class OpenWeatherClientImpl implements OpenWeatherClient {
 
 	public OpenWeatherResponse fetchWeather(OpenWeatherCond cond) {
 		String url = OpenWeatherUrlFactory.create(properties.getBaseUrl(), properties.getKey())
-				.weatherRegion(cond.city())
-				.isLangKr(cond.isLangKr())
-				.isMetric(cond.isMetric())
-				.build();
+			.weatherRegion(cond.city())
+			.isLangKr(cond.isLangKr())
+			.isMetric(cond.isMetric())
+			.build();
 
 		ResponseEntity<OpenWeatherResponse> response = restTemplate.getForEntity(
-				url,
-				OpenWeatherResponse.class
+			url,
+			OpenWeatherResponse.class
 		);
 
 		HttpStatusCode httpStatusCode = response.getStatusCode();

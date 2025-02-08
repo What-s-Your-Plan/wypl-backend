@@ -42,7 +42,7 @@ class MonthRepetitionStrategyTest {
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
-				monthRepetitionSchedule, startDate, startDate);
+			monthRepetitionSchedule, startDate, startDate);
 
 		// then
 		logger.debug("조회 결과: {} 건", scheduleResponses.size());
@@ -63,7 +63,7 @@ class MonthRepetitionStrategyTest {
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
-				monthRepetitionSchedule, searchStartDate, searchEndDate);
+			monthRepetitionSchedule, searchStartDate, searchEndDate);
 
 		// then
 		assertEquals(1, scheduleResponses.size());
@@ -79,7 +79,7 @@ class MonthRepetitionStrategyTest {
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
-				monthRepetitionSchedule, searchStartDate, searchEndDate);
+			monthRepetitionSchedule, searchStartDate, searchEndDate);
 
 		// then
 		assertEquals(3, scheduleResponses.size());
@@ -96,7 +96,7 @@ class MonthRepetitionStrategyTest {
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
-				monthRepetitionSchedule, searchStartDate, searchEndDate);
+			monthRepetitionSchedule, searchStartDate, searchEndDate);
 
 		for (ScheduleFindResponse response : scheduleResponses) {
 			logger.debug("할일 : {}, {} ~ {}", response.title(), response.startDateTime(), response.endDateTime());
@@ -118,7 +118,7 @@ class MonthRepetitionStrategyTest {
 
 		// when
 		List<ScheduleFindResponse> scheduleResponses = RepetitionService.getScheduleResponses(
-				monthRepetitionSchedule, searchStartDate, searchEndDate);
+			monthRepetitionSchedule, searchStartDate, searchEndDate);
 
 		for (ScheduleFindResponse response : scheduleResponses) {
 			logger.debug("할일 : {}, {} ~ {}", response.title(), response.startDateTime(), response.endDateTime());

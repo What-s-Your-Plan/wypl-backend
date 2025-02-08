@@ -24,7 +24,7 @@ public class MonthRepetitionStrategy implements RepetitionStrategy {
 	public List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
 		LocalDate searchEndDate) {
 
-		searchStartDate =  getMaxDate(searchStartDate, schedule.getRepetitionStartDate());
+		searchStartDate = getMaxDate(searchStartDate, schedule.getRepetitionStartDate());
 		searchEndDate = getMinDate(searchEndDate, schedule.getRepetitionEndDate());
 		LocalDate startDate = getFirstScheduleStartDate(schedule, searchStartDate);
 
@@ -44,9 +44,11 @@ public class MonthRepetitionStrategy implements RepetitionStrategy {
 	 */
 	private LocalDate getFirstScheduleStartDate(Schedule schedule, LocalDate searchStartDate) {
 
-		LocalDate firstScheduleEndDate = findNextOrSameByDayOfMonth(searchStartDate, schedule.getEndDateTime().getDayOfMonth());
+		LocalDate firstScheduleEndDate = findNextOrSameByDayOfMonth(searchStartDate,
+			schedule.getEndDateTime().getDayOfMonth());
 
-		LocalDateTime firstScheduleEndDateTime = LocalDateTime.of(firstScheduleEndDate, schedule.getEndDateTime().toLocalTime());
+		LocalDateTime firstScheduleEndDateTime = LocalDateTime.of(firstScheduleEndDate,
+			schedule.getEndDateTime().toLocalTime());
 
 		return firstScheduleEndDateTime.minus(schedule.getDuration()).toLocalDate();
 

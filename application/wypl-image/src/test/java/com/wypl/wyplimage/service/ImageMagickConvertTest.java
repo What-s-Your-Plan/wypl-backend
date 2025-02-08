@@ -41,8 +41,8 @@ class ImageMagickConvertTest {
 	void imageTest(ImageFixture fixture) {
 		/* When & Then */
 		Assertions.assertThatCode(
-						() -> avifImageFile = imageMagickConvert.imageConvert(fixture.getMockMultipartFile()))
-				.doesNotThrowAnyException();
+				() -> avifImageFile = imageMagickConvert.imageConvert(fixture.getMockMultipartFile()))
+			.doesNotThrowAnyException();
 
 		/* After */
 		ImageRemoveUtils.removeImages(avifImageFile);

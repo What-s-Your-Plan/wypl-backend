@@ -59,13 +59,13 @@ public class Member extends JpaBaseEntity {
 
 	public static Member of(MemberSaveDto memberSaveDto) {
 		return Member.builder()
-				.email(memberSaveDto.getEmail())
-				.nickname(memberSaveDto.getNickname())
-				.birthday(memberSaveDto.getBirthday())
-				.profileImage(memberSaveDto.getProfileImage())
-				.color(Color.labelBrown)
-				.timeZone(TimeZone.KOREA)
-				.build();
+			.email(memberSaveDto.getEmail())
+			.nickname(memberSaveDto.getNickname())
+			.birthday(memberSaveDto.getBirthday())
+			.profileImage(memberSaveDto.getProfileImage())
+			.color(Color.labelBrown)
+			.timeZone(TimeZone.KOREA)
+			.build();
 	}
 
 }

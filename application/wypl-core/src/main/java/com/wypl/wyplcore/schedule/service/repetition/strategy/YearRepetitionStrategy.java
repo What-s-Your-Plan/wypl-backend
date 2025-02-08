@@ -18,6 +18,20 @@ import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 public class YearRepetitionStrategy implements RepetitionStrategy {
 
 	/**
+	 * searchStartDate 와 같거나 그 이후의 첫 번째 일정 시작일을 찾는다.
+	 * @param schedule 할일
+	 * @param searchStartDate 검색 시작 일자
+	 * @return LocalDateTime
+	 */
+	private static LocalDate getFirstScheduleStartDate(Schedule schedule, LocalDate searchStartDate) {
+		LocalDate firstScheduleEndDate = findNextOrSame(searchStartDate, schedule.getEndDateTime().getMonth(),
+			schedule.getEndDateTime().getDayOfMonth());
+		LocalDateTime firstScheduleEndDateTime = LocalDateTime.of(firstScheduleEndDate,
+			schedule.getEndDateTime().toLocalTime());
+		return firstScheduleEndDateTime.minus(schedule.getDuration()).toLocalDate();
+	}
+
+	/**
 	 * RepetitionCycle = Year 인 경우, Schedule 반복 일정을 조회한다.
 	 * @param schedule Target Schedule
 	 * @param searchStartDate 검색할 시작일자
@@ -44,17 +58,5 @@ public class YearRepetitionStrategy implements RepetitionStrategy {
 				return ScheduleFindResponse.of(schedule, startDateTime, endDateTime);
 			}
 		).toList();
-	}
-
-	/**
-	 * searchStartDate 와 같거나 그 이후의 첫 번째 일정 시작일을 찾는다.
-	 * @param schedule 할일
-	 * @param searchStartDate 검색 시작 일자
-	 * @return LocalDateTime
-	 */
-	private static LocalDate getFirstScheduleStartDate(Schedule schedule, LocalDate searchStartDate) {
-		LocalDate firstScheduleEndDate = findNextOrSame(searchStartDate, schedule.getEndDateTime().getMonth(), schedule.getEndDateTime().getDayOfMonth());
-		LocalDateTime firstScheduleEndDateTime = LocalDateTime.of(firstScheduleEndDate, schedule.getEndDateTime().toLocalTime());
-		return firstScheduleEndDateTime.minus(schedule.getDuration()).toLocalDate();
 	}
 }

@@ -23,16 +23,16 @@ public class ImageController {
 
 	@PostMapping("/v1/images")
 	public WyplResponseEntity<UploadImageResponse> uploadImage(
-			@RequestPart("image") final MultipartFile file
+		@RequestPart("image") final MultipartFile file
 	) {
 		String savedImageUrl = imageService.saveImage(file);
 		return WyplResponseEntity.created(new UploadImageResponse(savedImageUrl),
-				"이미지 업로드가 정상적으로 처리되었습니다.");
+			"이미지 업로드가 정상적으로 처리되었습니다.");
 	}
 
 	@DeleteMapping("/v1/images")
 	public WyplResponseEntity<Void> deleteImage(
-			@RequestBody DeleteImageRequest request
+		@RequestBody DeleteImageRequest request
 	) {
 		imageService.removeImages(request);
 		return WyplResponseEntity.ok("사진 삭제가 정상적으로 처리되었습니다.");

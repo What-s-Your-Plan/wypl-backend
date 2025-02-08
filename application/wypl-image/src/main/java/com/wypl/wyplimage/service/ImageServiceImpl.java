@@ -43,10 +43,10 @@ public class ImageServiceImpl implements ImageService {
 
 	private void validateImageExtension(final MultipartFile file) {
 		String originalFileName = Optional.ofNullable(file.getOriginalFilename())
-				.orElseThrow();
+			.orElseThrow();
 		String extension = originalFileName.substring(
-						originalFileName.lastIndexOf("."))
-				.toLowerCase();
+				originalFileName.lastIndexOf("."))
+			.toLowerCase();
 		if (ImageExtension.notContains(extension)) {
 			throw new ImageException(ImageErrorCode.NOT_ALLOWED_EXTENSION);
 		}
@@ -63,8 +63,8 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public void removeImages(final DeleteImageRequest request) {
 		List<String> imageNames = request.imageUrlList().stream()
-				.map(imageUrl -> imageUrl.substring(imageUrl.lastIndexOf("/") + 1))
-				.toList();
+			.map(imageUrl -> imageUrl.substring(imageUrl.lastIndexOf("/") + 1))
+			.toList();
 		awsS3StorageService.filesRemove(imageNames);
 	}
 
