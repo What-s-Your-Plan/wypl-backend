@@ -17,27 +17,33 @@ import com.wypl.wyplcore.schedule.data.response.ScheduleInfoCreateResponse;
 
 import lombok.RequiredArgsConstructor;
 
-
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
 
-    private final ScheduleRepository scheduleRepository;
-    private final ScheduleInfoRepository scheduleInfoRepository;
+	private final ScheduleRepository scheduleRepository;
+	private final ScheduleInfoRepository scheduleInfoRepository;
 
-    @Transactional
-    public ScheduleInfoCreateResponse createSchedule(AuthMember authMember, ScheduleCreateRequest scheduleCreateRequest) {
+	/**
+	 * Schedule을 생성한다.
+	 * @param authMember
+	 * @param scheduleCreateRequest
+	 * @return ScheduleInfoCreateResponse
+	 */
+	@Transactional
+	public ScheduleInfoCreateResponse createSchedule(AuthMember authMember,
+		ScheduleCreateRequest scheduleCreateRequest) {
 
-        Calendar foundCalendar = null;  // FIXME: scheduleInfoRequest의 calendarId로 찾는다. foundCalendar 엔티티 검증 필요.
-        Member foundMember = null; // FIXME: member 엔티티 검증 필요.
+		Calendar foundCalendar = null;  // FIXME: scheduleInfoRequest의 calendarId로 찾는다. foundCalendar 엔티티 검증 필요.
+		Member foundMember = null; // FIXME: member 엔티티 검증 필요.
 
-        ScheduleInfo scheduleInfo = ScheduleInfoMapper.toJpaScheduleInfo(foundCalendar, authMember.id());
-        Schedule schedule = ScheduleMapper.toJpaSchedule(scheduleCreateRequest, scheduleInfo);
+		ScheduleInfo scheduleInfo = ScheduleInfoMapper.toJpaScheduleInfo(foundCalendar, authMember.id());
+		Schedule schedule = ScheduleMapper.toJpaSchedule(scheduleCreateRequest, scheduleInfo);
 
-        ScheduleInfo savedScheduleInfo = scheduleInfoRepository.save(scheduleInfo);
-        Schedule savedSchedule = scheduleRepository.save(schedule);
+		ScheduleInfo savedScheduleInfo = scheduleInfoRepository.save(scheduleInfo);
+		Schedule savedSchedule = scheduleRepository.save(schedule);
 
-        return new ScheduleInfoCreateResponse(foundCalendar.getId(), savedScheduleInfo.getId());
-    }
+		return new ScheduleInfoCreateResponse(foundCalendar.getId(), savedScheduleInfo.getId());
+	}
 
 }

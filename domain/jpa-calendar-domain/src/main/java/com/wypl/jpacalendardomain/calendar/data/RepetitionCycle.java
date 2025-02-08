@@ -1,8 +1,8 @@
 package com.wypl.jpacalendardomain.calendar.data;
 
 public enum RepetitionCycle {
-    DAY,
-    WEEK,
-    MONTH,
-    YEAR
+	DAY,
+	WEEK,
+	MONTH,
+	YEAR
 }
