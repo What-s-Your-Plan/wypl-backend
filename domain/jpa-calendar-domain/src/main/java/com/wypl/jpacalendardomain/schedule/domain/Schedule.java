@@ -60,28 +60,28 @@ public class Schedule extends JpaBaseEntity {
 
 	@Builder
 	public Schedule(
-			ScheduleInfo scheduleInfo,
-			final String title,
-			final String description,
-			final LocalDateTime startDateTime,
-			final LocalDateTime endDateTime,
-			final LocalDate repetitionStartDate,
-			final LocalDate repetitionEndDate,
-			final RepetitionCycle repetitionCycle,
-			final Integer dayOfWeek,
-			final Integer weekInterval) {
+		ScheduleInfo scheduleInfo,
+		final String title,
+		final String description,
+		final LocalDateTime startDateTime,
+		final LocalDateTime endDateTime,
+		final LocalDate repetitionStartDate,
+		final LocalDate repetitionEndDate,
+		final RepetitionCycle repetitionCycle,
+		final Integer dayOfWeek,
+		final Integer weekInterval) {
 		this.scheduleInfo = scheduleInfo;
 		this.title = title;
 		this.description = description;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
 		this.repetition = Repetition.builder()
-				.startDate(repetitionStartDate)
-				.endDate(repetitionEndDate)
-				.repetitionCycle(repetitionCycle)
-				.dayOfWeek(dayOfWeek)
-				.weekInterval(weekInterval)
-				.build();
+			.startDate(repetitionStartDate)
+			.endDate(repetitionEndDate)
+			.repetitionCycle(repetitionCycle)
+			.dayOfWeek(dayOfWeek)
+			.weekInterval(weekInterval)
+			.build();
 	}
 
 	public boolean isRepetition() {

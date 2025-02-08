@@ -26,7 +26,7 @@ public class WeekRepetitionStrategy implements RepetitionStrategy {
 	 */
 	@Override
 	public List<ScheduleFindResponse> getScheduleResponses(Schedule schedule, LocalDate searchStartDate,
-			LocalDate searchEndDate) {
+		LocalDate searchEndDate) {
 
 		searchStartDate = getMaxDate(searchStartDate, schedule.getRepetitionStartDate()); // 검색 범위의 시작일
 		searchEndDate = getMinDate(searchEndDate, schedule.getRepetitionEndDate());
@@ -35,10 +35,10 @@ public class WeekRepetitionStrategy implements RepetitionStrategy {
 
 		if (!schedule.existsDayOfWeek()) { // 반복 요일을 설정하지 않았을 경우
 			LocalDate firstScheduleStartDate = getFirstScheduleStartDate(searchStartDate,
-					schedule); // 검색 조건에 부합하는 첫 번째 일정의 시작일
+				schedule); // 검색 조건에 부합하는 첫 번째 일정의 시작일
 
 			for (LocalDate date = firstScheduleStartDate; date.isBefore(searchEndDate); date = date.plusWeeks(
-					schedule.getWeekInterval())) {
+				schedule.getWeekInterval())) {
 				LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
 				LocalDateTime endDateTime = startDateTime.plus(schedule.getDuration());
 				responses.add(ScheduleFindResponse.of(schedule, startDateTime, endDateTime));
@@ -50,9 +50,8 @@ public class WeekRepetitionStrategy implements RepetitionStrategy {
 			for (int dayOfWeek = 1; dayOfWeek <= 7; dayOfWeek++) { // 요일마다 처리
 				if (isSelectedDayOfWeek(repetitionDayOfWeek, dayOfWeek)) {
 					LocalDate nearestDate = findNextOrSameByDayOfWeek(searchStartDate, DayOfWeek.of(dayOfWeek));
-					for (LocalDate date = nearestDate; date.isBefore(searchEndDate.plusDays(1)); date = date.plusWeeks(
-							schedule.getWeekInterval())) {
-
+					for (LocalDate date = nearestDate; date.isBefore(searchEndDate.plusDays(1)); date =
+						date.plusWeeks(schedule.getWeekInterval())) {
 						responses.add(ScheduleFindResponse.of(schedule, date, date));
 					}
 				}
