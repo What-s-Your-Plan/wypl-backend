@@ -23,7 +23,8 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
 	) {
 		return jpaQueryFactory.selectFrom(schedule)
 				.where(schedule.scheduleInfo.calendar.id.eq(calendarId)
-						.and(schedule.repetitionStartDate.loe(endDate).and(schedule.repetitionEndDate.goe(startDate))))
+						.and(schedule.repetition.startDate.loe(endDate)
+								.and(schedule.repetition.endDate.goe(startDate))))
 				.fetch();
 	}
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wypl.jpacalendardomain.schedule.data.ConvertibleSchedule;
-import com.wypl.jpacalendardomain.schedule.data.RepetitionCycle;
+import com.wypl.jpacalendardomain.schedule.domain.embedded.RepetitionCycle;
 
 import lombok.Builder;
 

@@ -3,7 +3,7 @@ package com.wypl.wyplcore.schedule.service.repetition;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.wypl.jpacalendardomain.schedule.data.RepetitionCycle;
+import com.wypl.jpacalendardomain.schedule.domain.embedded.RepetitionCycle;
 import com.wypl.wyplcore.schedule.service.repetition.strategy.DayRepetitionStrategy;
 import com.wypl.wyplcore.schedule.service.repetition.strategy.MonthRepetitionStrategy;
 import com.wypl.wyplcore.schedule.service.repetition.strategy.RepetitionStrategy;
