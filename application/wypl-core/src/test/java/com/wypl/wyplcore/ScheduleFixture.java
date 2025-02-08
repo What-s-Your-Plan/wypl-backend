@@ -7,11 +7,7 @@ import com.wypl.jpacalendardomain.calendar.data.RepetitionCycle;
 import com.wypl.jpacalendardomain.calendar.domain.Schedule;
 import com.wypl.jpacalendardomain.calendar.domain.ScheduleInfo;
 
-import lombok.Getter;
-
-@Getter
 public enum ScheduleFixture {
-
 	DAILY_SCHEDULE(
 		"일일 일정 1",
 		"매일 오전 9시에서 오전 10시까지 반복되는 일정입니다.",
@@ -103,6 +99,42 @@ public enum ScheduleFixture {
 		this.weekInterval = weekInterval;
 	}
 
+	public Integer getDayOfWeek() {
+		return dayOfWeek;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public LocalDateTime getEndDateTime() {
+		return endDateTime;
+	}
+
+	public RepetitionCycle getRepetitionCycle() {
+		return repetitionCycle;
+	}
+
+	public LocalDate getRepetitionEndDate() {
+		return repetitionEndDate;
+	}
+
+	public LocalDate getRepetitionStartDate() {
+		return repetitionStartDate;
+	}
+
+	public LocalDateTime getStartDateTime() {
+		return startDateTime;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public Integer getWeekInterval() {
+		return weekInterval;
+	}
+
 	public Schedule toEntity(ScheduleInfo scheduleInfo) {
 		return Schedule.builder()
 			.scheduleInfo(scheduleInfo)
@@ -131,5 +163,4 @@ public enum ScheduleFixture {
 			.weekInterval(this.weekInterval)
 			.build();
 	}
-
 }

@@ -23,7 +23,7 @@ dependencies {
 }
 
 
-/ QueryDSL Start /
+/* QueryDSL Start */
 def generated = "src/main/generated"
 
 tasks.withType(JavaCompile).configureEach {
@@ -37,4 +37,4 @@ sourceSets {
 clean {
     delete file(generated)
 }
-/ QueryDSL End */
+/* QueryDSL End */
