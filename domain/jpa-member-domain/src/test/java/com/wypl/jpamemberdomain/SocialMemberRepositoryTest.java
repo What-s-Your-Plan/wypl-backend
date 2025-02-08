@@ -73,7 +73,8 @@ public class SocialMemberRepositoryTest {
 			// Then
 			assertThatThrownBy(() -> socialMemberRepository.save(duplicatedSocialMember))
 				.isInstanceOf(DuplicateKeyException.class)
-				.hasMessageContaining("A different object with the same identifier value was already associated with the session");
+				.hasMessageContaining(
+					"A different object with the same identifier value was already associated with the session");
 		}
 	}
 }

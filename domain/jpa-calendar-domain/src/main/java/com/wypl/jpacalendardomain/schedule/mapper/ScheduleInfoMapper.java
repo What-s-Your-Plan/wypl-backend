@@ -1,8 +1,8 @@
-package com.wypl.jpacalendardomain.calendar.mapper;
+package com.wypl.jpacalendardomain.schedule.mapper;
 
-import com.wypl.jpacalendardomain.calendar.data.ConvertibleScheduleInfo;
 import com.wypl.jpacalendardomain.calendar.domain.Calendar;
-import com.wypl.jpacalendardomain.calendar.domain.ScheduleInfo;
+import com.wypl.jpacalendardomain.schedule.data.ConvertibleScheduleInfo;
+import com.wypl.jpacalendardomain.schedule.domain.ScheduleInfo;
 
 public class ScheduleInfoMapper {
 

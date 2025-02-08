@@ -13,7 +13,7 @@ import com.wypl.wyplimage.controller.ImageController;
 @AutoConfigureRestDocs
 @AutoConfigureMockMvc
 @WebMvcTest({
-		ImageController.class
+	ImageController.class
 })
 public abstract class ControllerTest {
 

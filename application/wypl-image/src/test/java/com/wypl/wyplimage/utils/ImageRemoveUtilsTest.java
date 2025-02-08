@@ -28,6 +28,6 @@ class ImageRemoveUtilsTest {
 
 		/* When & Then */
 		Assertions.assertThatCode(() -> ImageRemoveUtils.removeImages(imageFile))
-				.doesNotThrowAnyException();
+			.doesNotThrowAnyException();
 	}
 }

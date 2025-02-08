@@ -1,7 +1,7 @@
 package com.wypl.wyplcore;
 
 import com.wypl.jpacalendardomain.calendar.domain.Calendar;
-import com.wypl.jpacalendardomain.calendar.domain.ScheduleInfo;
+import com.wypl.jpacalendardomain.schedule.domain.ScheduleInfo;
 
 import lombok.Getter;
 

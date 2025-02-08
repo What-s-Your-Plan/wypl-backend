@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 import com.wypl.wyplcore.ScheduleFixture;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
@@ -98,7 +98,7 @@ class WeekRepetitionStrategyTest {
 			weekRepetitionScheduleWithDayOfWeek, startDate, startDate);
 
 		// then
-		for (ScheduleFindResponse response : scheduleResponses){
+		for (ScheduleFindResponse response : scheduleResponses) {
 			logger.info("할일 : {}, {} ~ {}", response.title(), response.startDateTime(), response.endDateTime());
 		}
 		assertEquals(1, scheduleResponses.size());

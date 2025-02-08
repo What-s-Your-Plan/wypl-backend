@@ -35,29 +35,29 @@ class ImageControllerTest extends ControllerTest {
 	void uploadImage() throws Exception {
 		/* Given */
 		given(imageService.saveImage(any(MultipartFile.class)))
-				.willReturn("https://bucket.s3.aws.com/image.avif");
+			.willReturn("https://bucket.s3.aws.com/image.avif");
 
 		/* When */
 		ResultActions actions = mockMvc.perform(
-				RestDocumentationRequestBuilders.multipart("/file/v1/images")
-						.file(ImageFixture.PNG_IMAGE.getMockMultipartFile())
+			RestDocumentationRequestBuilders.multipart("/file/v1/images")
+				.file(ImageFixture.PNG_IMAGE.getMockMultipartFile())
 		);
 
 		/* Then */
 		actions.andDo(MockMvcResultHandlers.print())
-				.andDo(MockMvcRestDocumentationWrapper.document("file/v2/post/images",
-						Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
-						Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
-						RequestDocumentation.requestParts(
-								RequestDocumentation.partWithName("image").description("업로드 요청한 이미지 파일")
-						),
-						PayloadDocumentation.responseFields(
-								PayloadDocumentation.fieldWithPath("message").type(JsonFieldType.STRING)
-										.description("응답 메시지"),
-								PayloadDocumentation.fieldWithPath("body.image_url").type(JsonFieldType.STRING)
-										.description("업로드한 이미지 URL")
-						)
-				)).andExpect(MockMvcResultMatchers.status().isCreated());
+			.andDo(MockMvcRestDocumentationWrapper.document("file/v2/post/images",
+				Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+				Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+				RequestDocumentation.requestParts(
+					RequestDocumentation.partWithName("image").description("업로드 요청한 이미지 파일")
+				),
+				PayloadDocumentation.responseFields(
+					PayloadDocumentation.fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("응답 메시지"),
+					PayloadDocumentation.fieldWithPath("body.image_url").type(JsonFieldType.STRING)
+						.description("업로드한 이미지 URL")
+				)
+			)).andExpect(MockMvcResultMatchers.status().isCreated());
 	}
 
 	@DisplayName("이미지 삭제, DELETE - file/v1/images")
@@ -65,31 +65,31 @@ class ImageControllerTest extends ControllerTest {
 	void deleteImage() throws Exception {
 		/* Given */
 		DeleteImageRequest request = new DeleteImageRequest(new ArrayList<>(List.of(
-				"https://bucket.region.s3.aws.com/image1.avif",
-				"https://bucket.region.s3.aws.com/image2.avif"
+			"https://bucket.region.s3.aws.com/image1.avif",
+			"https://bucket.region.s3.aws.com/image2.avif"
 		)));
 
 		/* When */
 		ResultActions actions = mockMvc.perform(
-				RestDocumentationRequestBuilders.delete("/file/v1/images")
-						.contentType(MediaType.APPLICATION_JSON) // Content-Type 설정 추가
-						.content(convertToJson(request))
+			RestDocumentationRequestBuilders.delete("/file/v1/images")
+				.contentType(MediaType.APPLICATION_JSON) // Content-Type 설정 추가
+				.content(convertToJson(request))
 		);
 
 		/* Then */
 		actions.andDo(MockMvcResultHandlers.print())
-				.andDo(MockMvcRestDocumentationWrapper.document("file/v1/delete/images",
-						Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
-						Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
-						PayloadDocumentation.requestFields(
-								PayloadDocumentation.fieldWithPath("image_url_list[]")
-										.type(JsonFieldType.ARRAY)
-										.description("삭제할 이미지 URL 목록")
-						),
-						PayloadDocumentation.responseFields(
-								PayloadDocumentation.fieldWithPath("message").type(JsonFieldType.STRING)
-										.description("응답 메시지")
-						)
-				)).andExpect(MockMvcResultMatchers.status().isOk());
+			.andDo(MockMvcRestDocumentationWrapper.document("file/v1/delete/images",
+				Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+				Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+				PayloadDocumentation.requestFields(
+					PayloadDocumentation.fieldWithPath("image_url_list[]")
+						.type(JsonFieldType.ARRAY)
+						.description("삭제할 이미지 URL 목록")
+				),
+				PayloadDocumentation.responseFields(
+					PayloadDocumentation.fieldWithPath("message").type(JsonFieldType.STRING)
+						.description("응답 메시지")
+				)
+			)).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 }

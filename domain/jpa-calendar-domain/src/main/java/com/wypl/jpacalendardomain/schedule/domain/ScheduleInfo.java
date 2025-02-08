@@ -1,9 +1,10 @@
-package com.wypl.jpacalendardomain.calendar.domain;
+package com.wypl.jpacalendardomain.schedule.domain;
 
 import java.util.List;
 
 import org.hibernate.annotations.SQLRestriction;
 
+import com.wypl.jpacalendardomain.calendar.domain.Calendar;
 import com.wypl.jpacommon.JpaBaseEntity;
 
 import jakarta.persistence.Column;

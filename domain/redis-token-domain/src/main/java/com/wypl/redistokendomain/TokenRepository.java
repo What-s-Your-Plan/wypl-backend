@@ -35,7 +35,7 @@ public class TokenRepository {
 	}
 
 	public void deleteToken(String accessToken) {
-		if(Boolean.FALSE.equals(redisTokenTemplate.delete(accessToken.getBytes()))) {
+		if (Boolean.FALSE.equals(redisTokenTemplate.delete(accessToken.getBytes()))) {
 			throw new RedisTokenException((RedisTokenErrorCode.TOKEN_IS_NOT_EXISTED));
 		}
 	}

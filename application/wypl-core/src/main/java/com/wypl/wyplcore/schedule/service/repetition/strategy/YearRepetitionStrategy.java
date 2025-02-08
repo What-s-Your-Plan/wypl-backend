@@ -11,11 +11,25 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
 @Service
 public class YearRepetitionStrategy implements RepetitionStrategy {
+
+	/**
+	 * searchStartDate 와 같거나 그 이후의 첫 번째 일정 시작일을 찾는다.
+	 * @param schedule 할일
+	 * @param searchStartDate 검색 시작 일자
+	 * @return LocalDateTime
+	 */
+	private static LocalDate getFirstScheduleStartDate(Schedule schedule, LocalDate searchStartDate) {
+		LocalDate firstScheduleEndDate = findNextOrSame(searchStartDate, schedule.getEndDateTime().getMonth(),
+			schedule.getEndDateTime().getDayOfMonth());
+		LocalDateTime firstScheduleEndDateTime = LocalDateTime.of(firstScheduleEndDate,
+			schedule.getEndDateTime().toLocalTime());
+		return firstScheduleEndDateTime.minus(schedule.getDuration()).toLocalDate();
+	}
 
 	/**
 	 * RepetitionCycle = Year 인 경우, Schedule 반복 일정을 조회한다.
@@ -44,17 +58,5 @@ public class YearRepetitionStrategy implements RepetitionStrategy {
 				return ScheduleFindResponse.of(schedule, startDateTime, endDateTime);
 			}
 		).toList();
-	}
-
-	/**
-	 * searchStartDate 와 같거나 그 이후의 첫 번째 일정 시작일을 찾는다.
-	 * @param schedule 할일
-	 * @param searchStartDate 검색 시작 일자
-	 * @return LocalDateTime
-	 */
-	private static LocalDate getFirstScheduleStartDate(Schedule schedule, LocalDate searchStartDate) {
-		LocalDate firstScheduleEndDate = findNextOrSame(searchStartDate, schedule.getEndDateTime().getMonth(), schedule.getEndDateTime().getDayOfMonth());
-		LocalDateTime firstScheduleEndDateTime = LocalDateTime.of(firstScheduleEndDate, schedule.getEndDateTime().toLocalTime());
-		return firstScheduleEndDateTime.minus(schedule.getDuration()).toLocalDate();
 	}
 }

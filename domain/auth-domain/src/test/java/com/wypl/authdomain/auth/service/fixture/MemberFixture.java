@@ -12,8 +12,7 @@ import com.wypl.jpamemberdomain.member.domain.SocialMember;
 // Todo : Access Level 고민해보자
 // @AllArgsConstructor
 public enum MemberFixture {
-	JEONG_HOON(1L, "biosjh@gmail.com", "sjh", LocalDate.of(1999, 1, 15), "JHprofile", OauthProvider.GOOGLE)
-	;
+	JEONG_HOON(1L, "biosjh@gmail.com", "sjh", LocalDate.of(1999, 1, 15), "JHprofile", OauthProvider.GOOGLE);
 
 	private final Long memberId;
 	private final String email;
@@ -23,7 +22,8 @@ public enum MemberFixture {
 	private final OauthProvider oauthProvider;
 
 	// @AllArgsConstructor 인식 불가로 인해, 명시적으로 생성자 추가
-	MemberFixture(Long memberId, String email, String nickname, LocalDate birthday, String profileImage, OauthProvider oauthProvider) {
+	MemberFixture(Long memberId, String email, String nickname, LocalDate birthday, String profileImage,
+		OauthProvider oauthProvider) {
 		this.memberId = memberId;
 		this.email = email;
 		this.nickname = nickname;

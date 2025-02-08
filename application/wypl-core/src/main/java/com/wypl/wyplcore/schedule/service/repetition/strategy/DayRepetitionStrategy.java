@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
 public class DayRepetitionStrategy implements RepetitionStrategy {
@@ -28,9 +28,9 @@ public class DayRepetitionStrategy implements RepetitionStrategy {
 
 		return searchStartDate.datesUntil(searchEndDate.plusDays(1)).map(
 			date -> {
-			LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
-			LocalDateTime endDateTime = LocalDateTime.of(date, schedule.getEndDateTime().toLocalTime());
-			return ScheduleFindResponse.of(schedule, startDateTime, endDateTime);
-		}).collect(Collectors.toList());
+				LocalDateTime startDateTime = LocalDateTime.of(date, schedule.getStartDateTime().toLocalTime());
+				LocalDateTime endDateTime = LocalDateTime.of(date, schedule.getEndDateTime().toLocalTime());
+				return ScheduleFindResponse.of(schedule, startDateTime, endDateTime);
+			}).collect(Collectors.toList());
 	}
 }

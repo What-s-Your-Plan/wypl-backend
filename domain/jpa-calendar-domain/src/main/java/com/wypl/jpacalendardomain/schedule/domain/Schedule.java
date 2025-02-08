@@ -1,4 +1,4 @@
-package com.wypl.jpacalendardomain.calendar.domain;
+package com.wypl.jpacalendardomain.schedule.domain;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.SQLRestriction;
 
-import com.wypl.jpacalendardomain.calendar.data.RepetitionCycle;
+import com.wypl.jpacalendardomain.schedule.domain.embedded.Repetition;
+import com.wypl.jpacalendardomain.schedule.domain.embedded.RepetitionCycle;
 import com.wypl.jpacommon.JpaBaseEntity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -53,50 +53,66 @@ public class Schedule extends JpaBaseEntity {
 	@Column(name = "end_date_time", nullable = false)
 	private LocalDateTime endDateTime;
 
-	@Column(name = "repetition_start_date")
-	private LocalDate repetitionStartDate;
-
-	@Column(name = "repetition_end_date")
-	private LocalDate repetitionEndDate;
-
-	@Getter
-	@Enumerated(EnumType.STRING)
-	private RepetitionCycle repetitionCycle; // 반복 주기 (일, 주, 달, 년)
-
-	@Column(name = "day_of_week")
-	private Integer dayOfWeek; // 반복 요일: Bit Masking
-
-	@Column(name = "week_interval")
-	private Integer weekInterval; // 주 반복 (1~3)
+	@Embedded
+	private Repetition repetition;
 
 	// Todo: Review Mapping
 
 	@Builder
-	public Schedule(ScheduleInfo scheduleInfo, String title, String description, LocalDateTime startDateTime,
-		LocalDateTime endDateTime, LocalDate repetitionStartDate, LocalDate repetitionEndDate,
-		RepetitionCycle repetitionCycle, Integer dayOfWeek, Integer weekInterval) {
+	public Schedule(
+		ScheduleInfo scheduleInfo,
+		final String title,
+		final String description,
+		final LocalDateTime startDateTime,
+		final LocalDateTime endDateTime,
+		final LocalDate repetitionStartDate,
+		final LocalDate repetitionEndDate,
+		final RepetitionCycle repetitionCycle,
+		final Integer dayOfWeek,
+		final Integer weekInterval) {
 		this.scheduleInfo = scheduleInfo;
 		this.title = title;
 		this.description = description;
 		this.startDateTime = startDateTime;
 		this.endDateTime = endDateTime;
-		this.repetitionStartDate = repetitionStartDate;
-		this.repetitionEndDate = repetitionEndDate;
-		this.repetitionCycle = repetitionCycle;
-		this.dayOfWeek = dayOfWeek;
-		this.weekInterval = weekInterval;
+		this.repetition = Repetition.builder()
+			.startDate(repetitionStartDate)
+			.endDate(repetitionEndDate)
+			.repetitionCycle(repetitionCycle)
+			.dayOfWeek(dayOfWeek)
+			.weekInterval(weekInterval)
+			.build();
 	}
 
 	public boolean isRepetition() {
-		return repetitionCycle != null;
+		return repetition.getRepetitionCycle() != null;
 	}
 
 	public boolean existsDayOfWeek() {
-		return dayOfWeek != null;
+		return repetition.getDayOfWeek() != null;
 	}
 
-	public Duration getDuration(){
+	public Duration getDuration() {
 		return Duration.between(this.startDateTime, this.endDateTime);
 	}
 
+	public LocalDate getRepetitionStartDate() {
+		return repetition.getStartDate();
+	}
+
+	public LocalDate getRepetitionEndDate() {
+		return repetition.getEndDate();
+	}
+
+	public RepetitionCycle getRepetitionCycle() {
+		return repetition.getRepetitionCycle();
+	}
+
+	public Integer getDayOfWeek() {
+		return repetition.getDayOfWeek();
+	}
+
+	public Integer getWeekInterval() {
+		return repetition.getWeekInterval();
+	}
 }
