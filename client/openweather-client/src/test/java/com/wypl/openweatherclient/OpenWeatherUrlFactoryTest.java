@@ -24,10 +24,10 @@ class OpenWeatherUrlFactoryTest {
 
 		/* When */
 		String url = OpenWeatherUrlFactory.create(OPEN_WEATHER_URL, OPEN_WEATHER_KEY)
-				.weatherRegion(fixture.getWeatherRegion())
-				.isMetric(fixture.isMetric())
-				.isLangKr(fixture.isLangKr())
-				.build();
+			.weatherRegion(fixture.getWeatherRegion())
+			.isMetric(fixture.isMetric())
+			.isLangKr(fixture.isLangKr())
+			.build();
 
 		/* Then */
 		assertThat(url).contains(params);

@@ -12,14 +12,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -29,13 +29,13 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import com.wypl.googleoauthclient.domain.AuthMember;
 import com.wypl.googleoauthclient.service.AuthMemberService;
 import com.wypl.googleoauthclient.utils.AuthenticatedArgumentResolver;
-import com.wypl.wyplcore.WyplCoreTestApplication;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
 import com.wypl.wyplcore.facade.AuthMemberFacade;
 
 @AutoConfigureRestDocs
-@ContextConfiguration(classes = WyplCoreTestApplication.class)
-@WebMvcTest(AuthController.class)
+@AutoConfigureMockMvc
+// FIXME: 추후 WebMvcTest로 수정
+@SpringBootTest
 class AuthControllerTest {
 	private final String AUTHORIZATION_HEADER_VALUE = "Bearer oauth..";
 	@Autowired

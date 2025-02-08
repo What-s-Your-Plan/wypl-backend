@@ -56,13 +56,13 @@ class AwsS3ClientTest {
 		File uploadImage = prepareImageCopy();
 
 		given(amazonS3Client.putObject(any(String.class), eq(uploadImage.getName()), any(File.class)))
-				.willReturn(null);
+			.willReturn(null);
 		given(amazonS3Client.getUrl(any(String.class), eq(uploadImage.getName()))).willReturn(
-				new URL("https://s3.aws.com/image.avif"));
+			new URL("https://s3.aws.com/image.avif"));
 
 		/* When & Then */
 		assertThatCode(() -> awsS3StorageService.fileUpload(uploadImage))
-				.doesNotThrowAnyException();
+			.doesNotThrowAnyException();
 	}
 
 	@DisplayName("AWS S3의 파일을 삭제한다.")
@@ -74,6 +74,6 @@ class AwsS3ClientTest {
 
 		/* When & Then */
 		Assertions.assertThatCode(() -> awsS3StorageService.filesRemove(fileNames))
-				.doesNotThrowAnyException();
+			.doesNotThrowAnyException();
 	}
 }

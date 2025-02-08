@@ -41,7 +41,7 @@ public class RedisAvailablePortFindForMac extends RedisAvailablePortFind {
 	}
 
 	private Process executeGrepProcessCommand(
-			final int port
+		final int port
 	) throws IOException {
 		String command = String.format("netstat -nat | grep LISTEN | grep %d", port);
 		String[] shell = new String[] {"/bin/sh", "-c", command};

@@ -6,11 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum OauthProvider {
-    GOOGLE("gmail.com");
+	GOOGLE("gmail.com");
 
-    private final String domain;
+	private final String domain;
 
-    public boolean equalsName(final String otherName) {
-        return name().equalsIgnoreCase(otherName);
-    }
+	public boolean equalsName(final String otherName) {
+		return name().equalsIgnoreCase(otherName);
+	}
 }
