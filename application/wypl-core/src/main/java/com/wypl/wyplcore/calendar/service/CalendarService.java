@@ -14,7 +14,6 @@ import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 import com.wypl.jpacalendardomain.schedule.reopository.ScheduleRepository;
 import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.wyplcore.calendar.data.DateSearchCondition;
-import com.wypl.wyplcore.calendar.data.request.CalendarFindRequest;
 import com.wypl.wyplcore.calendar.data.response.CalendarSchedulesResponse;
 import com.wypl.wyplcore.calendar.service.strategy.CalendarStrategy;
 import com.wypl.wyplcore.schedule.data.CalendarType;
@@ -35,19 +34,19 @@ public class CalendarService {
 	 * 캘린더의 일정을 조회한다.
 	 * @param authMember : 인증된 사용자 정보
 	 * @param calendarId : 조회할 캘린더 ID
-	 * @param calendarFindRequest : 캘린더 조회 조건
+	 * @param calendarType
+	 * @param today
 	 * @return FindCalendarResponse
 	 */
 	@Transactional(readOnly = true)
 	public CalendarSchedulesResponse findCalendar(AuthMember authMember, long calendarId,
-		CalendarFindRequest calendarFindRequest) {
+		CalendarType calendarType, LocalDate today) {
 
 		Calendar foundCalendar = null;  // FIXME: calendarId로 foundCalendar 엔티티 검증 필요.
 		MemberCalendar foundMemberCalendar = null; // FIXME: memberCalendar 엔티티 검증 필요.
 		Member foundMember = null; // FIXME: member 엔티티 검증 필요.
 
-		DateSearchCondition dateSearchCondition = getDateSearchCondition(calendarFindRequest.today(),
-			calendarFindRequest.calendarType());
+		DateSearchCondition dateSearchCondition = getDateSearchCondition(today, calendarType);
 
 		List<Schedule> schedules = scheduleRepository.findByCalendarIdAndBetweenStartDateAndEndDate(calendarId,
 			dateSearchCondition.startDate(), dateSearchCondition.endDate());
