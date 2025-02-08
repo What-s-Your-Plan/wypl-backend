@@ -15,10 +15,10 @@ import com.wypl.googleoauthclient.exception.GoogleOAuthException;
 import com.wypl.jpamemberdomain.member.OauthProvider;
 import com.wypl.jpamemberdomain.member.data.MemberSaveDto;
 import com.wypl.jpamemberdomain.member.data.SocialMemberSaveDto;
-import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.jpamemberdomain.member.utils.SocialMemberRepositoryUtils;
 import com.wypl.wyplcore.auth.data.response.AuthTokensResponse;
+import com.wypl.wyplcore.member.service.MemberServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,8 +28,8 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImpl {
 	private final GoogleOAuthClient googleOAuthClient;
 	private final SocialMemberRepository socialMemberRepository;
-	private final MemberRepository memberRepository;
 	private final AuthDomainServiceImpl authDomainService;
+	private final MemberServiceImpl memberService;
 
 	@Transactional
 	public AuthTokensResponse generateToken(final String provider, final String code) {
@@ -68,21 +68,18 @@ public class AuthServiceImpl {
 	public void quitMember(AuthMember authMember) {
 		// Todo : 회원 탈퇴 로직 논의
 		deleteToken(authMember);
-		deleteMember(authMember);
+		memberService.deleteMember(authMember);
 	}
 
 	private void deleteToken(AuthMember authMember) {
 		authDomainService.deleteToken(authMember.accessToken());
 	}
 
-	private void deleteMember(AuthMember authMember) {
-		memberRepository.deleteById(authMember.id());
-	}
-
 	private boolean isInvalidRefreshToken(String accessToken, String refreshToken) {
 		return refreshToken.isEmpty() || !refreshToken.equals(authDomainService.getRefreshToken(accessToken));
 	}
 
+	// todo:
 	private long findMemberIdAfterSaveMember(String accessToken, GoogleUserInfoResponse googleUserInfoResponse) {
 		if (isNewMember(googleUserInfoResponse)) {
 			LocalDate birthday = googleOAuthClient.fetchBirthday(accessToken);
@@ -105,6 +102,7 @@ public class AuthServiceImpl {
 		return SocialMemberRepositoryUtils.getSocialMember(socialMemberRepository, googleUserInfoResponse.id()).getId();
 	}
 
+	// todo:
 	private boolean isNewMember(GoogleUserInfoResponse googleUserInfoResponse) {
 		return !socialMemberRepository.existsByOauthProviderAndOauthId(OauthProvider.GOOGLE,
 			googleUserInfoResponse.id());
