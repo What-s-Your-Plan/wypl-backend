@@ -44,10 +44,10 @@ public class SocialMember {
 
 	public static SocialMember of(Member member, SocialMemberSaveDto socialMemberSaveDto) {
 		return SocialMember.builder()
-			.member(member)
-			.oauthProvider(socialMemberSaveDto.getOauthProvider())
-			.oauthId(socialMemberSaveDto.getOauthId())
-			.build();
+				.member(member)
+				.oauthProvider(socialMemberSaveDto.getOauthProvider())
+				.oauthId(socialMemberSaveDto.getOauthId())
+				.build();
 	}
 }
 

@@ -16,11 +16,14 @@ public class ScheduleRepositoryCustomImpl implements ScheduleRepositoryCustom {
 	private final JPAQueryFactory jpaQueryFactory;
 
 	@Override
-	public List<Schedule> findByCalendarIdAndBetweenStartDateAndEndDate(long calendarId, LocalDate startDate,
-		LocalDate endDate) {
+	public List<Schedule> findByCalendarIdAndBetweenStartDateAndEndDate(
+			final long calendarId,
+			final LocalDate startDate,
+			final LocalDate endDate
+	) {
 		return jpaQueryFactory.selectFrom(schedule)
-			.where(schedule.scheduleInfo.calendar.id.eq(calendarId)
-				.and(schedule.repetitionStartDate.loe(endDate).and(schedule.repetitionEndDate.goe(startDate))))
-			.fetch();
+				.where(schedule.scheduleInfo.calendar.id.eq(calendarId)
+						.and(schedule.repetitionStartDate.loe(endDate).and(schedule.repetitionEndDate.goe(startDate))))
+				.fetch();
 	}
 }

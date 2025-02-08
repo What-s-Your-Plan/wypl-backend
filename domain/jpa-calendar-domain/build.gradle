@@ -9,7 +9,6 @@ dependencies {
     implementation project(':domain:jpa-common')
     implementation project(':domain:jpa-member-domain')
 
-
     /* QueryDSL */
     implementation('com.querydsl:querydsl-jpa:5.0.0:jakarta')
     annotationProcessor('com.querydsl:querydsl-apt:5.0.0:jakarta')
@@ -18,7 +17,7 @@ dependencies {
 }
 
 
-/ QueryDSL Start /
+/* QueryDSL Start */
 def generated = "src/main/generated"
 
 tasks.withType(JavaCompile).configureEach {
@@ -32,4 +31,4 @@ sourceSets {
 clean {
     delete file(generated)
 }
-/ QueryDSL End */
+/* QueryDSL End */

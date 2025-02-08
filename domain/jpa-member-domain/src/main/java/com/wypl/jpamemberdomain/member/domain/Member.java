@@ -54,18 +54,18 @@ public class Member extends JpaBaseEntity {
 	@Column(name = "timezone", length = 10, nullable = false)
 	private TimeZone timeZone;
 
-//	@OneToMany(mappedBy = "member")
-//	private List<MemberCalendar> memberCalendars;
+	//	@OneToMany(mappedBy = "member")
+	//	private List<MemberCalendar> memberCalendars;
 
 	public static Member of(MemberSaveDto memberSaveDto) {
 		return Member.builder()
-			.email(memberSaveDto.getEmail())
-			.nickname(memberSaveDto.getNickname())
-			.birthday(memberSaveDto.getBirthday())
-			.profileImage(memberSaveDto.getProfileImage())
-			.color(Color.labelBrown)
-			.timeZone(TimeZone.KOREA)
-			.build();
+				.email(memberSaveDto.getEmail())
+				.nickname(memberSaveDto.getNickname())
+				.birthday(memberSaveDto.getBirthday())
+				.profileImage(memberSaveDto.getProfileImage())
+				.color(Color.labelBrown)
+				.timeZone(TimeZone.KOREA)
+				.build();
 	}
 
 }
