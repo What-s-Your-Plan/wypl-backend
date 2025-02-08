@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 
 @Service

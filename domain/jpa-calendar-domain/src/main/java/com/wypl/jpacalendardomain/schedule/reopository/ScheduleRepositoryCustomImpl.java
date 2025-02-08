@@ -1,12 +1,12 @@
-package com.wypl.jpacalendardomain.calendar.repository;
+package com.wypl.jpacalendardomain.schedule.reopository;
 
-import static com.wypl.jpacalendardomain.calendar.domain.QSchedule.*;
+import static com.wypl.jpacalendardomain.schedule.domain.QSchedule.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 
 import lombok.RequiredArgsConstructor;
 

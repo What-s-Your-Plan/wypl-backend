@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 import com.wypl.wyplcore.ScheduleFixture;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 

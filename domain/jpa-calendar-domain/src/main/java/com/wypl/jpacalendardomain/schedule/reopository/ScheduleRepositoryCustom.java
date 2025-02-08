@@ -1,9 +1,9 @@
-package com.wypl.jpacalendardomain.calendar.repository;
+package com.wypl.jpacalendardomain.schedule.reopository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 
 public interface ScheduleRepositoryCustom {
 	List<Schedule> findByCalendarIdAndBetweenStartDateAndEndDate(long calendarId, LocalDate startDate,

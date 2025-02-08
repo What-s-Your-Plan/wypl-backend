@@ -3,9 +3,9 @@ package com.wypl.wyplcore;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.wypl.jpacalendardomain.calendar.data.RepetitionCycle;
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
-import com.wypl.jpacalendardomain.calendar.domain.ScheduleInfo;
+import com.wypl.jpacalendardomain.schedule.data.RepetitionCycle;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.ScheduleInfo;
 
 public enum ScheduleFixture {
 	DAILY_SCHEDULE(

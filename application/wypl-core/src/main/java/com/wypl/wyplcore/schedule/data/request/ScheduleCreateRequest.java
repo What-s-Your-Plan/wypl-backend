@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.wypl.jpacalendardomain.calendar.data.ConvertibleSchedule;
-import com.wypl.jpacalendardomain.calendar.data.RepetitionCycle;
+import com.wypl.jpacalendardomain.schedule.data.ConvertibleSchedule;
+import com.wypl.jpacalendardomain.schedule.data.RepetitionCycle;
 
 import lombok.Builder;
 

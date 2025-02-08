@@ -1,4 +1,4 @@
-package com.wypl.jpacalendardomain.calendar.data;
+package com.wypl.jpacalendardomain.schedule.data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -3,7 +3,7 @@ package com.wypl.wyplcore.schedule.service.repetition;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.wypl.jpacalendardomain.calendar.domain.Schedule;
+import com.wypl.jpacalendardomain.schedule.domain.Schedule;
 import com.wypl.wyplcore.schedule.data.response.ScheduleFindResponse;
 import com.wypl.wyplcore.schedule.service.repetition.strategy.RepetitionStrategy;
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.annotations.SQLRestriction;
 
+import com.wypl.jpacalendardomain.schedule.domain.ScheduleInfo;
 import com.wypl.jpacommon.JpaBaseEntity;
 
 import jakarta.persistence.Column;
