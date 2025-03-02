@@ -1,6 +1,7 @@
 package com.wypl.wyplcore.member.service;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentCaptor.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
@@ -14,9 +15,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.test.context.event.RecordApplicationEvents;
 
 import com.wypl.googleoauthclient.GoogleOAuthClient;
 import com.wypl.googleoauthclient.data.response.GoogleUserInfoResponse;
@@ -26,8 +30,10 @@ import com.wypl.jpamemberdomain.member.domain.Member;
 import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
+import com.wypl.wyplcore.member.data.MemberEventDto;
 import com.wypl.wyplcore.member.fixture.MemberFixture;
 
+@RecordApplicationEvents
 @ExtendWith(MockitoExtension.class)
 public class MemberServiceTest {
 	@InjectMocks
@@ -38,6 +44,8 @@ public class MemberServiceTest {
 	private GoogleOAuthClient googleOAuthClient;
 	@Mock
 	private SocialMemberRepository socialMemberRepository;
+	@Mock
+	private ApplicationEventPublisher applicationEventPublisher;
 
 	@DisplayName("Member를 정상적으로 삭제한다.")
 	@Test
@@ -53,6 +61,14 @@ public class MemberServiceTest {
 
 		// Then
 		verify(memberRepository).deleteById(anyLong());
+
+		// ArgumentCaptor를 사용하여 이벤트 캡처 (파라미터 캡처)
+		ArgumentCaptor<MemberEventDto> eventCaptor = forClass(MemberEventDto.class);
+		verify(applicationEventPublisher).publishEvent(eventCaptor.capture());
+
+		// 캡처된 이벤트 검증 (파라미터 검증)
+		MemberEventDto capturedEvent = eventCaptor.getValue();
+		assertThat(capturedEvent.accessToken()).isEqualTo("accessToken");
 	}
 
 	@DisplayName("로그인 및 회원가입 로직을 테스트한다.")
