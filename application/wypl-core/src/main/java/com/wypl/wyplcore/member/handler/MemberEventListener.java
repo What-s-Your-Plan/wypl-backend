@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
-public class MemberEventHandler {
+public class MemberEventListener {
 	private final TokenService tokenService;
 
 	@Async
