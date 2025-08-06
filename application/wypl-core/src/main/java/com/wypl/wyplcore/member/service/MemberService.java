@@ -33,8 +33,10 @@ public class MemberService {
 	@Transactional
 	public void deleteMember(AuthMember authMember) {
 		// Todo : 회원 탈퇴 로직 변경 필요
+		System.out.println("deleteMember start..!");
 		memberRepository.deleteById(authMember.id());
 		applicationEventPublisher.publishEvent(new MemberEventDto(authMember.accessToken()));
+		System.out.println("deleteMember end..!");
 	}
 
 	@Transactional

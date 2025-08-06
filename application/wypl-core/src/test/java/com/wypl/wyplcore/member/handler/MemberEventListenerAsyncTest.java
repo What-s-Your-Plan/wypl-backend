@@ -1,25 +1,36 @@
 package com.wypl.wyplcore.member.handler;
 
+import static org.mockito.Mockito.*;
+
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wypl.googleoauthclient.domain.AuthMember;
+import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.wyplcore.member.data.MemberEventDto;
+import com.wypl.wyplcore.member.service.MemberService;
 import com.wypl.wyplcore.token.service.TokenService;
 
 @SpringBootTest
 class MemberEventListenerAsyncTest {
-	@Mock
+	// @Mock
+	@MockBean
 	private TokenService tokenService;
 	@Autowired
 	private ApplicationEventPublisher applicationEventPublisher;
+
+	@Autowired
+	private MemberService memberService;
+	@MockBean
+	private MemberRepository memberRepository;
 
 	@DisplayName("Token을 비동기로 삭제한다.")
 	@Transactional
@@ -42,6 +53,24 @@ class MemberEventListenerAsyncTest {
 		countDownLatch.countDown();
 		Thread.sleep(3000);
 		Mockito.verify(tokenService).deleteToken(Mockito.anyString());
+	}
+
+	@DisplayName("Token을 비동기로 삭제한다.")
+	@Test
+	void deleteToken_asynchronously2() throws InterruptedException {
+		// Given
+		AuthMember mockAuthMember = AuthMember.of(
+			1L,
+			"accessToken"
+		);
+
+		// When
+		memberService.deleteMember(mockAuthMember);
+		Thread.sleep(3000);
+
+		// Then
+		verify(memberRepository).deleteById(anyLong());
+		verify(tokenService).deleteToken(anyString());
 	}
 
 }
