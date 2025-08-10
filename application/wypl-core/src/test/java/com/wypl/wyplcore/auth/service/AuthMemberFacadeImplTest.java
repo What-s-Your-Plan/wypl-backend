@@ -141,21 +141,4 @@ class AuthMemberFacadeImplTest {
 		// Then
 		verify(tokenService).deleteToken(anyString());
 	}
-
-	@DisplayName("회원탈퇴 로직이 정상적으로 동작한다.")
-	@Test
-	void quitMemberTest() {
-		// Given
-		AuthMember mockAuthMember = AuthMember.of(
-			1L,
-			"accessToken"
-		);
-
-		// When
-		authMemberFacade.quitMember(mockAuthMember);
-
-		// Then
-		verify(tokenService).deleteToken(anyString());
-		verify(memberService).deleteMember(any(AuthMember.class));
-	}
 }

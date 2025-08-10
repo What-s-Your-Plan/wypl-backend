@@ -2,6 +2,7 @@ package com.wypl.wyplcore.member.service;
 
 import java.time.LocalDate;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import com.wypl.jpamemberdomain.member.domain.SocialMember;
 import com.wypl.jpamemberdomain.member.repository.MemberRepository;
 import com.wypl.jpamemberdomain.member.repository.SocialMemberRepository;
 import com.wypl.jpamemberdomain.member.utils.SocialMemberRepositoryUtils;
+import com.wypl.wyplcore.member.data.MemberEventDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,10 +28,13 @@ public class MemberService {
 	private final GoogleOAuthClient googleOAuthClient;
 	private final MemberRepository memberRepository;
 	private final SocialMemberRepository socialMemberRepository;
+	private final ApplicationEventPublisher applicationEventPublisher;
 
 	@Transactional
 	public void deleteMember(AuthMember authMember) {
+		// Todo : 회원 탈퇴 로직 변경 필요
 		memberRepository.deleteById(authMember.id());
+		applicationEventPublisher.publishEvent(new MemberEventDto(authMember.accessToken()));
 	}
 
 	@Transactional

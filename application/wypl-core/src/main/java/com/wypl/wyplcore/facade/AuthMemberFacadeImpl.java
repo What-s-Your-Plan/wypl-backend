@@ -56,19 +56,6 @@ public class AuthMemberFacadeImpl implements AuthMemberFacade {
 	@Override
 	@Transactional
 	public void logout(final AuthMember authMember) {
-		deleteToken(authMember);
-	}
-
-	@Override
-	@Transactional
-	public void quitMember(final AuthMember authMember) {
-		// Todo : 회원 탈퇴 로직 논의
-		// Todo : deleteToken은 스프링에서 비동기 처리하고(토큰이 아니라 멤버 탈퇴가 중요한거다), deleteMember는 Member 쪽으로 옮기자
-		deleteToken(authMember);
-		memberService.deleteMember(authMember);
-	}
-
-	private void deleteToken(AuthMember authMember) {
 		tokenService.deleteToken(authMember.accessToken());
 	}
 

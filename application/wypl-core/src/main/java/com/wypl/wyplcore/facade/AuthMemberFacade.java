@@ -7,5 +7,4 @@ public interface AuthMemberFacade {
 	AuthTokensResponse generateToken(final String provider, final String code);
 	AuthTokensResponse reissueToken(final String accessToken, final String refreshToken);
 	void logout(final AuthMember authMember);
-	void quitMember(final AuthMember authMember);
 }
