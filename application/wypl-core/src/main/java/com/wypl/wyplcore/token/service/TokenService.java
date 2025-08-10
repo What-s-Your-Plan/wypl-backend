@@ -28,8 +28,6 @@ public class TokenService {
 
 	@Transactional
 	public void deleteToken(String accessToken) {
-		System.out.println("너가 문제니?");
 		tokenRepository.deleteToken(accessToken);
-		System.out.println("너가 문제구나!!");
 	}
 }

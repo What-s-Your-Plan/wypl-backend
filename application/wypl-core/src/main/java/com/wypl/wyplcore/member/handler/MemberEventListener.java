@@ -20,14 +20,7 @@ public class MemberEventListener {
 	@Async
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-	// @TransactionalEventListener(phase = TransactionPhase.AFTER_COMPLETION)
 	public void deleteToken(MemberEventDto memberEventDto) {
-		try {
-			System.out.println("deleteToken Event start~~");
-			tokenService.deleteToken(memberEventDto.accessToken());
-			System.out.println("deleteToken Event end~~");
-		} catch (Exception e) {
-			System.out.println(e.getMessage()) ;
-		}
+		tokenService.deleteToken(memberEventDto.accessToken());
 	}
 }
